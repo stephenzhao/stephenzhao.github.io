@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Redux VS 命令模式"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>Redux VS 命令模式 - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('/img/home-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/Redux/">Redux</a> <a class="tag" href="/tags/设计模式/">设计模式</a> <a class="tag" href="/tags/前端/">前端</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>Redux VS 命令模式</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-05-18
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <blockquote>
+<p>原文 Redux and The Command Pattern</p>
+</blockquote>
+<h1 id="软件行业两大必然事件："><a href="#软件行业两大必然事件：" class="headerlink" title="软件行业两大必然事件："></a>软件行业两大必然事件：</h1><p>框架永远在变<br>设计模式是软件工程的基础<br>想要最佳实践，大多都会归结到设计模式上来。设计模式是由经验丰富的开发者总结的，它教会我们如何思考。但它不一定是最终的解决方案，如果你有更好的方案，完全可以无视设计模式。</p>
+<p>有关设计模式推荐两本书 《设计模式:可复用面向对象软件的基础》 &amp; js相关的《Learning JavaScript Design Patterns》<br>命令模式</p>
+<p>命令模式在构建简洁解藕的系统框架是非常出色的。它能让系统在未来某个时刻执行某个部分业务逻辑。Redux 就是来源于此，让我们了解一下命令模式并把它转换为Redux</p>
+<h1 id="三要素-Receiver，-Command，以及-Executor"><a href="#三要素-Receiver，-Command，以及-Executor" class="headerlink" title="三要素 Receiver， Command，以及 Executor"></a>三要素 Receiver， Command，以及 Executor</h1><p>例子：用代码描述特斯拉新车Model3的销售方案</p>
+<p>##Receiver 命令接收器<br>保存我们的业务逻辑，每当接受到一个需求它能知道如何去满足该需求。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> + 确定需求</span><br><span class="line"> + @param model - model of car</span><br><span class="line"> + @param id - id of car</span><br><span class="line"> **/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">requestInfo</span>(<span class="params">model, id</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;model&#125;</span> with id: <span class="subst">$&#123;id&#125;</span>`</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> + 买车</span><br><span class="line"> + @param model - model of car</span><br><span class="line"> + @param id - id of car</span><br><span class="line"> **/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buyVehicle</span>(<span class="params">model, id</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`You purchased <span class="subst">$&#123;model&#125;</span> with id: <span class="subst">$&#123;id&#125;</span>`</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/** </span><br><span class="line"> + 安排看车</span><br><span class="line"> + @param model - model of car</span><br><span class="line"> + @param id - id of car</span><br><span class="line"> **/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">arrangeViewing</span>(<span class="params">model, id</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`You have successfully booked a viewing of <span class="subst">$&#123;model&#125;</span> (<span class="subst">$&#123;id&#125;</span>)`</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们将上述的三个操作封装到一个控制器里面：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> TeslaSalesControl = &#123;</span><br><span class="line">  buyVehicle,</span><br><span class="line">  requestInfo,</span><br><span class="line">  arrangeViewing</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> TeslaSalesControl;</span><br></pre></td></tr></table></figure>
+<p>##Command 命令<br>包含行为调用的一些信息 通常是一个对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sampleCommand = &#123;</span><br><span class="line">  action: <span class="string">"arrangeViewing"</span>, </span><br><span class="line">  params: [<span class="string">'Tesla 3'</span>, <span class="string">'1337'</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>命令定义了一个行为，执行arrangeViewing的行为。</p>
+<p>#The Executor 执行器</p>
+<p>有了命令 也有了命令接收器（控制器），接下来就是连接他们俩的执行器了。执行器的职责就是将命令传给命令接收器来并调用接收器里面的响应函数来完成业务逻辑。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> + A generic execute function</span><br><span class="line"> + Takes a receiver and a command</span><br><span class="line"> **/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">execute</span>(<span class="params">receiver, command</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> receiver[command.action] &amp;&amp; receiver[command.action](...command.params);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在我们就可以开始执行这些命令了。</p>
+<p>让业务跑起来<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> execute <span class="keyword">from</span> <span class="string">'executor'</span>;</span><br><span class="line"><span class="keyword">import</span> TeslaSalesContorl <span class="keyword">from</span> <span class="string">'receiver'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 确认需求</span></span><br><span class="line">execute(TeslaSalesContorl, &#123;</span><br><span class="line">    action:<span class="string">'requestInfo'</span>,</span><br><span class="line">    param:[<span class="string">'Model S Battery'</span>, <span class="string">'1337'</span>]</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//看车</span></span><br><span class="line">execute(TeslaSalesControl, &#123;</span><br><span class="line">  action: <span class="string">"arrangeViewing"</span>,</span><br><span class="line">  param: [<span class="string">"Model S"</span>, <span class="string">"123"</span>]</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//买车</span></span><br><span class="line">execute(TeslaSalesControl, &#123;</span><br><span class="line">  action: <span class="string">"buyVehicle"</span>,</span><br><span class="line">  param: [<span class="string">"Tesla 3"</span>, <span class="string">"23243425"</span>]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>#对比Redux</p>
+<ul>
+<li>Store == Receiver</li>
+<li>Action == Command</li>
+<li>Dispatch == Execute</li>
+</ul>
+<p>让我们重新实现一下上面的例子</p>
+<blockquote>
+<p>Store 在Redux中被拆解到各个Reducer当中进行初始化，这些Reducer都是纯函数，当被调用的时候就返回一个新的state，而不会导致别的奇怪的事情。这使得代码高度可预测和可测试性。<br>Store （Receiver）</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; combineReducers &#125; = <span class="string">'redux'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">arrangeViewing</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span>(action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"ARRANGE_VIEWING"</span>:</span><br><span class="line">      <span class="keyword">const</span> &#123; model, id &#125; = action.data;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;model&#125;</span> and <span class="subst">$&#123;id&#125;</span>`</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="string">""</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">requestInfo</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span>(action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"REQUEST_INFO"</span>:</span><br><span class="line">      <span class="keyword">const</span> &#123; model, id &#125; = action.data;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;model&#125;</span> and <span class="subst">$&#123;id&#125;</span>`</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="string">""</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buyVehicle</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span>(action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"BUY_VEHICLE"</span>:</span><br><span class="line">      <span class="keyword">const</span> &#123; model, id &#125; = action.data;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;model&#125;</span> and <span class="subst">$&#123;id&#125;</span>`</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rootReducer = combineReducers(&#123;</span><br><span class="line">  arrangeViewing,</span><br><span class="line">  requestInfo,</span><br><span class="line">  buyVehicle</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> rootReducer;</span><br><span class="line"><span class="keyword">import</span> &#123; applyMiddleware, createStore &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">import</span> createLogger <span class="keyword">from</span> <span class="string">'redux-logger'</span>;</span><br><span class="line"><span class="keyword">import</span> ReduxThunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span>;</span><br><span class="line"><span class="keyword">import</span> rootReducer <span class="keyword">from</span> <span class="string">'../imports/client/reducers/rootReducer'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// create a logger</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> logger = createLogger();</span><br><span class="line"><span class="keyword">const</span> middleware = [ReduxThunk, logger];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Store = createStore(rootReducer, &#123;&#125;, applyMiddleware(...middleware));</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Store;</span><br><span class="line">Action （Command）</span><br><span class="line"><span class="keyword">const</span> sampleActionObject = &#123;</span><br><span class="line">  type: <span class="string">"BUY_CAR"</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    model: <span class="string">"TESLA"</span>,</span><br><span class="line">    id: <span class="string">"1234"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Dispatch (Executor)</span><br><span class="line"><span class="keyword">import</span> Store <span class="keyword">from</span> <span class="string">'store'</span>;</span><br><span class="line"></span><br><span class="line">Store.dispatch(&#123;</span><br><span class="line">  type: <span class="string">"ARRANGE_VIEWING"</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    model: <span class="string">"Model S"</span>,</span><br><span class="line">    id: <span class="string">"123"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Store.dispatch(&#123;</span><br><span class="line">  type: <span class="string">"REQUEST_INFO"</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    model: <span class="string">"Model S Battery"</span>,</span><br><span class="line">    id: <span class="string">"123342"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">Store.dispatch(&#123;</span><br><span class="line">  type: <span class="string">"BUY_VEHICLE"</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    model: <span class="string">"TESLA 3"</span>,</span><br><span class="line">    id: <span class="string">"23243425"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>看到了吧，很像！设计模式可以让你更好的理解架构的本质。</p>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="/img/logo_yellow.png" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

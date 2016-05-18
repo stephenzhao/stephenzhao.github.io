@@ -46,9 +46,6 @@ p {
   line-height: 1.5;
   margin: 30px 0;
 }
-p a {
-  text-decoration: underline;
-}
 h1,
 h2,
 h3,
@@ -62,7 +59,7 @@ a {
 }
 a:hover,
 a:focus {
-  color: #0085a1;
+  color: #337ab7;
 }
 a img:hover,
 a img:focus {
@@ -97,7 +94,7 @@ img.shadow {
 }
 .post-container a:hover,
 .post-container a:focus {
-  color: #0085a1;
+  color: #337ab7;
 }
 .post-container h1,
 .post-container h2,
@@ -321,14 +318,14 @@ img.shadow {
   }
   .navbar-custom.is-fixed .navbar-brand:hover,
   .navbar-custom.is-fixed .navbar-brand:focus {
-    color: #0085a1;
+    color: #337ab7;
   }
   .navbar-custom.is-fixed .nav li a {
     color: #404040;
   }
   .navbar-custom.is-fixed .nav li a:hover,
   .navbar-custom.is-fixed .nav li a:focus {
-    color: #0085a1;
+    color: #337ab7;
   }
   .navbar-custom.is-visible {
 /* if the user changes the scrolling direction, we show the header */
@@ -361,7 +358,7 @@ img.shadow {
 .intro-header .site-heading.archives,
 .intro-header .post-heading.archives,
 .intro-header .page-heading.archives {
-  color: #0085a1;
+  color: #337ab7;
   margin-top: 60px;
 }
 .intro-header .site-heading {
@@ -430,7 +427,7 @@ img.shadow {
 .post-preview > a:hover,
 .post-preview > a:focus {
   text-decoration: none;
-  color: #0085a1;
+  color: #337ab7;
 }
 .post-preview > a > .post-title {
   font-size: 30px;
@@ -460,7 +457,7 @@ img.shadow {
 }
 .post-preview > .post-meta > a:hover,
 .post-preview > .post-meta > a:focus {
-  color: #0085a1;
+  color: #337ab7;
   text-decoration: underline;
 }
 @media only screen and (min-width: 768px) {
@@ -482,7 +479,7 @@ img.shadow {
   color: #a3a3a3;
 }
 .post-content-preview:hover {
-  color: #0085a1;
+  color: #337ab7;
 }
 @media only screen and (min-width: 768px) {
   .post-content-preview {
@@ -585,7 +582,7 @@ footer .copyright {
   opacity: 1;
 }
 .floating-label-form-group-with-focus label {
-  color: #0085a1;
+  color: #337ab7;
 }
 form .row:first-child .floating-label-form-group {
   border-top: 1px solid #bfbfbf;
@@ -604,8 +601,8 @@ form .row:first-child .floating-label-form-group {
 }
 .btn-default:hover,
 .btn-default:focus {
-  background-color: #0085a1;
-  border: 1px solid #0085a1;
+  background-color: #337ab7;
+  border: 1px solid #337ab7;
   color: #fff;
 }
 .pager {
@@ -624,8 +621,8 @@ form .row:first-child .floating-label-form-group {
 .pager li > a:hover,
 .pager li > a:focus {
   color: #fff;
-  background-color: #0085a1;
-  border: 1px solid #0085a1;
+  background-color: #337ab7;
+  border: 1px solid #337ab7;
 }
 .pager .disabled > a,
 .pager .disabled > a:hover,
@@ -638,12 +635,12 @@ form .row:first-child .floating-label-form-group {
 ::-moz-selection {
   color: #fff;
   text-shadow: none;
-  background: #0085a1;
+  background: #337ab7;
 }
 ::selection {
   color: #fff;
   text-shadow: none;
-  background: #0085a1;
+  background: #337ab7;
 }
 img::selection {
   color: #fff;
@@ -829,7 +826,7 @@ img::-moz-selection {
   background: #fff !important;
 }
 body {
-  webkit-tap-highlight-color: #0085a1;
+  webkit-tap-highlight-color: #337ab7;
 }
 article .container .row img {
   max-width: 100% !important;
@@ -856,9 +853,9 @@ article .container .row .video-container embed {
 article .container .row blockquote {
   font-style: italic;
   font-family: "Georgia", serif;
-  font-size: 1.2em;
-  padding: 0 30px 15px;
-  text-align: center;
+  font-size: 1em;
+  padding: 0 10px 5px;
+  text-align: left;
 }
 article .container .row blockquote footer {
   border-top: none;
@@ -888,7 +885,7 @@ figure.highlight {
   background: #eee;
   border: 1px solid #ddd;
   margin-top: 15px;
-  padding: 7px 15px;
+  padding: 0px 10px;
   border-radius: 2px;
   text-shadow: 0 0 1px #fff;
   line-height: 1.6;
@@ -919,13 +916,14 @@ figure.highlight table {
   margin-bottom: 0;
 }
 figure.highlight table .gutter {
+  display: none;
   color: #999;
   padding-right: 15px;
   border-right: 1px solid #ddd;
   text-align: right;
 }
 figure.highlight table .code {
-  padding-left: 15px;
+  padding-left: 0px;
   border-left: 1px solid #fff;
   color: #666;
 }
@@ -1031,14 +1029,14 @@ pre .deletion {
 }
 .sidebar-container a:hover,
 .sidebar-container a:active {
-  color: #0085a1 !important;
+  color: #337ab7 !important;
 }
 .sidebar-container .tags a {
   border-color: #bfbfbf;
 }
 .sidebar-container .tags a:hover,
 .sidebar-container .tags a:active {
-  border-color: #0085a1;
+  border-color: #337ab7;
 }
 .sidebar-container .short-about img {
   width: 80%;

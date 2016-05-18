@@ -80,8 +80,10 @@ figure.highlight pre {
   background: none;
 }
 figure.highlight table {
+  width: auto;
   margin-top: 0;
   border-spacing: 0;
+  margin-bottom: 0;
 }
 figure.highlight table .gutter {
   color: color-meta;

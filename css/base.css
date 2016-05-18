@@ -547,7 +547,7 @@ footer .copyright {
   position: relative;
   margin-bottom: 0;
   padding-bottom: 0.5em;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #bfbfbf;
 }
 .floating-label-form-group input,
 .floating-label-form-group textarea {
@@ -580,7 +580,7 @@ footer .copyright {
 }
 .floating-label-form-group::not(:first-child) {
   padding-left: 14px;
-  border-left: 1px solid #eee;
+  border-left: 1px solid #bfbfbf;
 }
 .floating-label-form-group-with-value label {
   top: 0;
@@ -590,7 +590,7 @@ footer .copyright {
   color: #0085a1;
 }
 form .row:first-child .floating-label-form-group {
-  border-top: 1px solid #eee;
+  border-top: 1px solid #bfbfbf;
 }
 .btn {
   text-transform: uppercase;
@@ -830,7 +830,7 @@ img::-moz-selection {
   box-shadow: none;
 }
 .comment #ds-thread #ds-reset .ds-post-button:hover {
-  background: #eee;
+  background: #bfbfbf;
 }
 #ds-smilies-tooltip ul.ds-smilies-tabs li a {
   background: #fff !important;

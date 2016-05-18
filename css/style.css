@@ -11,8 +11,8 @@
   -o-background-size: cover;
 }
 .serif,
-body,
-.intro-header .post-heading .meta {
+.intro-header .post-heading .meta,
+.post-preview > .post-meta {
   font-family: 'Lora', 'Times New Roman', serif;
 }
 .sans-serif,
@@ -38,7 +38,7 @@ h6,
   line-height: 1.7;
 }
 body {
-  font-size: 20px;
+  font-size: 16px;
   color: #404040;
   overflow-x: hidden;
 }

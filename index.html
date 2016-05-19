@@ -162,7 +162,7 @@
     <!-- Page Header -->
 <!-- Set your background image for this header in the theme's configuration: index_cover -->
 
-<header class="intro-header" style="background-image: url('/img/damon_blog/2.jpg')">
+<header class="intro-header index-page" data-imgs='["/img/damon_blog/1.jpg","/img/damon_blog/2.jpg","/img/damon_blog/3.jpg","/img/damon_blog/4.jpg","/img/damon_blog/5.jpg","/img/damon_blog/6.jpg","/img/damon_blog/7.jpg"]' style="background-image: url('')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -175,6 +175,7 @@
         </div>
     </div>
 </header>
+
 
 <!-- Main Content -->
 <div class="container">
@@ -491,7 +492,13 @@ optimization
       s.parentNode.insertBefore(o, s);
     }
 </script>
-
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
 <!-- jquery.tagcloud.js -->
 <script>
     // only load tagcloud.js in tag.html

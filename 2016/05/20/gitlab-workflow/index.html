@@ -216,7 +216,7 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>我们的工作流工作流仍然用中央仓库作为所有开发者的交互中心。和其它的工作流一样，开发者在本地工作并push分支到要中央仓库中。</p>
 <h3 id="长期分支"><a href="#长期分支" class="headerlink" title="长期分支"></a>长期分支</h3><p>相对使用仅有的一个master分支，我们的工作流使用2个分支来记录项目的历史。online分支存储了正式发布的历史，而master分支作为功能的集成分支。这样也方便online分支上的所有提交分配一个版本号。</p>
-<p><img src="/images/0.png" alt="长期分支" title="长期分支"></p>
+<p><img src="/gitlab-workflow/images/0.png" alt="长期分支" title="长期分支"></p>
 <h4 id="online分支"><a href="#online分支" class="headerlink" title="online分支"></a>online分支</h4><p>online分支作为上线分支, 包含了正式发布的全部代码, 其中, 每次上线都会标记上以版本号命名的tag.</p>
 <h4 id="master分支"><a href="#master分支" class="headerlink" title="master分支"></a>master分支</h4><p>master分支作为功能集成分支, 包含了全部开发完毕的最新代码.</p>
 <h3 id="功能分支"><a href="#功能分支" class="headerlink" title="功能分支"></a>功能分支</h3><p>每个新功能位于一个自己的分支，这样可以push到中央仓库以备份和协作。但功能分支不是从<strong>master</strong>分支上拉出新分支，而是使用<strong>online</strong>分支作为父分支。当新功能完成时，在功能分支本身完成基础的测试工作，测试通过后合并到<strong>master</strong>分支，在<strong>master</strong>分支上，完成模拟线上环境测试的工作。<strong>注意：测试分为基础功能测试以及模拟线上环境测试两个步骤，在完成每个步骤之前，不应该将代码pull到其他分支。</strong>当两轮测试完成后，功能分支上的代码再被同步到online分支上，完成最终部署。</p>

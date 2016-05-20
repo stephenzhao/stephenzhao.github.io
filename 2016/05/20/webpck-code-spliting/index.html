@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="代码拆分"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>代码拆分 - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('/img/for_blog/7.jpg'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/webpack/">webpack</a> <a class="tag" href="/tags/翻译/">翻译</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>代码拆分</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-05-20
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>对于大型的app，把所有代码放入一个文件是比较低效的，特别是一些代码只有在某些情况下才需要加载。</p>
+<p>Webpack 可以把你的代码拆分到“chunks”里面去，从而让你的代码可以按需加载。有些打包器把这种代码层 叫 “层”，“归纳集”，或者叫“片段”。这种处理代码的功能就叫“code splitting 代码拆分”</p>
+<p>这是一种可选的功能，你可以在代码里面定义你的的拆分点。Webpack 会处理好依赖，输出以及运行时。</p>
+<p>澄清一个公认的误解：代码拆分不仅仅是将公用代码提取到可共享的模块里面，更重要的是它能被用于拆分一些按需加载的模块。这样就可以保证初始文件加载变小，在应用需要的时候在加载需要的模块。</p>
+<h2 id="如何定义拆分点"><a href="#如何定义拆分点" class="headerlink" title="如何定义拆分点"></a>如何定义拆分点</h2><p>AMD 和 CommonJs 有不同指定的方法去做按需加载，都支持并且和扮演拆分点的角色</p>
+<h3 id="CommonJs-require-ensure"><a href="#CommonJs-require-ensure" class="headerlink" title="CommonJs: require.ensure"></a>CommonJs: <code>require.ensure</code></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>.ensure(dependencies, callback)</span><br></pre></td></tr></table></figure>
+<p> <code>require.ensure</code> 方法确保在每个<code>dependencies</code>中的依赖都能在<code>callback</code>调用时被异步加载。<code>callback</code>函数以<code>require</code> 作为参数执行。</p>
+<p>例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>.ensure([<span class="string">"module-a"</span>, <span class="string">"module-b"</span>], <span class="function"><span class="keyword">function</span>(<span class="params">require</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">"module-a"</span>);</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>注意: <code>require.ensure</code> 只加载modules, 但不执行.</p>
+<h3 id="AMD-require"><a href="#AMD-require" class="headerlink" title="AMD: require"></a>AMD: <code>require</code></h3><p>AMD 规范定义的异步 <code>require</code> 方法如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(dependencies, callback)</span><br></pre></td></tr></table></figure>
+<p>当被调用时，所有<code>dependencies</code>将被加载，并且<code>callback</code>将被调用参数为加载的依赖的exports。</p>
+<p>例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">"module-a"</span>, <span class="string">"module-b"</span>], <span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>注1: AMD <code>require</code> 加载且执行. 在webpack里 modules <em>从左到右</em> 执行.</p>
+<p>注2: 回调函数是可以省略的.</p>
+<h3 id="ES6-Modules"><a href="#ES6-Modules" class="headerlink" title="ES6 Modules"></a>ES6 Modules</h3><p><strong> Webpack 不支持 es6 modules, 直接使用 <code>require.ensure</code> 或者 <code>require</code> 取决于你是那种模块化规范.</strong></p>
+<p>Webpack <code>1.x.x</code> ( <code>2.0.0</code>快来了!) 没有原生支持或兼容es6 Modules.<br>但是，你可以通过使用一种转换器比如<code>Babel</code>，来将ES6 <code>import</code> 语法转换成CommonJs 或者 AMD modules从而解决这个问题。这种方法是有效的但是在动态加载的时候有一个很重要的警告。</p>
+<p>模块添加语法(<code>import x from &#39;foo&#39;</code>) 故意设计成静态可分析的，也就意味着你不能做动态加载。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// INVALID!!!!!!!!!</span></span><br><span class="line">[<span class="string">'lodash'</span>, <span class="string">'backbone'</span>].forEach(name =&gt; <span class="keyword">import</span> name )</span><br></pre></td></tr></table></figure>
+<p>幸运的是，已经有一个 JS API ‘loader’<br>Luckily, there is a JavaScript API “loader” specification being written to handle the dynamic use case: <code>System.load</code> (or <code>System.import</code>). This API will be the native equivalent to the above <code>require</code> variations. However, <strong>most transpilers do not support converting <code>System.load</code> calls to <code>require.ensure</code></strong> so you have to do that directly if you want to make use of dynamic code splitting.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//static imports</span></span><br><span class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">'lodash'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// dynamic imports</span></span><br><span class="line"><span class="built_in">require</span>.ensure([], <span class="function"><span class="keyword">function</span>(<span class="params">require</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> contacts = <span class="built_in">require</span>(<span class="string">'./contacts'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="模块内容"><a href="#模块内容" class="headerlink" title="模块内容"></a>模块内容</h2><p>在拆分点的所有依赖进入到一个新的模块，依赖也被递归的添加进去。<br>如果你的拆分点代码传入了一个回调函数，webpack也会将回调里面的依赖自动的驾到chunk上的。</p>
+<h2 id="Chunk-优化"><a href="#Chunk-优化" class="headerlink" title="Chunk 优化"></a>Chunk 优化</h2><p>如果两个<code>chunks</code>包涵相同的<code>modules</code>,他们将会被合并到一个，这会导致<code>chunks</code>有多个父级依赖。</p>
+<p>如果一个<code>modoule</code>在所有的<code>chunk</code>父级可用，它将从<code>chunk</code>中被移除。</p>
+<p>如果一个<code>chunk</code>包涵别的<code>chunk</code>的所有<code>modules</code>，这个<code>chunk</code>将被保存，并最终出现多个<code>chunks</code></p>
+<h2 id="Chunk-加载"><a href="#Chunk-加载" class="headerlink" title="Chunk 加载"></a>Chunk 加载</h2><p>根据设置项<code>target</code>运行环境会在bundle里面加上chunk的加载逻辑。<br>比如说<code>target</code>选项设置为<code>web</code>，目标chunks将通过jsonp来加载。一个chunk之加载一次并且并行的请求将被合并到一个。运行环境会检查加载后的chunk是不是多个。</p>
+<h2 id="Chunk-类型"><a href="#Chunk-类型" class="headerlink" title="Chunk 类型"></a>Chunk 类型</h2><h3 id="入口-chunk"><a href="#入口-chunk" class="headerlink" title="入口 chunk"></a>入口 chunk</h3><p>一个入口chunk包涵了一个运行环境外加一堆modules。如果该chunk包含了module<code>0</code>，chunk将被执行。如果没有，该chunk将等到加载到包含<code>0</code>module的chunk并执行它（只要发现有含有module<code>0</code> 的chunk都执行）</p>
+<h3 id="标准-chunk"><a href="#标准-chunk" class="headerlink" title="标准 chunk"></a>标准 chunk</h3><p>标准的chunk不包含运行时环境，仅仅包含一堆的modules。它的结构取决于chunk的加载算法。比如，对于jsonp这些模块将被包裹在一个jsonp的回调函数里面。另外标准chunk包含了一个它实现了的chunk ID 列表。</p>
+<h3 id="初始-chunk-non-entry"><a href="#初始-chunk-non-entry" class="headerlink" title="初始 chunk (non-entry)"></a>初始 chunk (non-entry)</h3><p>一个初始的chunk是一个标准的chunk，不同的是它的优化优先级比较高，因为它像入口文件一样记入了加载时间里面。这种类型通常出现在用<code>CommonsChunkPlugin</code>合并chunk里面。</p>
+<h2 id="拆分-app-和-vendor-code"><a href="#拆分-app-和-vendor-code" class="headerlink" title="拆分 app 和 vendor code"></a>拆分 app 和 vendor code</h2><p>拆分你的app为两个文件，<code>app.js</code>和<code>vendor.js</code>,你可以 <code>require</code>公用的文件到<code>vendor.js</code>，然后将这个文件名传入到<code>CommonsChunkPlugin</code> ，向下面这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">"webpack"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    app: <span class="string">"./app.js"</span>,</span><br><span class="line">    vendor: [<span class="string">"jquery"</span>, <span class="string">"underscore"</span>, ...],</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">"bundle.js"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(<span class="comment">/* chunkName= */</span><span class="string">"vendor"</span>, <span class="comment">/* filename= */</span><span class="string">"vendor.bundle.js"</span>)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这样将从<code>app</code>里面移除所有的在<code>vendor</code>里面的文件。<code>bundle.js</code>将之包含你的app代码而没有他的依赖，他们将被放入<code>vendor.bundle.js</code>里面。<br>在你的HTML页面加载<code>vendor.bundle.js</code>（在<code>bundle.js</code>之前）即可。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"vendor.bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="多入口-chunks"><a href="#多入口-chunks" class="headerlink" title="多入口 chunks"></a>多入口 chunks</h2><p>在config里面配置多入口chunks是可以实现的。入口的chunk包含了运行时环境，一个页面有且仅有一个运行时环境（也可以有例外）：</p>
+<h3 id="运行多入口点"><a href="#运行多入口点" class="headerlink" title="运行多入口点"></a>运行多入口点</h3><p>使用<code>CommonsChunkPlugin</code>后，运行环境被移动到了commons chunk 里。他们的入口点在初始chunk里面。然而只有一个初始chunk 和 多个入口chunk 能被加载，这表明在一个单页里面运行多个入口点是可行的。</p>
+<p>例如:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">"webpack"</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: &#123; a: <span class="string">"./a"</span>, b: <span class="string">"./b"</span> &#125;,</span><br><span class="line">  output: &#123; filename: <span class="string">"[name].js"</span> &#125;,</span><br><span class="line">  plugins: [ <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(<span class="string">"init.js"</span>) ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"init.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"a.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"b.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Commons-chunk"><a href="#Commons-chunk" class="headerlink" title="Commons chunk"></a>Commons chunk</h2><p><code>CommonsChunkPlugin</code>能把出现在多个入口chunk的 modules移动到一个行的入口chunk里面（commons chunk）。运行时也同样被移动到commons chunk里面。这意味着老的入口chunk成为了一个初始chunk了。可以在<a href="http://stephenzhao.github.io/webpack-cn/docs/list-of-plugins.html" target="_blank" rel="external">plugins列表</a> 看到有关配置说明。</p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><p>有一些优化的插件可以合并chunks，看看<a href="http://stephenzhao.github.io/webpack-cn/docs/list-of-plugins.html" target="_blank" rel="external">plugins列表</a> 。</p>
+<ul>
+<li><code>LimitChunkCountPlugin</code></li>
+<li><code>MinChunkSizePlugin</code></li>
+<li><code>AggressiveMergingPlugin</code></li>
+</ul>
+<h2 id="给chunks起个别名"><a href="#给chunks起个别名" class="headerlink" title="给chunks起个别名"></a>给chunks起个别名</h2><p><code>require.ensure</code>函数可以接受额外第三个参数，这个参数必须是一个字符串。如果两个拆分点传递同样的字符串将使用相同的chunk。</p>
+<h2 id="require-include"><a href="#require-include" class="headerlink" title="require.include"></a><code>require.include</code></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>.include(request)</span><br></pre></td></tr></table></figure>
+<p><code>require.include</code>webpack特殊函数，目的时添加module到当前的chunk里面，但是不会执行它。（声明在bundle里面将会被干掉）</p>
+<p>例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>.ensure([<span class="string">"./file"</span>], <span class="function"><span class="keyword">function</span>(<span class="params">require</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">"./file2"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>.ensure([], <span class="function"><span class="keyword">function</span>(<span class="params">require</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">require</span>.include(<span class="string">"./file"</span>);</span><br><span class="line">  <span class="built_in">require</span>(<span class="string">"./file2"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>如一个module在多个子chunk里面时候<code>require.include</code> 会很有用，在父chunk里面的<code>require.include</code>将include该module，并且在子chunk里面的module的实例将不会出现。</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><ul>
+<li><a href="https://github.com/webpack/webpack/tree/master/examples/code-splitting" target="_blank" rel="external">Simple</a></li>
+<li><a href="https://github.com/webpack/webpack/tree/master/examples/code-splitting-bundle-loader" target="_blank" rel="external">with bundle-loader</a></li>
+<li><a href="https://github.com/webpack/webpack/tree/master/examples/code-splitted-require.context" target="_blank" rel="external">with context</a></li>
+<li><a href="https://github.com/webpack/webpack/tree/master/examples/code-splitted-require.context-amd" target="_blank" rel="external">with amd and context</a></li>
+<li><a href="https://github.com/webpack/webpack/tree/master/examples/code-splitted-dedupe" target="_blank" rel="external">with deduplication</a></li>
+<li><a href="https://github.com/webpack/webpack/tree/master/examples/named-chunks" target="_blank" rel="external">named-chunks</a></li>
+<li><a href="https://github.com/webpack/webpack/tree/master/examples/multiple-entry-points" target="_blank" rel="external">multiple entry chunks</a></li>
+<li><a href="https://github.com/webpack/webpack/tree/master/examples/multiple-commons-chunks" target="_blank" rel="external">multiple commons chunks</a></li>
+</ul>
+<p>看一个demo <a href="http://webpack.github.io/example-app/" target="_blank" rel="external">example-app</a>. 可在 DevTools看一下网络请求.</p>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

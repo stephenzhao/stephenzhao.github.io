@@ -220,10 +220,10 @@
 <h4 id="online分支"><a href="#online分支" class="headerlink" title="online分支"></a>online分支</h4><p>online分支作为上线分支, 包含了正式发布的全部代码, 其中, 每次上线都会标记上以版本号命名的tag.</p>
 <h4 id="master分支"><a href="#master分支" class="headerlink" title="master分支"></a>master分支</h4><p>master分支作为功能集成分支, 包含了全部开发完毕的最新代码.</p>
 <h3 id="功能分支"><a href="#功能分支" class="headerlink" title="功能分支"></a>功能分支</h3><p>每个新功能位于一个自己的分支，这样可以push到中央仓库以备份和协作。但功能分支不是从<strong>master</strong>分支上拉出新分支，而是使用<strong>online</strong>分支作为父分支。当新功能完成时，在功能分支本身完成基础的测试工作，测试通过后合并到<strong>master</strong>分支，在<strong>master</strong>分支上，完成模拟线上环境测试的工作。<strong>注意：测试分为基础功能测试以及模拟线上环境测试两个步骤，在完成每个步骤之前，不应该将代码pull到其他分支。</strong>当两轮测试完成后，功能分支上的代码再被同步到online分支上，完成最终部署。</p>
-<p><img src="/images/1.png" alt="功能分支" title="功能分支"></p>
+<p><img src="/gitlab-workflow/images/1.png" alt="功能分支" title="功能分支"></p>
 <h3 id="维护分支"><a href="#维护分支" class="headerlink" title="维护分支"></a>维护分支</h3><p>维护分支或说是热修复（hotfix）分支用于生成快速给产品发布版本（production releases）打补丁，这是唯一可以直接从<strong>online</strong>分支fork出来的分支。修复完成，修改应该马上合并回<strong>online</strong>分支和<strong>master</strong>分支（当前的发布分支），<strong>online</strong>分支应该用新的版本号打好Tag。</p>
 <p>为Bug修复使用专门分支，让团队可以处理掉问题而不用打断其它工作或是等待下一个发布循环。你可以把维护分支想成是一个直接在<strong>online</strong>分支上处理的临时功能。</p>
-<p><img src="/images/2.png" alt="维护分支" title="维护分支"></p>
+<p><img src="/gitlab-workflow/images/2.png" alt="维护分支" title="维护分支"></p>
 <h3 id="一些约定"><a href="#一些约定" class="headerlink" title="一些约定"></a>一些约定</h3><p>用于新建发布分支的分支: <strong>master</strong><br>用于合并的分支: <strong>online</strong><br>开发分支命名: <strong>feature/*</strong><br>维护分支命名: <strong>hotfix/*</strong></p>
 <h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>下面的示例演示本工作流如何用于管理单个发布循环。假设你已经创建了一个中央仓库。</p>
 <h3 id="创建开发分支"><a href="#创建开发分支" class="headerlink" title="创建开发分支"></a>创建开发分支</h3><p>第一步为master分支配套一个online分支。简单来做可以本地创建一个空的online分支，push到服务器上：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch online</span><br><span class="line">git push -u origin online</span><br></pre></td></tr></table></figure></p>

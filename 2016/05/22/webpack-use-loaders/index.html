@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="webpack之 使用loader"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="http://stephenzhao.github.io/webpack-cn/QQ20160303-0.png" />
+    
+
+    <!-- Title -->
+    
+    <title>webpack之 使用loader - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+            header.intro-header .header-mask{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                background: rgba(0,0,0, 0.3);
+            }
+    
+    </style>
+<header class="intro-header" style="background-image: url('http://stephenzhao.github.io/webpack-cn/QQ20160303-0.png'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/webpack/">webpack</a> <a class="tag" href="/tags/翻译/">翻译</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>webpack之 使用loader</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Damon on
+                        
+                        2016-05-22
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1 id="什么是loader"><a href="#什么是loader" class="headerlink" title="什么是loader?"></a>什么是loader?</h1><p>Loaders 是你的app里面的源文件转换器，是一种运行在nodejs里面的，以源文件的内容作为参数，返回新的转化后的内容的函数。</p>
+<p>例如，你可以利用loaders来告诉webpack加载CoffeeScript或者JSX。</p>
+<h2 id="Loader-特性"><a href="#Loader-特性" class="headerlink" title="Loader 特性"></a>Loader 特性</h2><ul>
+<li>可以链式调用。他们在资源的管道里面被调用。最后一个loder需要输出的是JavaScript，而在中间的loader输出的可以的是能传到下一级loader的任意格式</li>
+<li>可以是同步也可以是异步的</li>
+<li>跑在node里面也就意味着有很多可能</li>
+<li>能接受请求参数，这样就可以传入一些配置给loader</li>
+<li>在源配置中可以绑定到扩展名 / RegExps对象里</li>
+<li>可以通过npm发布和安装</li>
+<li>标准modules就能通过<code>packge.json</code> <code>loader</code>导出除了标准<code>main</code>意外的loader</li>
+<li>可以访问webpack源配置configuration</li>
+<li>插件可以带给loader更多特性</li>
+<li>还可以emit出其它任意格式的文件</li>
+<li><a href="loaders.md">更多.</a></li>
+<li><a href="list-of-loaders.md">loaders列表</a>.</li>
+</ul>
+<h1 id="解析-loaders"><a href="#解析-loaders" class="headerlink" title="解析 loaders"></a>解析 loaders</h1><p>Loaders 的解析和 <a href="resolving.md">modules </a>类似。一个loader要求是在node里面导出的一个函数且兼容js。通常情况你可以用npm管理loader但是你也可以把它当作一个文件在你的app里面引入。<br>Loaders are [resolved similar to modules ][ resolving]. A loader module is expected to export a function and to be written in node.js compatible JavaScript. In the common case you manage loaders with npm, but you can also have loaders as files in your app.</p>
+<h2 id="引用-loaders"><a href="#引用-loaders" class="headerlink" title="引用 loaders"></a>引用 loaders</h2><p>按照惯例，但也不是必须的，loader一般命名为<code>XXX-loader</code>，<code>XXX</code>代表它的上下文名字，比如<code>json-loader</code></p>
+<p>你可以用她的全名比如<code>json-loader</code>或者缩写<code>json</code></p>
+<p>Loader的命名约定和优先搜索顺序在 webpack configuration API 里的 <a href="http://webpack.github.io/docs/configuration.html#resolveloader-moduletemplates" target="_blank" rel="external"><code>resolveLoader.moduleTemplates</code></a>中规定的。<br>Loader 命名约定很有用热别是在<code>require()</code>声明式里面。可以参看后面的使用方法。</p>
+<h2 id="安装-loaders"><a href="#安装-loaders" class="headerlink" title="安装 loaders"></a>安装 loaders</h2><p>如果loader在npm里，可以这样安装:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install xxx-loader --save</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install xxx-loader --save-dev</span><br></pre></td></tr></table></figure>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><p>There are multiple ways to use loaders in your app:</p>
+<ul>
+<li>explicit in the <code>require</code> statement</li>
+<li>configured via configuration</li>
+<li>configured via CLI</li>
+</ul>
+<h2 id="用在require里"><a href="#用在require里" class="headerlink" title="用在require里"></a>用在<code>require</code>里</h2><blockquote>
+<p><strong>提示</strong> 如果你希望你的脚本跨平台（nodejs和浏览器端），在可能的情况下避免使用这种方式。可以尝试使用接下来要讲到的<em>configuration</em></p>
+</blockquote>
+<p>在<code>require</code>表达式(或者 <code>define</code>, <code>require.ensure</code>, 等.)。</p>
+<p>用多个loaders用<code>!</code>隔开即可，每个部分的loader的解析都相对于当前路径。</p>
+<p>It’s possible to overwrite any loaders in the configuration by prefixing the entire rule with !.（这句没明白）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">"./loader!./dir/file.txt"</span>);</span><br><span class="line"><span class="comment">// =&gt; 使用 当前目录下"loader.js" 文件转换</span></span><br><span class="line"><span class="comment">//    在"dir"上的"file.txt".</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">"jade!./template.jade"</span>);</span><br><span class="line"><span class="comment">// =&gt; 使用 "jade-loader" (安装到 "node_modules"里面的)</span></span><br><span class="line"><span class="comment">//    来转化"template.jade"</span></span><br><span class="line"><span class="comment">//   如果configuration里面还有别的loader绑定到该文件，那么那个loader会被也会调用.</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">require</span>(<span class="string">"!style!css!less!bootstrap/less/bootstrap.less"</span>);</span><br><span class="line"><span class="comment">// =&gt; 转化顺序"bootstrap.less" =&gt;"less-loader"=&gt;"less-loader"=&gt;"style-loader"</span></span><br></pre></td></tr></table></figure>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a><a href="configuration.md">Configuration</a></h2><p>可以将loader绑到正则里面</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        loaders: [</span><br><span class="line">            &#123; test: <span class="regexp">/\.jade$/</span>, loader: <span class="string">"jade"</span> &#125;,</span><br><span class="line">            <span class="comment">// =&gt; "jade" loader is used for ".jade" files</span></span><br><span class="line"></span><br><span class="line">            &#123; test: <span class="regexp">/\.css$/</span>, loader: <span class="string">"style!css"</span> &#125;,</span><br><span class="line">            <span class="comment">// =&gt; "style" and "css" loader is used for ".css" files</span></span><br><span class="line">            <span class="comment">// Alternative syntax:</span></span><br><span class="line">            &#123; test: <span class="regexp">/\.css$/</span>, loaders: [<span class="string">"style"</span>, <span class="string">"css"</span>] &#125;,</span><br><span class="line">        ]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="CLI"><a href="#CLI" class="headerlink" title="CLI"></a><a href="cli.md">CLI</a></h2><p>也可以通过CLI将loader绑定到一个扩展里面：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ webpack --module-bind jade --module-bind <span class="string">'css=style!css'</span></span><br></pre></td></tr></table></figure>
+<p>上面表示 使用 “jade” 转换 “.jade” 文件， 使用 “style” 和 “css” 转换 “.css” 文件.</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>Loader 可以像在web里面一样通过一个请求串来传参，请求串前面加上<code>?</code>比如<code>url-loader?mimetype=image/png</code>.<br>提示：请求串的格式取决于loader。可以参照loader的文档。大部分的loader都接受标准格式(<code>?key=value&amp;key2=value2</code>)和json格式(<code>?{&quot;key&quot;:&quot;value&quot;,&quot;key2&quot;:&quot;value2&quot;}</code>)。</p>
+<h3 id="require"><a href="#require" class="headerlink" title="require"></a><code>require</code></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">"url-loader?mimetype=image/png!./file.png"</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="Configuration-1"><a href="#Configuration-1" class="headerlink" title="Configuration"></a>Configuration</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; test: <span class="regexp">/\.png$/</span>, loader: <span class="string">"url-loader?mimetype=image/png"</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: <span class="regexp">/\.png$/</span>,</span><br><span class="line">    loader: <span class="string">"url-loader"</span>,</span><br><span class="line">    query: &#123; mimetype: <span class="string">"image/png"</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="CLI-1"><a href="#CLI-1" class="headerlink" title="CLI"></a>CLI</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack --module-bind <span class="string">"png=url-loader?mimetype=image/png"</span></span><br></pre></td></tr></table></figure>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

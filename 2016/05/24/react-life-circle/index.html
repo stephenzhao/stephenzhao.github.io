@@ -22,6 +22,8 @@
 
     <!--Open Graph Title-->
     
+        <meta property="og:title" content="React之组件的生命周期"/>
+    
 
     <!--Open Graph Site Name-->
     <meta property="og:site_name" content="Damon"/>
@@ -33,7 +35,7 @@
 
     <!-- Title -->
     
-    <title>归档 - Damon</title>
+    <title>React之组件的生命周期 - Damon</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
@@ -163,172 +165,122 @@
 </script>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
-<header class="intro-header" style="background-image: url('/img/for_blog/7.jpg')">
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('/img/for_blog/7.jpg'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>归档</h1>
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/前端/">前端</a> <a class="tag" href="/tags/React/">React</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>React之组件的生命周期</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Damon on
+                        
+                        2016-05-24
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/05/24/react-life-circle/">
-        <h1 class="post-title archive">
-            React之组件的生命周期
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-24
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/22/webpack-use-loaders/">
-        <h1 class="post-title archive">
-            Webpack之loader的使用
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-22
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/20/gitlab-workflow/">
-        <h1 class="post-title archive">
-            Gitlab flow
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-20
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/20/webpck-code-spliting/">
-        <h1 class="post-title archive">
-            Webpack之代码拆分
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-20
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/19/how-to-write-a-plugin/">
-        <h1 class="post-title archive">
-            编写webpack 插件
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-19
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/18/about-damon-logo/">
-        <h1 class="post-title archive">
-            关于Logo
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-18
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/18/Redux-vs-executor/">
-        <h1 class="post-title archive">
-            Redux VS 命令模式
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-18
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/18/webpack-optimizin/">
-        <h1 class="post-title archive">
-            Webpack之性能优化
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-18
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/13/hello-world/">
-        <h1 class="post-title archive">
-            Hello World
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-13
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>在组件的整个生命周期中，随着该组件的props或者state的改变,它的DOM表现也将有相应的变化。一个组件就是一个状态机：对于特定的输入，总会返回一致的输出。<br>React 为每个组件，提供了生命周期钩子函数去响应不同的时刻：</p>
+<ul>
+<li>创建时</li>
+<li>存在期</li>
+<li>销毁期</li>
 </ul>
+<h2 id="生命周期方法"><a href="#生命周期方法" class="headerlink" title="生命周期方法"></a>生命周期方法</h2><p>React仅仅提供你所需要的方法而不去追求全面。</p>
+<h3 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h3><p>一个实例初次被创建时所调用的生命周期方法与其它各个后续实例被创建时所调用的方法略有不同。<br>当你首次使用一个组件事下面方法依次被调用：</p>
+<ul>
+<li>getDefaultProps</li>
+<li>getInitialState</li>
+<li>componentWillMount</li>
+<li>render</li>
+<li>componentDidmount<br>对于该组件的后续应用，下面的方法依次被调用，但getDefaultProps将不会被调用。</li>
+<li>getInitialState</li>
+<li>componentWillMount</li>
+<li>render</li>
+<li>componentDidmount</li>
+</ul>
+<h3 id="存在期"><a href="#存在期" class="headerlink" title="存在期"></a>存在期</h3><p>随着应用状态的改变，以及组件逐渐受到影响下面的方法将被调用。</p>
+<ul>
+<li>componentWillReceiveProps</li>
+<li>shouldComponentUpdate</li>
+<li>componentWillUpdate</li>
+<li>render</li>
+<li>componentDidUpdate<h3 id="销毁和清理期"><a href="#销毁和清理期" class="headerlink" title="销毁和清理期"></a>销毁和清理期</h3>最后，当使用完成后</li>
+<li>componentWillUnmount<br>方法将会调用，给这个组件清理自身的机会。</li>
+</ul>
+<h2 id="实例化-1"><a href="#实例化-1" class="headerlink" title="实例化"></a>实例化</h2><p>当组件被创建或者首次渲染时候，有一系列的方法可以用来做准备工作，这些方法都有明确的职责</p>
+<ul>
+<li><code>getDefaultProps</code> 对于该组件只调用一次，该方法返回的对象为该组件的默认props值</li>
+<li><code>getInitialState</code> 每个该组件的实例调且只调一次，用于初始化state，你可以在这里访问到<code>this.props</code></li>
+<li><code>componentWillMount</code> 该方法会在完成首次渲染之前被调用，这也是render方法调用钱可前修改组件state的最后机会</li>
+<li>render 在这里你会创建一个虚拟的DOM，用来表示组件的输出，唯一必须的方法</li>
+<li><code>componentDidmount</code> 在render成功调用后你可以在该方法里面的 <code>this.getCOMNode</code> 方法里访问到dom （在服务端该方法不会调用）</li>
+</ul>
+<h2 id="存在期-1"><a href="#存在期-1" class="headerlink" title="存在期"></a>存在期</h2><p>此时组件已经渲染好了，用户可以和组件进行交互。</p>
+<ul>
+<li><p>componentWillReceiveProps 当props被父组件更改时该方法将会被调用，此时你就获得了更改props 和 更新state的机会。比如父组件更改RadioInput的布尔值来更新该组件的state：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">componentWillReceiveProps(props) &#123;</span><br><span class="line">    <span class="keyword">if</span>(props.checked)&#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">            checked: props.checked</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>shouldComponentUpdate 该方法可以在组件渲染时候对其进行精确优化，如果你确定该组件及其子组件的任何props和state都不需要改变，就让该方法返回false。此时将会跳过render以及前后的钩子componentWillUpdate</p>
+<blockquote>
+<p>首次渲染和调用了forceUpdate时候这个方法不会调用。</p>
+</blockquote>
+</li>
+<li><p>componentWillUpdate </p>
+</li>
+<li>componentDidUpdate<br>##销毁期</li>
+<li>componentWillUnmount</li>
+</ul>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <!-- Footer -->

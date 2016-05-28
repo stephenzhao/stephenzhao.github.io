@@ -22,6 +22,8 @@
 
     <!--Open Graph Title-->
     
+        <meta property="og:title" content="redux-form-reducer-to-redux"/>
+    
 
     <!--Open Graph Site Name-->
     <meta property="og:site_name" content="Damon"/>
@@ -33,7 +35,7 @@
 
     <!-- Title -->
     
-    <title>React - Damon</title>
+    <title>redux-form-reducer-to-redux - Damon</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
@@ -163,67 +165,114 @@
 </script>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
-<header class="intro-header" style="background-image: url('/img/for_blog/7.jpg')">
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('/img/for_blog/7.jpg'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>#React</h1>
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/前端/">前端</a> <a class="tag" href="/tags/Redux/">Redux</a> <a class="tag" href="/tags/React/">React</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>redux-form-reducer-to-redux</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Damon on
+                        
+                        2016-05-28
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/05/28/redux-form-reducer-to-redux/">
-        <h1 class="post-title archive">
-            redux-form-reducer-to-redux
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-28
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/24/react-life-circle/">
-        <h1 class="post-title archive">
-            React之组件的生命周期
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-24
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1 id="Array-Reduce-方法"><a href="#Array-Reduce-方法" class="headerlink" title="Array Reduce 方法"></a>Array Reduce 方法</h1><p>对于前端的同学们来说，Array自带的几个遍历方法应该都不太陌生。</p>
+<ul>
+<li>map </li>
+<li>pop</li>
+<li>push</li>
+<li>reduce</li>
+<li>reduceRight</li>
+<li>reverse</li>
+<li>shift</li>
+<li>slice</li>
+<li>some</li>
+<li>sort</li>
+<li>splice</li>
+<li>toString</li>
+<li>unshift</li>
+<li>valueof</li>
+<li>values<br>我们重点来看，reduce方法：<br>reduce的英文意思是 <code>减少，缩小，归纳</code>。我觉得归纳应该是比较的符合这里的数组操作方法的。<br>其作用是，对数组中的所有元素调用指定的回调函数，该会掉的返回值为累积结果，并且此返回值再下一次调用该回掉函数时作为参数提供。</li>
 </ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.reduce(cb[,initValue]);</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>array</td>
+<td>必需，数组对象</td>
+</tr>
+<tr>
+<td>cb</td>
+<td>必需，接受最多四个参数<code>function callbackfn(previousValue, currentValue, currentIndex, array)</code>的函数，对于数组中的每个元素，reduce都会调用回掉函数一次</td>
+</tr>
+<tr>
+<td>initValue</td>
+<td>可选，作为初始值来启动积累，第一次调用cb时此值将会作为参数而非数组值提供</td>
+</tr>
+</tbody>
+</table>
+<p>例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> initState = <span class="string">''</span></span><br><span class="line"><span class="keyword">const</span> actions = [<span class="string">'Learn about actions, '</span>,<span class="string">'Learn about reducers, '</span>, <span class="string">'Learn about store'</span>]</span><br><span class="line"><span class="keyword">const</span> newState = actions.reduce((prevState, action)=&gt; &#123; <span class="keyword">return</span> prevState + action &#125;, initState)</span><br></pre></td></tr></table></figure></p>
+<h1 id="Redux-中的reducer"><a href="#Redux-中的reducer" class="headerlink" title="Redux 中的reducer"></a>Redux 中的reducer</h1><p>在上面的例子中，我们能看到一些reducer的影子。</p>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <!-- Footer -->

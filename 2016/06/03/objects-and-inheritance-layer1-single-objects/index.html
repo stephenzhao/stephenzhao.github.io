@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="对象与继承(一) 单一对象"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>对象与继承(一) 单一对象 - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('/img/for_blog/7.jpg'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/翻译/">翻译</a> <a class="tag" href="/tags/speaking-javascript/">speaking javascript</a> <a class="tag" href="/tags/javascript/">javascript</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>对象与继承(一) 单一对象</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Damon on
+                        
+                        2016-06-03
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="Layer-1-Single-Objects"><a href="#Layer-1-Single-Objects" class="headerlink" title="Layer 1: Single Objects"></a>Layer 1: Single Objects</h2><p>Roughly, all objects in JavaScript are maps (dictionaries) from strings to values. A (key, value) entry in an object is called a <span class="emphasis"><em>property</em></span>.<a id="id1191876" class="indexterm"></a> <a id="id1191863" class="indexterm">The key of a property is always a text string. The value of a property can be any JavaScript value, including a function. <span class="emphasis"><em>Methods</em></span> are properties whose values are functions.</a></p>
+<h3 id="Kinds-of-Properties"><a href="#Kinds-of-Properties" class="headerlink" title="Kinds of Properties"></a>Kinds of Properties</h3><p>There are three kinds of properties:</p>
+<dl><br><br><dt><span class="term">Properties (or named data properties)</span></dt><br><br><dd>Normal properties <a id="id1191920" class="indexterm">in an object—that is, mappings from string keys to values. Named data properties include methods.</a><a id="id1191925" class="indexterm"></a> <a id="id1191936" class="indexterm">This is by far the most common kind of property.</a></dd><br><br><dt><span class="term">Accessors (or named accessor properties)</span></dt><br><br><dd>Special <a id="id1191962" class="indexterm"></a><a id="id1191969" class="indexterm">methods whose invocations look like reading or writing properties. Normal properties are storage locations for property values; accessors allow you to compute the values of properties. They are virtual properties, if you will. See</a> <a href="ch17.html#getters_setters" title="Accessors (Getters and Setters)">Accessors (Getters and Setters)</a> for details.</dd><br><br><dt><span class="term">Internal properties</span></dt><br><br><dd>Exist only in the ECMAScript language specification. <a id="id1192002" class="indexterm">They are not directly accessible from JavaScript, but there might be indirect ways of accessing them. The specification writes the keys of internal properties in brackets. For example, <code>[[Prototype]]</code> holds the prototype of an object and is readable via <code>Object.getPrototypeOf()</code>.</a></dd><br><br></dl>
+
+<h3 id="Object-Literals"><a href="#Object-Literals" class="headerlink" title="Object Literals"></a>Object Literals</h3><p>JavaScript’s <span class="emphasis"><em>object literals</em></span> allow you to directly create <span class="emphasis"><em>plain objects</em></span> (direct instances of <code>Object</code>).<a id="id1192044" class="indexterm"></a> <a id="id1192049" class="indexterm">The following code uses an object literal to assign an object to the variable <code>jane</code>. The object has the two properties: <code>name</code> and <code>describe</code>. <code>describe</code> is a method:</a></p>
+<pre><code>var
+</code></pre><ol>
+<li>Use <code>this</code> in methods to refer to the current object<a id="id1192230" class="indexterm"></a> <a id="id1192226" class="indexterm">(also called the <span class="emphasis"><em>receiver</em></span> of a method invocation).</a></li>
+<li>ECMAScript 5 allows a trailing comma (after the last property) in an object literal. Alas, not all older browsers support it. A trailing comma is useful, because you can rearrange properties without having to worry which property is last.</li>
+</ol>
+<p>You may get the impression that objects are <span class="emphasis"><em>only</em></span> maps from strings to values. <a id="id1192258" class="indexterm">But they are more than that: they are real general-purpose objects. For example, you can use inheritance between objects (see</a> <a href="ch17.html#prototype_relationship" title="Layer 2: The Prototype Relationship Between Objects">Layer 2: The Prototype Relationship Between Objects</a>), and you can protect objects from being changed. The ability to directly create objects is one of JavaScript’s standout features: you can start with concrete objects (no classes needed!) and introduce abstractions later. For example, <span class="emphasis"><em>constructors</em></span>, which are factories for objects (as discussed in <a href="ch17.html#constructors" title="Layer 3: Constructors—Factories for Instances">Layer 3: Constructors—Factories for Instances</a>), are roughly similar to classes in other languages.</p>
+<h3 id="Dot-Operator-Accessing-Properties-via-Fixed-Keys"><a href="#Dot-Operator-Accessing-Properties-via-Fixed-Keys" class="headerlink" title="Dot Operator (.): Accessing Properties via Fixed Keys"></a>Dot Operator (.): Accessing Properties via Fixed Keys</h3><p>The dot operator provides a compact syntax for accessing properties.<a id="id1192313" class="indexterm"></a><a id="id1192311" class="indexterm"></a> <a id="id1192321" class="indexterm">The property keys must be identifiers (consult</a> <a href="ch07.html#identifiers" title="Legal Identifiers">Legal Identifiers</a>). If you want to read or write properties with arbitrary names, you need to use the bracket operator (see <a href="ch17.html#bracket_operator" title="Bracket Operator ([]): Accessing Properties via Computed Keys">Bracket Operator ([]): Accessing Properties via Computed Keys</a>).</p>
+<p>The examples in this section work with the following object:</p>
+<pre><code>var
+</code></pre><h4 id="Getting-properties"><a href="#Getting-properties" class="headerlink" title="Getting properties"></a>Getting properties</h4><p>The dot operator lets you “get” a property (read its value). Here are some examples:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; jane.name  // get property `name`</span><br><span class="line">&apos;Jane&apos;</span><br><span class="line">&gt; jane.describe  // get property `describe`</span><br><span class="line">[Function]</span><br></pre></td></tr></table></figure>
+<p>Getting a property that doesn’t exist returns <code>undefined</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; jane.unknownProperty</span><br><span class="line">undefined</span><br></pre></td></tr></table></figure>
+<h4 id="Calling-methods"><a href="#Calling-methods" class="headerlink" title="Calling methods"></a>Calling methods</h4><p>The dot operator is also used to <a id="id1192516" class="indexterm"></a><a id="id1192525" class="indexterm">call methods:</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; jane.describe()  // call method `describe`</span><br><span class="line">&apos;Person named Jane&apos;</span><br></pre></td></tr></table></figure>
+<h4 id="Setting-properties"><a href="#Setting-properties" class="headerlink" title="Setting properties"></a>Setting properties</h4><p>You can use the assignment operator (<code>=</code>) to set the value of a property referred to via the dot notation.<a id="id1192569" class="indexterm"></a> <a id="id1192571" class="indexterm">For example:</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; jane.name = &apos;John&apos;;  // set property `name`</span><br><span class="line">&gt; jane.describe()</span><br><span class="line">&apos;Person named John&apos;</span><br></pre></td></tr></table></figure>
+<p>If a property doesn’t exist yet, setting it automatically creates it. If a property already exists, setting it changes its value.</p>
+<h4 id="Deleting-properties"><a href="#Deleting-properties" class="headerlink" title="Deleting properties"></a>Deleting properties</h4><p>The <code>delete</code> operator<a id="id1192607" class="indexterm"></a> <a id="id1192619" class="indexterm">lets you completely remove a property (the whole key-value pair) from an object. For example:</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; var obj = &#123; hello: &apos;world&apos; &#125;;</span><br><span class="line">&gt; delete obj.hello</span><br><span class="line">true</span><br><span class="line">&gt; obj.hello</span><br><span class="line">undefined</span><br></pre></td></tr></table></figure>
+<p>If you merely set a <a id="id1192635" class="indexterm">property to <code>undefined</code>, the property still exists and the object still contains its key:</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; var obj = &#123; foo: &apos;a&apos;, bar: &apos;b&apos; &#125;;</span><br><span class="line"></span><br><span class="line">&gt; obj.foo = undefined;</span><br><span class="line">&gt; Object.keys(obj)</span><br><span class="line">[ &apos;foo&apos;, &apos;bar&apos; ]</span><br></pre></td></tr></table></figure>
+<p>If you delete the property, its key is gone, too:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; delete obj.foo</span><br><span class="line">true</span><br><span class="line">&gt; Object.keys(obj)</span><br><span class="line">[ &apos;bar&apos; ]</span><br></pre></td></tr></table></figure>
+<p><code>delete</code> affects only the direct (“own,” noninherited) properties of an object. Its prototypes are not touched (see <a href="ch17.html#delete_inherited_property" title="Deleting an inherited property">Deleting an inherited property</a>).</p>
+<h3 id="Tip"><a href="#Tip" class="headerlink" title="Tip"></a>Tip</h3><p>Use the <code>delete</code> operator sparingly. Most modern JavaScript engines optimize the performance of instances created by constructors if their “shape” doesn’t change (roughly: no properties are removed or added). Deleting a property prevents that optimization.</p>
+<h4 id="The-return-value-of-delete"><a href="#The-return-value-of-delete" class="headerlink" title="The return value of delete"></a>The return value of delete</h4><p><code>delete</code> returns <code>false</code> if the property is an own property, but cannot be deleted. <a id="id1192720" class="indexterm">It returns <code>true</code> in all other cases. Following are some examples.</a></p>
+<p>As a preparation, we create one property that can be deleted and another one that can’t be deleted (<a href="ch17.html#functions_for_property_descriptors" title="Getting and Defining Properties via Descriptors">Getting and Defining Properties via Descriptors</a> explains <code>Object.defineProperty()</code>):</p>
+<pre><code>var
+</code></pre><p><code>delete</code> returns <code>false</code> for own properties that can’t be deleted:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; delete obj.cannotBeDeleted</span><br><span class="line">false</span><br></pre></td></tr></table></figure>
+<p><code>delete</code> returns <code>true</code> in all other cases:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; delete obj.doesNotExist</span><br><span class="line">true</span><br><span class="line">&gt; delete obj.canBeDeleted</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<p><code>delete</code> returns <code>true</code> even if it doesn’t change anything (inherited properties are never removed):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; delete obj.toString</span><br><span class="line">true</span><br><span class="line">&gt; obj.toString // still there</span><br><span class="line">[Function: toString]</span><br></pre></td></tr></table></figure>
+<h3 id="Unusual-Property-Keys"><a href="#Unusual-Property-Keys" class="headerlink" title="Unusual Property Keys"></a>Unusual Property Keys</h3><p>While you can’t use <a id="id1193014" class="indexterm"></a><a id="id1193024" class="indexterm">reserved words (such as <code>var</code> and <code>function</code>) as variable names, you can use them as property keys:</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; var obj = &#123; var: &apos;a&apos;, function: &apos;b&apos; &#125;;</span><br><span class="line">&gt; obj.var</span><br><span class="line">&apos;a&apos;</span><br><span class="line">&gt; obj.function</span><br><span class="line">&apos;b&apos;</span><br></pre></td></tr></table></figure>
+<p>Numbers can be used as property keys in object literals, but they are interpreted as strings. The dot operator can only access properties whose keys are identifiers. Therefore, you need the bracket operator (shown in the following example) to access properties whose keys are numbers:<a id="id1193050" class="indexterm"></a><a id="id1193059" class="indexterm"></a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; var obj = &#123; 0.7: &apos;abc&apos; &#125;;</span><br><span class="line">&gt; Object.keys(obj)</span><br><span class="line">[ &apos;0.7&apos; ]</span><br><span class="line">&gt; obj[&apos;0.7&apos;]</span><br><span class="line">&apos;abc&apos;</span><br></pre></td></tr></table></figure>
+<p>Object literals also allow you to use arbitrary strings (that are neither identifiers nor numbers) as property keys, but you must quote them. Again, you need the bracket operator to access the property values:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; var obj = &#123; &apos;not an identifier&apos;: 123 &#125;;</span><br><span class="line">&gt; Object.keys(obj)</span><br><span class="line">[ &apos;not an identifier&apos; ]</span><br><span class="line">&gt; obj[&apos;not an identifier&apos;]</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+<h3 id="Bracket-Operator-Accessing-Properties-via-Computed-Keys"><a href="#Bracket-Operator-Accessing-Properties-via-Computed-Keys" class="headerlink" title="Bracket Operator ([]): Accessing Properties via Computed Keys"></a>Bracket Operator ([]): Accessing Properties via Computed Keys</h3><p>While the dot operator works with fixed property keys, the bracket operator allows you to refer to a property via an expression.<a id="id1193123" class="indexterm"></a><a id="id1193082" class="indexterm"></a></p>
+<h4 id="Getting-properties-via-the-bracket-operator"><a href="#Getting-properties-via-the-bracket-operator" class="headerlink" title="Getting properties via the bracket operator"></a>Getting properties via the bracket operator</h4><p>The bracket operator lets <a id="id1193133" class="indexterm">you compute the key of a property, via an expression:</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; var obj = &#123; someProperty: &apos;abc&apos; &#125;;</span><br><span class="line"></span><br><span class="line">&gt; obj[&apos;some&apos; + &apos;Property&apos;]</span><br><span class="line">&apos;abc&apos;</span><br><span class="line"></span><br><span class="line">&gt; var propKey = &apos;someProperty&apos;;</span><br><span class="line">&gt; obj[propKey]</span><br><span class="line">&apos;abc&apos;</span><br></pre></td></tr></table></figure>
+<p>That also allows you to access properties whose keys are not identifiers:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; var obj = &#123; &apos;not an identifier&apos;: 123 &#125;;</span><br><span class="line">&gt; obj[&apos;not an identifier&apos;]</span><br><span class="line">123</span><br></pre></td></tr></table></figure>
+<p>Note that the bracket operator coerces its interior to string. For example:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; var obj = &#123; &apos;6&apos;: &apos;bar&apos; &#125;;</span><br><span class="line">&gt; obj[3+3]  // key: the string &apos;6&apos;</span><br><span class="line">&apos;bar&apos;</span><br></pre></td></tr></table></figure>
+<h4 id="Calling-methods-via-the-bracket-operator"><a href="#Calling-methods-via-the-bracket-operator" class="headerlink" title="Calling methods via the bracket operator"></a>Calling methods via the bracket operator</h4><p>Calling methods works as you <a id="id1193184" class="indexterm"></a><a id="id1193196" class="indexterm">would expect:</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt; var obj = &#123; myMethod: function () &#123; return true &#125; &#125;;</span><br><span class="line">&gt; obj[&apos;myMethod&apos;]()</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<h4 id="Setting-properties-via-the-bracket-operator"><a href="#Setting-properties-via-the-bracket-operator" class="headerlink" title="Setting properties via the bracket operator"></a>Setting properties via the bracket operator</h4><p>Setting properties <a id="id1193223" class="indexterm">works analogously to the dot operator:</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; var obj = &#123;&#125;;</span><br><span class="line">&gt; obj[&apos;anotherProperty&apos;] = &apos;def&apos;;</span><br><span class="line">&gt; obj.anotherProperty</span><br><span class="line">&apos;def&apos;</span><br></pre></td></tr></table></figure>
+<h4 id="Deleting-properties-via-the-bracket-operator"><a href="#Deleting-properties-via-the-bracket-operator" class="headerlink" title="Deleting properties via the bracket operator"></a>Deleting properties via the bracket operator</h4><p>Deleting properties <a id="id1193253" class="indexterm">also works similarly to the dot operator:</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; var obj = &#123; &apos;not an identifier&apos;: 1, prop: 2 &#125;;</span><br><span class="line">&gt; Object.keys(obj)</span><br><span class="line">[ &apos;not an identifier&apos;, &apos;prop&apos; ]</span><br><span class="line">&gt; delete obj[&apos;not an identifier&apos;]</span><br><span class="line">true</span><br><span class="line">&gt; Object.keys(obj)</span><br><span class="line">[ &apos;prop&apos; ]</span><br></pre></td></tr></table></figure>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('/img/for_blog/7.jpg'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+
+                    </div>
+                    <h1>Untitled</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-06-06
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <hr>
+<p>title: Webpack的静态资源版本管理方案<br>date: 2016-06-06 13:36:09<br>tags:</p>
+<pre><code>- webpack
+- 翻译
+- 前端工程化
+</code></pre><hr>
+<blockquote>
+<p>原文<a href="https://medium.com/@okonetchnikov/long-term-caching-of-static-assets-with-webpack-1ecb139adb95#.skj8j8h4u" target="_blank" rel="external">Long-term caching of static assets with Webpack</a></p>
+</blockquote>
+<p>Webpack is a great way to package all your static resources such as JavaScript, CSS or even images, but to effectively use generated assets in production one should leverage long-term caching. Documentation on this topic is scattered across different resources and it is not quite easy to get it right. The aim of this article is to guide front-end developers through the complete setup.</p>
+<h2 id="tl-dr"><a href="#tl-dr" class="headerlink" title="tl;dr"></a>tl;dr</h2><p>To enable long-term caching of static resources produced by webpack:</p>
+<ol>
+<li>Use [chunkhash] to add a content-dependent cache-buster to each file.</li>
+<li>Use compiler stats to get the file names when requiring resources in HTML.</li>
+<li>Generate the chunk-manifest JSON and inline it into the HTML page before loading resources.</li>
+<li>Ensure that the entry point chunk containing the bootstrapping code doesn’t change its hash over time for the same set of dependencies.</li>
+<li>Profit!</li>
+</ol>
+<h2 id="The-problem"><a href="#The-problem" class="headerlink" title="The problem"></a>The problem</h2><p>Each time something needs to be updated in our code, it has to be re-deployed on the server and then re-downloaded by all clients. This is clearly very inefficient since fetching resources over the network can be slow. This is why browsers cache static resources. But the way it works has a pitfall: if we don’t change filenames of our resources when deploying a new version, browser might think it hasn’t been updated and client will get a cached version of it.</p>
+<p>Probably the simplest way to tell the browser to download a newer version is to alter asset’s file name. In a pre-webpack era we used to add a build number to the filenames as a parameter and then increment it:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">application.js?build=1</span><br><span class="line">application.css?build=1</span><br></pre></td></tr></table></figure></p>
+<p>It is even easier to do with webpack: each webpack build generates a unique hash which can be used to compose a filename. The following example config will generate 2 files (1 per entry point) with a hash in filenames:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    vendor: <span class="string">'./src/vendor.js'</span>,</span><br><span class="line">    main: <span class="string">'./src/index.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, <span class="string">'build'</span>),</span><br><span class="line">    filename: <span class="string">'[name].[hash].js'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>Running webpack with this config will produce the following output:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Hash: 55e783391098c2496a8f</span><br><span class="line">Version: webpack 1.10.1</span><br><span class="line">Time: 58ms</span><br><span class="line">Asset Size Chunks Chunk Names</span><br><span class="line">main.55e783391098c2496a8f.js 1.43 kB 0 [emitted] main</span><br><span class="line">vendor.55e783391098c2496a8f.js 1.43 kB 1 [emitted] vendor</span><br><span class="line">[0] ./src/index.js 46 bytes &#123;0&#125; [built]</span><br><span class="line">[0] ./src/vendor.js 40 bytes &#123;1&#125; [built]</span><br></pre></td></tr></table></figure></p>
+<p>But the problem here is that, each time we create a new build, all filenames will get altered and clients will have to re-download the whole application code again.</p>
+<p>Not exactly what we wanted, huh? So how can we guarantee that clients always get the latest versions of assets without re-downloading all of them?</p>
+<h2 id="Separate-hash-per-file"><a href="#Separate-hash-per-file" class="headerlink" title="Separate hash per file"></a>Separate hash per file</h2><p>What if we could produce the same filename if the contents of the file did not change between builds? For example, the file where we put all our libraries and other vendor stuff does not change that often.</p>
+<p><em>Pro Tip!</em></p>
+<blockquote>
+<p>Separate your vendor and application code with <strong><a href="http://webpack.github.io/docs/list-of-plugins.html#2-explicit-vendor-chunk" target="_blank" rel="external">CommonsChunkPlugin</a></strong> and create an explicit vendor chunk to prevent it from changing too often.</p>
+</blockquote>
+<p>Webpack allows you to generate hashes depending on the file contents. Here is the updated config (excerpt):</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  ...</span><br><span class="line">  output: &#123;</span><br><span class="line">    ...</span><br><span class="line">    filename: <span class="string">'[name].[chunkhash].js'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This config will also create 2 files, but in this case, each file will get its own unique hash.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">main.155567618f4367cd1cb8.js 1.43 kB 0 [emitted] main</span><br><span class="line">vendor.c2330c22cd2decb5da5a.js 1.43 kB 1 [emitted] vendor</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Don’t use [<strong>chunkhash</strong>] in development since this will increase compilation time. Separate development and production configs and use [<strong>name</strong>].js for development and [<strong>name</strong>].[<strong>chunkhash</strong>].js in production.</p>
+</blockquote>
+<h2 id="Get-filenames-from"><a href="#Get-filenames-from" class="headerlink" title="Get filenames from"></a>Get filenames from</h2><p>When working in development mode, you just reference a JavaScript file by entry point name in your HTML.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"main.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>In order to reference a correct file, we’ll need some information about our build. This can be extracted from webpack compilation stats by using this simple plugin:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  ...</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.plugin(<span class="string">"done"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">stats</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">"fs"</span>).writeFileSync(</span><br><span class="line">          path.join(__dirname, <span class="string">"..."</span>, <span class="string">"stats.json"</span>),</span><br><span class="line">          <span class="built_in">JSON</span>.stringify(stats.toJson()));</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Or you can just use one of these plugins to export JSON files:</p>
+<ul>
+<li><strong><a href="https://www.npmjs.com/package/webpack-manifest-plugin" target="_blank" rel="external">webpack-manifest-plugin</a> </strong></li>
+<li><strong><a href="https://www.npmjs.com/package/assets-webpack-plugin" target="_blank" rel="external">assets-webpack-plugin</a> </strong></li>
+</ul>
+<p>A sample output of webpack-manifest-plugin for our config looks like:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  “main.js”: “main.155567618f4367cd1cb8.js”,</span><br><span class="line">  “vendor.js”: “vendor.c2330c22cd2decb5da5a.js”</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>The rest depends on your server setup but I believe is pretty straightforward. There is a <a href="http://clarkdave.net/2015/01/how-to-use-webpack-with-rails/#including-precompiled-assets-in-views" target="_blank" rel="external">nice walk through</a> if you’re using Rails.</p>
+<p>We’re done, you might think. Well, almost.</p>
+<h2 id="Deterministic-hashes"><a href="#Deterministic-hashes" class="headerlink" title="Deterministic hashes"></a>Deterministic hashes</h2><p>To minimise the size of generated files, webpack uses identifiers instead of module names. During compilation identifiers are generated, mapped to chunk filenames and then put into a JavaScript object called chunk manifest. It is (along with some bootstrapping code) then placed into the entry chunk and it is crucial for webpack-packaged code to work.</p>
+<p>The problem with this is the same as before: whenever we change any part of the code, it will, even if the rest of its contents wasn’t altered, update our entry chunk to include the new manifest. This, in turn, will lead to a new hash and dismiss the long-term caching.<br>To fix that, we should use <a href="https://github.com/diurnalist/chunk-manifest-webpack-plugin" target="_blank" rel="external">chunk-manifest-webpack-plugin</a> which will extract that manifest to a separate JSON file. Here is an updated webpack.config.js which will produce chunk-manifest.json in our build directory<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">var</span> ChunkManifestPlugin = <span class="built_in">require</span>(<span class="string">'chunk-manifest-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="comment">// your config values here</span></span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> ChunkManifestPlugin(&#123;</span><br><span class="line">      filename: <span class="string">"chunk-manifest.json"</span>,</span><br><span class="line">      manifestVariable: <span class="string">"webpackManifest"</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>Since we removed the manifest from entry chunk, now it’s our responsibility to provide webpack with it. You have probably noticed the manifestVariable option in the example above. This is the name of the global variable where webpack will look for the manifest JSON and this is why it should be defined before we require our bundle in HTML. This is easy as inlining the contents of the JSON in HTML. Our HTML head section should look like this:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="xml"></span><br><span class="line">    //&lt;![CDATA[</span><br><span class="line">    window.webpackManifest = &#123;"0":"main.3d038f325b02fdee5724.js","1":"1.c4116058de00860e5aa8.js"&#125;</span><br><span class="line">    //]]&gt;</span><br><span class="line">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>The second issue is how webpack requires modules: by default the order of modules in the bundle isn’t deterministic for the same set of dependencies. This means: modules can get different IDs from build to build, resulting in a slightly different content and thus different hashes. There is <a href="https://github.com/webpack/webpack/issues/950" target="_blank" rel="external">an issue on Github</a> which suggests to use <a href="http://webpack.github.io/docs/list-of-plugins.html#occurenceorderplugin" target="_blank" rel="external">OccurenceOrderPlugin</a> to work around this.</p>
+<p>So the final webpack.config.js should look like this:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</span><br><span class="line"><span class="keyword">var</span> ManifestPlugin = <span class="built_in">require</span>(<span class="string">'webpack-manifest-plugin'</span>);</span><br><span class="line"><span class="keyword">var</span> ChunkManifestPlugin = <span class="built_in">require</span>(<span class="string">'chunk-manifest-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    vendor: <span class="string">'./src/vendor.js'</span>,</span><br><span class="line">    main: <span class="string">'./src/index.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.join(__dirname, <span class="string">'build'</span>),</span><br><span class="line">    filename: <span class="string">'[name].[chunkhash].js'</span>,</span><br><span class="line">    chunkFilename: <span class="string">'[name].[chunkhash].js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</span><br><span class="line">      name: <span class="string">"vendor"</span>,</span><br><span class="line">      minChunks: <span class="literal">Infinity</span>,</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> ManifestPlugin(),</span><br><span class="line">    <span class="keyword">new</span> ChunkManifestPlugin(&#123;</span><br><span class="line">      filename: <span class="string">"chunk-manifest.json"</span>,</span><br><span class="line">      manifestVariable: <span class="string">"webpackManifest"</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.OccurenceOrderPlugin()</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>Using this config the vendor chunk should not be changing its hash unless you change its code or dependencies. Here is a sample output for 2 runs with moduleB.js being changed between the runs:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&gt; webpack</span><br><span class="line"></span><br><span class="line">Hash: 92670583f688a262fdad</span><br><span class="line">Version: webpack 1.10.1</span><br><span class="line">Time: 65ms</span><br><span class="line"></span><br><span class="line">Asset Size Chunks Chunk Names</span><br><span class="line">chunk-manifest.json 68 bytes [emitted]</span><br><span class="line">vendor.6d107863983028982ef4.js 3.71 kB 0 [emitted] vendor</span><br><span class="line">1.c4116058de00860e5aa8.js 107 bytes 1 [emitted]</span><br><span class="line">main.5e17f4dff47bc1a007c0.js 373 bytes 2 [emitted] main</span><br><span class="line"></span><br><span class="line">[0] ./src/index.js 186 bytes &#123;2&#125; [built]</span><br><span class="line">[0] ./src/vendor.js 40 bytes &#123;0&#125; [built]</span><br><span class="line">[1] ./src/moduleA.js 28 bytes &#123;2&#125; [built]</span><br><span class="line">[2] ./src/moduleB.js 28 bytes &#123;1&#125; [built]</span><br><span class="line"></span><br><span class="line">&gt; webpack</span><br><span class="line"></span><br><span class="line">Hash: a9ee1d1e46a538469d7f</span><br><span class="line">Version: webpack 1.10.1</span><br><span class="line">Time: 67ms</span><br><span class="line"></span><br><span class="line">Asset Size Chunks Chunk Names</span><br><span class="line">chunk-manifest.json 68 bytes [emitted]</span><br><span class="line">vendor.6d107863983028982ef4.js 3.71 kB 0 [emitted] vendor</span><br><span class="line">1.2883246944b1147092b1.js 107 bytes 1 [emitted]</span><br><span class="line">main.5e17f4dff47bc1a007c0.js 373 bytes 2 [emitted] main</span><br><span class="line"></span><br><span class="line">[0] ./src/index.js 186 bytes &#123;2&#125; [built]</span><br><span class="line">[0] ./src/vendor.js 40 bytes &#123;0&#125; [built]</span><br><span class="line">[1] ./src/moduleA.js 28 bytes &#123;2&#125; [built]</span><br><span class="line">[2] ./src/moduleB.js 28 bytes &#123;1&#125; [built]</span><br></pre></td></tr></table></figure></p>
+<p>Notice that vendor chunk has the same filename. Exactly what we wanted!</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Webpack is very modular and allows lots of optimizations that aren’t enabled by default. The flexibility Webpack provides makes it possible to use it with any setup imaginable, but keeping in mind that long-term caching is a good general practice, I hope next versions will get better defaults to make things easier. Here is a sample <a href="https://github.com/okonet/webpack-long-term-cache-demo" target="_blank" rel="external">Github repository</a> with an example used in this article.</p>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

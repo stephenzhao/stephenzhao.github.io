@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="MAC 安装PHP mysql 相关"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>MAC 安装PHP mysql 相关 - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('/img/for_blog/7.jpg'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/MAC/">MAC</a> <a class="tag" href="/tags/PHP/">PHP</a> <a class="tag" href="/tags/mysql/">mysql</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>MAC 安装PHP mysql 相关</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Damon on
+                        
+                        2016-07-27
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>开始学习php 今天折腾了一下环境。<br>整体来说得益于mac的便利性，安装起来还算顺利。<br>中间也遇到一些小坑，记录一下。</p>
+<h2 id="hombrew-更新"><a href="#hombrew-更新" class="headerlink" title="hombrew 更新"></a>hombrew 更新</h2><p>我原来已经安装过homebrew<br>所以现在需要的是update<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">brew update</span><br><span class="line"><span class="comment">#报错</span></span><br><span class="line">Error: Could not link phinze/cask manpages to:</span><br><span class="line">  /usr/<span class="built_in">local</span>/share/man/man1/brew-cask.1</span><br><span class="line"><span class="comment">#分析可能是因为新版本将brew-cask目录安装到别的地方去了。所以选择重新安装 brew-cask</span></span><br><span class="line"> brew uninstall --force brew-cask</span><br><span class="line"> brew update</span><br><span class="line"> <span class="comment"># done</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="安装mysql"><a href="#安装mysql" class="headerlink" title="安装mysql"></a>安装mysql</h2><p>之前安装过mysql，年久失修，所以现在执行一下mysql 发现不能用了。<br><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">mysql</span><br><span class="line"><span class="comment">#error Can't connect to local MySQL server through socket '/tmp/mysql.sock'</span></span><br><span class="line"><span class="comment">#解决：</span></span><br><span class="line"><span class="comment">##检查mysql运行状态</span></span><br><span class="line"> ps -ef | grep mysql</span><br><span class="line"> </span><br><span class="line"> 501 72201  1195   0 11:44下午 ttys007    0:00.00 grep --color=auto --exclude-dir=.bzr --exclude-dir=CVS --exclude-dir=.git --exclude-dir=.hg --exclude-dir=.svn mysql</span><br><span class="line"> </span><br><span class="line"><span class="comment">#貌似正常 看下 /tmp</span></span><br><span class="line"><span class="built_in">cd</span> /tmp </span><br><span class="line"><span class="comment"># 没有mysql.sock文件</span></span><br><span class="line"><span class="comment">#通过find命令查找 没找到</span></span><br><span class="line"> find / -name mysql.sock</span><br><span class="line"><span class="comment">#删掉一些为初始化成功的路径然后重新初始化。</span></span><br><span class="line">sudo rm /usr/<span class="built_in">local</span>/opt/mysql/my.cnf</span><br><span class="line">sudo rm -R /usr/<span class="built_in">local</span>/var/mysql/</span><br><span class="line">mysqld --initialize</span><br><span class="line">/usr/<span class="built_in">local</span>/opt/mysql/bin/mysqld_safe  启动</span><br><span class="line">A temporary password is generated <span class="keyword">for</span> root@localhost: SegzsVgYt4=j</span><br><span class="line"><span class="comment">#设置mysql密码</span></span><br><span class="line">/usr/<span class="built_in">local</span>/opt/mysql/bin/mysqladmin -u root -p password <span class="string">''</span></span><br><span class="line"><span class="comment">#输入初始密码SegzsVgYt4=j</span></span><br><span class="line"><span class="comment">#修改了mysql的密码为空</span></span><br><span class="line"><span class="comment"># 现在mysql可以访问了</span></span><br><span class="line">mysql -u root</span><br></pre></td></tr></table></figure></p>
+<h2 id="安装php、php-fpm…"><a href="#安装php、php-fpm…" class="headerlink" title="安装php、php-fpm…"></a>安装php、php-fpm…</h2><p>Mac是预装了php，不过很多扩展都没安装，目测最多只能在终端里执行下php指令，所以我选择重新安装php。由于 brew 默认是没有 php 安装，所以要使用 “brew tap” 来安装 brew 的第三方程序包，这里使用 josegonzalez 的php安装包，具体操作如下：<br><figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">brew tap homebrew/dupes</span><br><span class="line">brew tap josegonzalez/homebrew-php</span><br><span class="line"><span class="comment">#由于PHP5.5版本已经内嵌了 FPM（FastCGI Process Manager）so:</span></span><br><span class="line"></span><br><span class="line">sudo brew install php55 \</span><br><span class="line">--with-debug \</span><br><span class="line">--with-fpm \</span><br><span class="line">--with-gmp \</span><br><span class="line">--with-homebrew-openssl \</span><br><span class="line">--with-imap --with-intl \</span><br><span class="line">--with-libmysql \</span><br><span class="line">--without-bz2 \</span><br><span class="line">--without-mysql \</span><br><span class="line">--without-pcntl \</span><br><span class="line">--without-pear</span><br><span class="line"><span class="comment">#更多的安装选项可以通过 “brew options php55″ 查看。</span></span><br><span class="line"><span class="comment">#指令执行完后，php 跟 php-fpm 就安装好了。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#指定 php 的解析路径</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#~/.bashrc（没有则创建）最后加入一行</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">"<span class="variable">$(brew --prefix php54)</span>/bin:<span class="variable">$PATH</span>"</span></span><br><span class="line"><span class="comment">#添加之后再执行一下source，使之生效</span></span><br><span class="line"><span class="built_in">source</span> ./.profile</span><br><span class="line"><span class="comment">#要修改配置 php 或者 php-fpm 的话，可以修改</span></span><br><span class="line"><span class="comment">#“/usr/local/etc/php/5.5/php.ini” 、</span></span><br><span class="line"><span class="comment">#“/usr/local/etc/php/5.5/php-fpm.conf”</span></span><br></pre></td></tr></table></figure></p>
+<p>启动 php-fpm 的话就直接在终端里执行 “php-fpm”，默认打开 php-fpm 会显示一个状态 shell 出来，也可以把 php-fpm 的配置文件里的 “daemonize = no” 改为 “daemonize = yes”，就会以后台守护进程的方式启动，对于刚修改的配置文件，可以执行 “php-fpm -t” 来检测配置有没有问题。</p>
+<h2 id="设置-nginx-的-php-fpm-配置"><a href="#设置-nginx-的-php-fpm-配置" class="headerlink" title="设置 nginx 的 php-fpm 配置"></a>设置 nginx 的 php-fpm 配置</h2><p>在server块中添加解析文件类型<br><code>“index index.html index.htm index.php;”</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        index index.html index.htm index.php;</span><br><span class="line">        ......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>打开 nginx 默认注释掉的php location设置，修改如下（具体配置参数，例如路径，这里以我本地安装为准）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location ~ .*\.(php|php5)?$ &#123;</span><br><span class="line">        #fastcgi_pass  unix:/tmp/php-cgi.sock;</span><br><span class="line">        fastcgi_pass  127.0.0.1:9000;</span><br><span class="line">        fastcgi_index index.php;</span><br><span class="line">        fastcgi_param  SCRIPT_FILENAME  /Library/WebServer/public_html$fastcgi_script_name;</span><br><span class="line">        include /usr/local/etc/nginx/fastcgi_params;</span><br><span class="line">        #include fcgi.conf;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>修改目录用户、用户组：<br>sudo chown www:www /Library/WebServer/public_html<br>OK，这样就可以在访问目录下（默认是/Library/WebServer/public_html）执行 php 文件了。嗯，赶快输出一下 “phpinfo()” 吧～<br>&lt;?php<br>phpinfo();</p>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

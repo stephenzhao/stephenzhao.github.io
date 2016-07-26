@@ -22,6 +22,8 @@
 
     <!--Open Graph Title-->
     
+        <meta property="og:title" content="为什么使用immutable js"/>
+    
 
     <!--Open Graph Site Name-->
     <meta property="og:site_name" content="Damon"/>
@@ -33,7 +35,7 @@
 
     <!-- Title -->
     
-    <title>page - 归档 - Damon</title>
+    <title>为什么使用immutable js - Damon</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
@@ -163,144 +165,81 @@
 </script>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
-<header class="intro-header" style="background-image: url('/img/for_blog/7.jpg')">
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('/img/for_blog/7.jpg'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>归档</h1>
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/前端/">前端</a> <a class="tag" href="/tags/react/">react</a> <a class="tag" href="/tags/es6/">es6</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>为什么使用immutable js</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-07-07
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/05/20/webpck-code-spliting/">
-        <h1 class="post-title archive">
-            Webpack之代码拆分
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-20
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/19/how-to-write-a-plugin/">
-        <h1 class="post-title archive">
-            编写webpack 插件
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-19
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/18/about-damon-logo/">
-        <h1 class="post-title archive">
-            关于Logo
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-18
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/18/Redux-vs-executor/">
-        <h1 class="post-title archive">
-            Redux VS 命令模式
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-18
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/18/tuijiansuanfa-taobao/">
-        <h1 class="post-title archive">
-            推荐算法 够意阑珊
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-18
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/18/webpack-optimizin/">
-        <h1 class="post-title archive">
-            Webpack之性能优化
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-18
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/05/13/hello-world/">
-        <h1 class="post-title archive">
-            Hello World
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-13
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-        <li class="previous"><a href="/archives/">&larr;  下一页</a></li>
-    
-    
-</ul>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>JavaScript 中的对象一般是可变的（Mutable），因为使用了引用赋值，新的对象简单的引用了原始对象，改变新的对象将影响到原始对象。如 <code>foo={a: 1}; bar=foo; bar.a=2</code> 你会发现此时 <code>foo.a</code> 也被改成了 <code>2</code>。虽然这样做可以节约内存，但当应用复杂后，这就造成了非常大的隐患，Mutable 带来的优点变得得不偿失。</p>
+<h1 id="some-problems"><a href="#some-problems" class="headerlink" title="some problems"></a>some problems</h1><ol>
+<li>Mutable objects complect Time and Value<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> id;</span><br><span class="line">id = <span class="string">'value'</span>;</span><br><span class="line">id = <span class="string">'next value'</span>;</span><br><span class="line">id = <span class="string">'future value'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Immutable data removes complexity </p>
+<ol>
+<li>Mutator problem<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">touchAndPrint</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> data = &#123; key: <span class="string">"value"</span> &#125;;</span><br><span class="line">    fn(data);</span><br><span class="line">    <span class="built_in">console</span>.log(data.key);<span class="comment">// ? hell</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>what changed ?<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dataStore = &#123; key:<span class="string">"value"</span> &#125;;</span><br><span class="line">render(dataStore);</span><br><span class="line">loadDataIntoStore(url, ()=&gt;&#123;</span><br><span class="line">        render(dataStore);</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>Object.observe(); es7<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dataStore = &#123;key:<span class="string">"value"</span>&#125;;</span><br><span class="line">render(dataStore);</span><br><span class="line"><span class="built_in">Object</span>.observe(dataStore, chages =&gt; &#123;</span><br><span class="line">    render(dataStore, changes);</span><br><span class="line">    &#125;);</span><br><span class="line">loadDataIntoStore(url);</span><br></pre></td></tr></table></figure></p>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <!-- Footer -->

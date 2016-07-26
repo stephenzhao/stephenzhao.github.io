@@ -247,7 +247,7 @@
 </tbody>
 </table>
 <p>例子：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> initState = <span class="string">''</span></span><br><span class="line"><span class="keyword">const</span> actions = [<span class="string">'Learn about actions, '</span>,<span class="string">'Learn about reducers, '</span>, <span class="string">'Learn about store'</span>]</span><br><span class="line"><span class="keyword">const</span> newState = actions.reduce((prevState, action)=&gt; &#123; <span class="keyword">return</span> prevState + action &#125;, initState)</span><br></pre></td></tr></table></figure></p>
-<h1 id="Redux-中的reducer"><a href="#Redux-中的reducer" class="headerlink" title="Redux 中的reducer"></a>Redux 中的reducer</h1><p>在上面的例子中，我们能看到一些reducer的影子。</p>
+<h1 id="Redux-中的reducer"><a href="#Redux-中的reducer" class="headerlink" title="Redux 中的reducer"></a>Redux 中的reducer</h1><p>在上面的例子中，我们能看到一些reducer的影子。<br>应用程序的状态类似于上面的函数中的initState和newState 给定initState之后随着action的值的不断传入给计算函数得到新的newState</p>
 
             </div>
 

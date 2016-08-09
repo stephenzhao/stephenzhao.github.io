@@ -22,6 +22,8 @@
 
     <!--Open Graph Title-->
     
+        <meta property="og:title" content="Flexbox 浏览器兼容小结"/>
+    
 
     <!--Open Graph Site Name-->
     <meta property="og:site_name" content="Damon"/>
@@ -33,7 +35,7 @@
 
     <!-- Title -->
     
-    <title>归档：2016/8 - Damon</title>
+    <title>Flexbox 浏览器兼容小结 - Damon</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
@@ -163,110 +165,113 @@
 </script>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
-<header class="intro-header" style="background-image: url('/img/for_blog/7.jpg')">
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('/img/for_blog/7.jpg'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2016/8</h1>
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/css/">css</a> <a class="tag" href="/tags/flexbox/">flexbox</a> <a class="tag" href="/tags/html5/">html5</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>Flexbox 浏览器兼容小结</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-08-08
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2016/08/08/css-flexbox-compatibility/">
-        <h1 class="post-title archive">
-            Flexbox 浏览器兼容小结
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-08-08
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/08/04/css-flexbox-grid-layout/">
-        <h1 class="post-title archive">
-            Flexbox 打造栅格系统
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-08-04
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/08/03/css-flexbox-layout/">
-        <h1 class="post-title archive">
-            神器--Flexbox
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-08-03
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/08/02/ios-programming-xcode-shortcut/">
-        <h1 class="post-title archive">
-            从0到1的学习iOS开发之Xcode的快捷键
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-08-02
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2016/08/02/ios-programming-for0to1/">
-        <h1 class="post-title archive">
-            开发一款APP
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-08-02
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>浏览器兼容性问题，是前端工程师的一个必然要遇到的事情。今天我们来聊聊flexbox 的兼容问题，PC端大家都看到了<a href="http://caniuse.com/#search=flex" target="_blank" rel="external">http://caniuse.com/#search=flex</a> 除了IE支持都很好，但到了移动端就惨不忍睹了（特别是国产手机）。其主要原因还是国产浏览器厂商的更新和支持更不上国际速度，还拿着09年的标准来糊弄自然会有问题。很多人不敢用flexbox说它在国产手机里支持不好云云，其实主要原因还是，我们对其在定制过程中的各个版本规范搞不清状况。好了我们来看看吧：</p>
+<p><em>注：对于IE，我们兼容到10</em></p>
+<h2 id="历史"><a href="#历史" class="headerlink" title="历史"></a>历史</h2><p>09年到现在flexbox分别经历了三种方式：<code>display:box;</code> 、<code>display:flexbox</code> 还有现在的<code>display:flex;</code></p>
+<blockquote>
+<p><strong><em>If you Google around about Flexbox, you will find lots of outdated information.</em></strong> Here’s how you can quickly tell:</p>
+<ul>
+<li>If you are looking at a blog post (or whatever) about Flexbox and you see display: box; or a property that is box-{*}, you are looking at the old 2009 version of Flexbox.</li>
+<li>If you are looking at a blog post (or whatever) about Flexbox and you see display: flexbox; or the flex() function, you are looking at an awkward tweener phase in 2011.</li>
+<li>If you are looking at a blog post (or whatever) about Flexbox and you see display: flex; and flex-{*} properties, you are looking at the current (as of this writing) specification.</li>
 </ul>
+</blockquote>
+<p>flexbox最初定义的时候其实2009年定义了第一个版本以后，就有浏览器厂商率先实现了<code>display:box</code>的功能。到了2011年大家对原来实现的功能还不满意，为了不改变原来对<code>display:box</code>的支持，就有了<code>display:flexbox;</code>。到后来规范逐渐成熟再加上功能需要在加完善，所以就到了<code>display:flex</code>，还会不会改鬼知道呢。</p>
+<h2 id="支持情况"><a href="#支持情况" class="headerlink" title="支持情况"></a>支持情况</h2><ul>
+<li><a href="http://caniuse.com/#search=box" target="_blank" rel="external"><code>display:box;</code> </a> 除了Firefox其他的都partial support with prefix <code>-webkit-</code></li>
+<li><a href="http://caniuse.com/#search=flexbox" target="_blank" rel="external"><code>display:flexbox</code></a> 支持也很好啊。</li>
+<li><a href="http://caniuse.com/#search=flex" target="_blank" rel="external"><code>display:flex</code></a> 发现差不多和上一个一样的支持度。</li>
+</ul>
+<p>大体总结了一下，除了Opera mobile12，还有IE，各大浏览器都是支持flexbox的旧版语法的。</p>
+<p><em>注：最新的语法才加入了wrap的属性，所以旧版肯定是不支持的</em></p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>从上面的调研可以看出，其实最新的flex是兼容之前的语法的，只不过有一些新增的语法。那么解决这样的兼容问题显而易见的就是增加上旧版的语法，就可以解决一些支持旧版语法的浏览器啦。</p>
+<p><a href="http://stephenzhao.github.io/2016/08/03/css-flexbox-layout/" target="_blank" rel="external">第一篇</a>我们说到，flexbox分为container和item，所以兼容的写法也分两部分。</p>
+<p><strong><em>container</em></strong><br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.grid</span>&#123;</span><br><span class="line">  <span class="attribute">display</span>: -webkit-box; <span class="comment">/* Chrome 4+, Safari 3.1, iOS Safari 3.2+ */</span></span><br><span class="line">  <span class="attribute">display</span>: -webkit-flex; <span class="comment">/* Chrome 21+, Safari 6.1+, iOS Safari 7+, Opera 15/16 */</span></span><br><span class="line">  <span class="attribute">display</span>: flex; <span class="comment">/* Chrome 29+, Firefox 22+, IE 11+, Opera 12.1/17/18, Android 4.4+ */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong><em>item</em></strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.grid-cell</span>&#123;</span><br><span class="line">    <span class="attribute">-webkit-box-flex</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">-webkit-flex</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看到这里，你可能就有疑问，这样每次写这么多前缀不累吗？我们有工具啊：<br>我们可以使用类似<a href="https://github.com/postcss/autoprefixer" target="_blank" rel="external">autoprefixer</a>, 或者是sass\less等工具来写css。另外安利一个sass的mixin大家可以看看<a href="https://github.com/stevenbenisek/compass-flexbox" target="_blank" rel="external">compass-flex</a>。</p>
+<h2 id="其他的不兼容特性"><a href="#其他的不兼容特性" class="headerlink" title="其他的不兼容特性"></a>其他的不兼容特性</h2><ul>
+<li>在旧版的规范中，使用比例伸缩布局时，子元素的内容长短不同会导致无法“等分”，这个时候，我们需要给子元素设置一个“width:0%”来解决问题</li>
+<li>不要给item设置“margin:auto”的属性，在部分安卓机下，它会导致该元素的宽度撑开到100%占位</li>
+<li>旧版的box item要求属性是块级结构，所以很多inline元素需要设置display：block等才能显示正常</li>
+<li>text-overflow: ellipsis;在display：flex元素上无效</li>
+</ul>
+<p>记住上面的坑，避免跳进去。</p>
+<h2 id="方法论"><a href="#方法论" class="headerlink" title="方法论"></a>方法论</h2><p>其实兼容性的解决办法是有一套方法论的。我个人觉得做到以下几点是必要的：</p>
+<ul>
+<li>确定业务需求面向的运行环境是怎样的，需要兼容哪些浏览器；</li>
+<li>查改特性的兼容性，兼容到了哪个版本，该不该用这个属性，或者给出兼容的写法；</li>
+<li>学会使用工具；</li>
+<li>充分测试，把兼容问题当做一种自我积累和提升积极面对，不断完善。</li>
+</ul>
+<p>好了就这么多，上面的坑的列表大家可以补充，欢迎关注我的专栏知乎<a href="https://zhuanlan.zhihu.com/jscss" target="_blank" rel="external">前端杂货铺</a></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://www.w3.org/blog/news/archives/4685" target="_blank" rel="external">w3c 收录flexbox</a></li>
+<li><a href="https://www.w3.org/blog/news/archives/4685" target="_blank" rel="external">发展历程</a></li>
+</ul>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <!-- Footer -->

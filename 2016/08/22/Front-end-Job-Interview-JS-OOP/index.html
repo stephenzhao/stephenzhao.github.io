@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="前端面试之js相关问题（-）"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>前端面试之js相关问题（-） - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('/img/for_blog/7.jpg'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/前端面试/">前端面试</a> <a class="tag" href="/tags/js/">js</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>前端面试之js相关问题（-）</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Damon on
+                        
+                        2016-08-22
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <blockquote>
+<p><a href="http://stephenzhao.github.io/2016/08/19/Front-end-Job-Interview-Questions/" target="_blank" rel="external">上一篇</a>我们讲到了，在前端面试的时候常被问到的函数及函数作用域的问题。今天这篇我们将将js的一个比较重要的甚至在编程的世界都很重要的 <strong>面向对象</strong> 的问题。</p>
+</blockquote>
+<h2 id="在JavaScript中一切都是对象吗？"><a href="#在JavaScript中一切都是对象吗？" class="headerlink" title="在JavaScript中一切都是对象吗？"></a>在JavaScript中一切都是对象吗？</h2><p>“一切皆对象！” 大家都对此深信不疑。其实不然，这里面带有很多的语言陷阱，不要到处给别人吹嘘一切接对象为好。</p>
+<h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h3><p>JavaScript 是一种弱类型或者说动态语言。这意味着你不用提前声明变量的类型，在程序运行过程中，类型会被自动确定。这也意味着你可以使用同一个变量保存不同类型的数据，最新的 ECMAScript 标准定义了 7 种数据类型:</p>
+<p><strong>基本类型</strong></p>
+<ul>
+<li>Boolean</li>
+<li>Null</li>
+<li>Undefined</li>
+<li>Number</li>
+<li>String</li>
+<li>Symbol (ECMAScript 6 新定义)</li>
+</ul>
+<p><strong>对象类型</strong></p>
+<ul>
+<li>Object </li>
+</ul>
+<p>对象类型涵盖了很多引用类型，任何非基本类型的都是对象类型。如Function(函数Function 是一个附带可被调用功能的常规对象)，这里就不在赘述。</p>
+<p>根据这个分类可以看出“并非一切接对象”。</p>
+<p>我们可以从两方面来区别这两种类型：</p>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p><strong>可变性</strong></p>
+<p>基本类型：不可变类型，无法添加属性；即使添加属性，解析器无法再下一步读取它；</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cat = <span class="string">"cat"</span>;</span><br><span class="line">cat.color = <span class="string">"black"</span>;</span><br><span class="line">cat.color <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<p>对象类型：可变类型，支持添加和删除属性。</p>
+<p><strong>比较和传递</strong></p>
+<p>基本类型：按值比较，按值传递；<br>对象类型：按引用比较，按引用传递。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本类型</span></span><br><span class="line"><span class="keyword">var</span> cat = <span class="string">"tom"</span>;</span><br><span class="line"><span class="keyword">var</span> dog = <span class="string">"tom"</span>;</span><br><span class="line">cat === dog <span class="comment">// true</span></span><br><span class="line"><span class="comment">//对象类型</span></span><br><span class="line"><span class="keyword">var</span> cat = &#123;name:<span class="string">"tom"</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> dog = &#123;name:<span class="string">"tom"</span>&#125;;</span><br><span class="line">cat === dog <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们说的通过引用进行对象比较是:两个对象的值是否相同取决于它们是否指向相同的底层对象 __David Flanagan</p>
+</blockquote>
+<p>所以我们改成这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> cat = &#123;name:<span class="string">"tom"</span>&#125;</span><br><span class="line"><span class="keyword">var</span> dog = cat;</span><br><span class="line">b.name = <span class="string">"Haba"</span></span><br><span class="line"></span><br><span class="line">dog === cat <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h2 id="如何检测对象类型？或者怎么检测一个数据是数组类型？"><a href="#如何检测对象类型？或者怎么检测一个数据是数组类型？" class="headerlink" title="如何检测对象类型？或者怎么检测一个数据是数组类型？"></a>如何检测对象类型？或者怎么检测一个数据是数组类型？</h2><p>检测一个对象的类型，强烈推荐使用 Object.prototype.toString 方法； 因为这是唯一一个可依赖的方式。 我们使用Object.prototype.toString方法:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call([])    <span class="comment">// "[object Array]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(&#123;&#125;)    <span class="comment">// "[object Object]"</span></span><br><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="number">2</span>)    <span class="comment">// "[object Number]"</span></span><br></pre></td></tr></table></figure>
+<p>为什么不能用typeOf ？</p>
+<p>typeof只有在基本类型的检测上面才好使，在引用类型里面他返回的都是object，另 <code>typeof null === &quot;object&quot;</code></p>
+<h2 id="阐述原型链？js如何实现继承？"><a href="#阐述原型链？js如何实现继承？" class="headerlink" title="阐述原型链？js如何实现继承？"></a>阐述原型链？js如何实现继承？</h2><p>###原型链<br>JavaScrip可以采用构造器(constructor)生成一个新的对象,每个构造器都拥有一个prototype属性,而每个通过此构造器生成的对象都有一个指向该构造器原型(prototype)的内部私有的链接(proto),而这个prototype因为是个对象,它也拥有自己的原型,这么一级一级指导原型为null,这就构成了原型链.</p>
+<p>原型链的工作原理：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getProperty</span>(<span class="params">obj, prop</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (obj.hasOwnProperty(prop)) <span class="comment">//首先查找自身属性,如果有则直接返回</span></span><br><span class="line">        <span class="keyword">return</span> obj[prop]</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (obj.__proto__ !== <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">return</span> getProperty(obj.__proto__, prop) <span class="comment">//如何不是私有属性,就在原型链上一步步向上查找,直到找到,如果找不到就返回undefind</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="proto属性和prototype属性的区别"><a href="#proto属性和prototype属性的区别" class="headerlink" title="proto属性和prototype属性的区别"></a><strong>proto</strong>属性和prototype属性的区别</h3><p>prototype是function对象中专有的属性。<br><strong>proto</strong>是普通对象的隐式属性，在new的时候，会指向prototype所指的对象；<br><strong>ptoto</strong>实际上是某个实体对象的属性，而prototype则是属于构造函数的属性。<br><strong>ptoto</strong>只能在学习或调试的环境下使用。</p>
+<p>来看一个题目：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.prototype.a = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="built_in">Function</span>.prototype.b = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> f = <span class="keyword">new</span> F();</span><br><span class="line"><span class="comment">// f 能取到a,b吗？原理是什么？</span></span><br></pre></td></tr></table></figure>
+<p>这里抓住两点：</p>
+<ul>
+<li>构造函数通过 prototype 属性访问原型对象</li>
+<li>实例对象通过 [[prototype]] 内部属性访问原型对象，浏览器实现了 <code>__proto__</code>属性用于实例对象访问原型对象</li>
+</ul>
+<p>Object 为构造函数时，是Function的实例对象；Function为构造函数时，Function.prototype 是对象，那么他就是Object的实例对象。</p>
+<p>根据原型链的关系：</p>
+<p>Object和Function的原型链<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.__proto__   --&gt; [<span class="built_in">Function</span> prototype].__proto__ --&gt; [<span class="built_in">Object</span> prototype].__proto__ --&gt; <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Function</span>.__proto__ --&gt; [<span class="built_in">Function</span> prototype].__proto__ --&gt; [<span class="built_in">Object</span> prototype].__proto__ --&gt; <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.prototype   --&gt; [<span class="built_in">Object</span> prototype].__proto__ --&gt; <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Function</span>.prototype --&gt; [<span class="built_in">Function</span> prototype].__proto__ --&gt; [<span class="built_in">Object</span> prototype].__proto__ --&gt; <span class="literal">null</span></span><br></pre></td></tr></table></figure></p>
+<p>f是F的实例对象，其原型链：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">f.__proto__ -&gt; [F prototype].__proto__ -&gt; [<span class="built_in">Object</span> prototype].__proto__ -&gt; <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+<p>F是构造函数，他的原型链：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F.__proto__ -&gt; [<span class="built_in">Function</span> prototype].__proto__ -&gt; [<span class="built_in">Object</span> prototype].__proto__ -&gt; <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+<p>由此，只有F能够访问到Function的prototype,答案就是：“f只能a,但是F可以访问a,b”</p>
+<h3 id="new-关键字"><a href="#new-关键字" class="headerlink" title="new 关键字"></a>new 关键字</h3><p>new用于新建一个对象，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">cat</span> (<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> tom = <span class="keyword">new</span> cat();</span><br></pre></td></tr></table></figure>
+<p>new进行了如下操作：</p>
+<ul>
+<li>创建一个空对象，用this 变量引用该对象并继承改函数的原型</li>
+<li>属性和方法加入到this的引用对象中</li>
+<li>新创建的对象由this所引用，并且最后隐式的返回this<br>模拟过程：<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">newObj</span>(<span class="params">Fun,arguments</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> o = &#123;&#125;;</span><br><span class="line">    <span class="keyword">if</span> (Fun &amp;&amp; <span class="keyword">typeof</span> Fun === <span class="string">"function"</span>) &#123;</span><br><span class="line">        o.__proto__ = Fun.prototype;</span><br><span class="line">        Fun.apply(o, <span class="built_in">arguments</span>);</span><br><span class="line">        <span class="keyword">return</span> o;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h3><blockquote>
+<p>原型继承是借助已有的对象创建新的对象，将子类的原型指向父类，就相当于加入了父类这条原型链。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Animal</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.super = <span class="string">'animal'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.food = <span class="string">'fish'</span>;</span><br><span class="line">&#125;</span><br><span class="line">Cat.prototype = <span class="keyword">new</span> Animal(); <span class="comment">// Cat 继承了Animal</span></span><br><span class="line">Cat.prototype.getFood = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.food;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的方法中constructor指向有点问题：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var cat = new Cat(&apos;tom&apos;);</span><br><span class="line">cat.name // tom</span><br><span class="line">cat.super // animal</span><br><span class="line">cat.getFood() // fish</span><br><span class="line">//but</span><br><span class="line">cat.constructor === Cat //false</span><br><span class="line">cat.constructor === Animal //false</span><br></pre></td></tr></table></figure>
+<p>cat 的constructor 并没有指向Cat而是指向了父类Animal。我们需要对它进行修正:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.food = <span class="string">'fish'</span>;</span><br><span class="line">&#125;</span><br><span class="line">Cat.prototype = <span class="keyword">new</span> Animal();</span><br><span class="line">Cat.constructor = Animal;</span><br><span class="line">Cat.prototype.getFood = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.food;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好了上面就实现了一个简单的原型继承。<br>js的灵活性早就了实现继承的多样性，或者说因为他没有真正的类和继承，我们可以利用很多中方式来模拟它。原型继承是最有js特色的一直实现方式，也是使用最多的方式。</p>
+<p>关于面向对象，我想说js “几乎一切皆对象”，因为有原型链的存在我们能实现类似其他语言的继承。</p>
+<p>敬请关注我的专栏 <a href="https://zhuanlan.zhihu.com/jscss" target="_blank" rel="external">《前端杂货铺》</a></p>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

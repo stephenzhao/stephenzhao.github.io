@@ -309,9 +309,12 @@
 <p>cat 的constructor 并没有指向Cat而是指向了父类Animal。我们需要对它进行修正:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.food = <span class="string">'fish'</span>;</span><br><span class="line">&#125;</span><br><span class="line">Cat.prototype = <span class="keyword">new</span> Animal();</span><br><span class="line">Cat.prototype.constructor = Cat;</span><br><span class="line">Cat.prototype.getFood = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.food;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>好了上面就实现了一个简单的原型继承。<br>js的灵活性早就了实现继承的多样性，或者说因为他没有真正的类和继承，我们可以利用很多中方式来模拟它。原型继承是最有js特色的一直实现方式，也是使用最多的方式。</p>
-<p>关于面向对象，我想说js “几乎一切皆对象”，因为有原型链的存在我们能实现类似其他语言的继承。接下来的文章可能会讲解一下单线程模型和事件轮询。这块是个难点我也是看了好多资料后才搞明白了大概。这次的<a href="https://zhuanlan.zhihu.com/jscss" target="_blank" rel="external">面试系列</a>主要还是针对于“中高级前端”，也是一个进阶的层次，各位看官不要灰心一切都会有拨云见日的一天。</p>
+<p>关于面向对象，我想说js “几乎一切皆对象”，因为有原型链的存在我们能实现类似其他语言的继承。<br>其实这加上<a href="https://zhuanlan.zhihu.com/p/22109292?refer=jscss" target="_blank" rel="external">前面一篇</a>,两篇文章已经涵盖了js大半部分面试问题了，接下来的文章可能会讲解一下单线程模型和事件轮询。这块是个难点我也是看了好多资料后才搞明白了大概。这次的<a href="https://zhuanlan.zhihu.com/jscss" target="_blank" rel="external">面试系列</a>主要还是针对于“中高级前端”，也是一个进阶的层次，各位看官不要灰心一切都会有拨云见日的一天。</p>
 <p>女排夺冠了，今年好像好多我关注的时间都有了完美的结局，很是为他们高兴，也希望我的未来也是一个完美的结局，晚安。</p>
 <p>请关注我的专栏 <a href="https://zhuanlan.zhihu.com/jscss" target="_blank" rel="external">《前端杂货铺》</a></p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a href="http://javascript.ruanyifeng.com/oop/prototype.html" target="_blank" rel="external">prototype 对象</a></li>
+</ul>
 
             </div>
 

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="用css来做html代码检查"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>用css来做html代码检查 - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/css/">css</a> <a class="tag" href="/tags/html/">html</a> <a class="tag" href="/tags/lint/">lint</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>用css来做html代码检查</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Ire Aderinokun on
+                        
+                        2017-03-18
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>当我们在写HTML的时候，出现语法错误的时候很难察觉。这很容易导致代码里面有 无效的，诡异的僵尸代码，而且很不明显。</p>
+<p>有很多方法来检查我们的HTML代码，发现并解决错误，比如：使用 <a href="https://validator.w3.org/" target="_blank" rel="external">W3C标签校验服务</a> 。 另外我们也有简单的方法并且能将其整合到我们的工作流当中来，那就是：使用一些稍微高级的CSS选择器来高亮潜在问题区域。有一些简单的错误我们可以用CSS选择器来捕捉到他。</p>
+<p>#行内样式</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*<span class="selector-attr">[style]</span> &#123; </span><br><span class="line">    <span class="attribute">border</span>: <span class="number">5px</span> solid red; <span class="comment">/* Style to make the elements noticeable */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个选择器将标记处页面上所有写了行内样式的标签。由于行内样式权重很高所以很难覆盖它，通常我们需要避免写行内样式。尽管有时候我们必须要使用行内样式，这个方法也可以将它们高亮，作为个别案例评估标准。</p>
+<p>当用这个办法选中了问题元素后我们可以写任意的样式来让它们更加明显。</p>
+<p>#A标签里面的链接非法</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a:not([href]),  </span><br><span class="line">a[href="#"],  </span><br><span class="line">a[href=""],  </span><br><span class="line">a[href*="javascript:void(0)"] &#123; … &#125;</span><br></pre></td></tr></table></figure>
+<p>上述选择器将标记出A标签，无<code>href</code>, 活着有一个无效的<code>href</code>.</p>
+<p>#不可访问的图片Img标签</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">img:not([alt]) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>作为一个笼统的规则，所有的图片应该有alt属性。如果没有这个属性很多屏幕大多数屏幕阅读器将会读取<code>img</code>的src属性，这个信息对于用户来说是无用的，混淆的。</p>
+<p>还有一点应该注意，上述的选择器将不会选取带有空值的alt属性，例如 <code>&lt;img src=&quot;photo.png&quot; alt=&quot;&quot;&gt;</code>。 因为空值有可能是开发者蓄意让屏幕阅读器跳过这个img标签, 比如这个图片是纯装饰性的。但是将空值的标记出来，有时候也是需要的。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">img[alt=""] &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>#缺少文档语言</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">html:not([lang]),  </span><br><span class="line">html[lang=""] &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>所有的<code>html</code>标签都应该写明的属性就是<code>[lang]</code>属性。这个属性将会告诉屏幕阅读器这个网页用的是种语言，以使阅读器选择那种语言来朗读。</p>
+<p>如果没有这个标签会发生啥呢？来看个视频：</p>
+<blockquote>
+<p>分享自 <a href="https://twitter.com/HTeuMeuLeu" target="_blank" rel="external">@HTeuMeuLeu’s</a>  为什么设置 (eg. lang=”en”) 这么重要. 😂 <a href="https://t.co/tjn8GvPVKM" target="_blank" rel="external">https://t.co/tjn8GvPVKM</a></p>
+</blockquote>
+<p>#错误的编码</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">meta[charset]:not([charset="UTF-8"]) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>这个选择器将选中任何一个没有设置UTF-8属性的meta编码标签。这个标签是高速浏览器使用UTF-8来编码。UTF-8是目前推荐的HTML文档编码格式，<a href="https://validator.w3.org/docs/help.html#faq-charset" target="_blank" rel="external">W3C的valid HTML</a>要求必须标明编码格式。<br>理想情况下这个标签需要放在<code>&lt;head&gt;</code>里面第一个位置。我们同样可以检测出来。 </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">meta[charset="UTF-8"]:not(:first-child) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>#无法读取的视口属性</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">meta[name="viewport"][content*="user-scalable=no"],  </span><br><span class="line">meta[name="viewport"][content*="maximum-scale"],  </span><br><span class="line">meta[name="viewport"][content*="minimum-scale"] &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>这个选择器将标记处无法读取的视口属性。</p>
+<p>#没有label包围的表单</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">input:not([id]),  </span><br><span class="line">select:not([id]),  </span><br><span class="line">textarea:not([id]) &#123; ... &#125;</span><br><span class="line"></span><br><span class="line">label:not([for]) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>当谈到加标注表单元素应该是最重要的元素。尽管有很多方式来给表单元素加标注，最常用的方式是在指代该表单元素的<code>label</code>元素上添加ID。上面的选择器是检测label上面没有添加ID并且<code>label</code>元素没有明确用ID指代表单元素。</p>
+<p>另外一种方式是用过name来标记表单元素。ID属性被用来标明该元素在HTML文档中的上下文的，name 属性则是来指代将要被form data 提交的元素。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">input:not([name]),  </span><br><span class="line">select:not([name]),  </span><br><span class="line">textarea:not([name]) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>另外我们也可以要求给form元素添加 name 活着ID。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">form:not([name]):not([id]) &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>#空的交互式元素</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">button:empty,  </span><br><span class="line">a:empty &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+<p>交互式元素，例如链接、按钮是典型的被它的内容标记的元素。尽管有别的方式来标记这个元素，比如<code>aria-label</code>属性，如果这些元素内容为空好是一个错误的信号。</p>
+<p>#没有必要活着废物的属性</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">script[type="text/javascript"],  </span><br><span class="line">link[rel="stylesheet"][type="text/css"] &#123; ... &#125;</span><br></pre></td></tr></table></figure>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

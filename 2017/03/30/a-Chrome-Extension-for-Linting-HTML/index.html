@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="可以检查html代码的chrome扩展"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>可以检查html代码的chrome扩展 - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/前端/">前端</a> <a class="tag" href="/tags/chrome扩展/">chrome扩展</a> <a class="tag" href="/tags/html/">html</a> <a class="tag" href="/tags/lint/">lint</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>可以检查html代码的chrome扩展</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Ire Aderinokun , Damon on
+                        
+                        2017-03-30
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <blockquote>
+<p>本文在原文的基础上添加了一些关于如何创建chrome扩展的完整细节，帮助读者更好创建属于自己的<br>chrome扩展</p>
+</blockquote>
+<p>上周我们说了如何用css给html做代码检查。基本思想就是利用css高级选择器(如：<code>:not()</code> ),来筛选出文档里特定的元素。如我们可以选择所有没有添加替代文本(<code>alt</code>属性)的图片并将其在页面中标出。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[alt]</span>) &#123;  </span><br><span class="line">    <span class="attribute">border</span>: <span class="number">5px</span> solid red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Add an error message */</span></span><br><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[alt]</span>)<span class="selector-pseudo">::after</span> &#123;  </span><br><span class="line">   <span class="attribute">content</span>: <span class="string">"Images must have an alt attribute"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>目前比较流行的html代码检查方案是<a href="http://ffoodd.github.io/a11y.css/" target="_blank" rel="external">ally.css</a>,作者是<a href="https://twitter.com/ffoodd_fr" target="_blank" rel="external">Gaël Poupard</a>.今天我们要做的事情是把它做成一个浏览器扩展（chrome扩展），让开发者们更好的使用。</p>
+<h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><p>我觉有必要说一下chrome扩展的开发。Chrome扩展其实就是一个配置文件 manifest.json 和一系列 HTML、CSS、JS、图片文件的集合。</p>
+<p>一个简单目录结构是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--chrome extension</span><br><span class="line">  |--manifest.json</span><br><span class="line">  |--script.js</span><br><span class="line">  |--style.css</span><br><span class="line">  |--popup.html</span><br></pre></td></tr></table></figure>
+<p><code>manifest.json</code>是Chrome扩展的入口文件，扩展被安装后，Chrome就会读取扩展中的manifest.json文件，这样Chrome就可以知道在浏览器中如何呈现这个扩展，以及这个扩展如何同用户进行交互。</p>
+<h2 id="定义我们的manifest-json文件"><a href="#定义我们的manifest-json文件" class="headerlink" title="定义我们的manifest.json文件"></a>定义我们的manifest.json文件</h2><p><code>manifest.json</code>文件定义了扩展的名称（name）、版本（version）、描述（description）、图标位置（icons）和 Manifest 版本（manifest_version）等信息。其中，name、version 和 manifest_version 是必须的。 </p>
+<p>下面是我们定义的<code>manifest.json</code>文件: </p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"manifest_version"</span>: <span class="number">2</span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"Alix for Chrome"</span>,</span><br><span class="line">  <span class="attr">"short_name"</span>: <span class="string">"Alix"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">"Lorem ipsum"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.1"</span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">"permissions"</span>: [</span><br><span class="line">      <span class="string">"activeTab"</span></span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">  <span class="attr">"browser_action"</span>: &#123;</span><br><span class="line">    <span class="attr">"default_title"</span>: <span class="string">"Toggle Alix"</span>,</span><br><span class="line">    <span class="attr">"default_popup"</span>: <span class="string">"popup/index.html"</span>,</span><br><span class="line">    <span class="attr">"default_icon"</span>: &#123;</span><br><span class="line">      <span class="attr">"19"</span>: <span class="string">"images/toolbar-chrome.png"</span>,</span><br><span class="line">      <span class="attr">"38"</span>: <span class="string">"images/toolbar-chrome@2x.png"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">"icons"</span>: &#123;</span><br><span class="line">      <span class="attr">"128"</span>: <span class="string">"icon_128.png"</span>,</span><br><span class="line">      <span class="attr">"16"</span>: <span class="string">"icon_16.png"</span>,</span><br><span class="line">      <span class="attr">"48"</span>: <span class="string">"icon_48.png"</span></span><br><span class="line">   &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">"web_accessible_resources"</span>: [</span><br><span class="line">    <span class="string">"a11y.css/a11y-en_advice.css"</span>,</span><br><span class="line">    <span class="string">"a11y.css/a11y-en_error.css"</span>,</span><br><span class="line">    <span class="string">"a11y.css/a11y-en_obsolete.css"</span>,</span><br><span class="line">    <span class="string">"a11y.css/a11y-en_warning.css"</span>,</span><br><span class="line">    <span class="string">"a11y.css/a11y-fr_advice.css"</span>,</span><br><span class="line">    <span class="string">"a11y.css/a11y-fr_error.css"</span>,</span><br><span class="line">    <span class="string">"a11y.css/a11y-fr_obsolete.css"</span>,</span><br><span class="line">    <span class="string">"a11y.css/a11y-fr_warning.css"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里给出一些配置项的解释：</p>
+<ul>
+<li><code>manifest_version</code>: manifest.json文件格式的版本，Chorme 18以上的version是2。</li>
+<li><code>permissions</code>: 一个数组，定义了扩展需要向 Chrome 申请的权限，比如通过 XMLHttpRequest 跨域请求数据、访问浏览器选项卡（tabs）、获取当前活动选项卡（activeTab）、浏览器通知（notifications）、存储（storage）等。</li>
+<li><code>browser_action</code>:指定扩展的图标放在 Chrome 工具栏中，它定义了扩展图标文件位置（default_icon）、悬浮提示（default_title）和点击扩展图标所显示的页面位置（default_popup）</li>
+<li><code>web_accessible_resources</code>: 一个数组，定义了在扩展里可能被用到的资源。</li>
+</ul>
+<h2 id="创建一个Popup"><a href="#创建一个Popup" class="headerlink" title="创建一个Popup"></a>创建一个Popup</h2><p><img src="https://bitsofco.de/content/images/2017/03/Screen-Shot-2017-03-08-at-09.32.02.png" alt="创建一个Popup"><br>Popup 就是一个简单的html页面，我们可以从<code>browser_action/default_popup</code> 读取到。当我们点击工具栏上面的icon的时候他将被触发。我们可以给这个页面添加任意的样式。</p>
+<h2 id="注入ally-css样式文件"><a href="#注入ally-css样式文件" class="headerlink" title="注入ally.css样式文件"></a>注入ally.css样式文件</h2><p>接下来我们要做的事是将相对应的 ally.css文件注入到当前打开的浏览器页面里面。为了实现这一功能我们需要在浏览器页面里面跑一段js，这段js创建一个<code>&lt;link rel=&quot;stylesheet&quot;&gt;</code> 在当前页面。这里我们可以用<code>chrome.tabs.executeScript()</code>的方法。我们可以给这个方法传入<code>{code: &#39;&#39;}</code> code里面是你要执行的代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addStylesheet</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Get file path based on language and level options from form</span></span><br><span class="line">    <span class="keyword">const</span> file = <span class="string">`/a11y.css/a11y-<span class="subst">$&#123;options.language&#125;</span>_<span class="subst">$&#123;options.level&#125;</span>.css`</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> code = <span class="string">`</span><br><span class="line">        var stylesheet = document.createElement("link");</span><br><span class="line">        stylesheet.rel = "stylesheet";</span><br><span class="line">        stylesheet.href = chrome.extension.getURL("<span class="subst">$&#123;file&#125;</span>");</span><br><span class="line">        stylesheet.id = "a11yCSS";</span><br><span class="line">        document.getElementsByTagName("head")[0].appendChild(stylesheet);</span><br><span class="line">    `</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Execute script on active tab</span></span><br><span class="line">    chrome.tabs.executeScript(&#123;code: code&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>打开 Chrome 设置-扩展程序（chrome://extensions/）页面，勾选 开发者模式，点击 加载正在开发的扩展程序 按钮，选择扩展所在的文件夹，就可以在浏览器工具栏中看到自己写的扩展了。</p>
+<p>地址：<a href="https://github.com/ireade/alix" target="_blank" rel="external">源码</a> <a href="https://chrome.google.com/webstore/detail/alix-for-chrome/aepmadgjacfjcneccddiccnkbpimobge" target="_blank" rel="external">webstore</a></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://developer.chrome.com/extensions/manifest" target="_blank" rel="external">https://developer.chrome.com/extensions/manifest</a> </li>
+<li><a href="http://open.chrome.360.cn/extension_dev/overview.html" target="_blank" rel="external">http://open.chrome.360.cn/extension_dev/overview.html</a></li>
+<li><a href="http://ffoodd.github.io/a11y.css/" target="_blank" rel="external">http://ffoodd.github.io/a11y.css/</a></li>
+<li><a href="http://www.ituring.com.cn/minibook/950" target="_blank" rel="external">http://www.ituring.com.cn/minibook/950</a></li>
+</ul>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

@@ -185,7 +185,7 @@
                                     
 
 
-<a class="tag" href="/tags/前端/">前端</a> <a class="tag" href="/tags/chrome扩展/">chrome扩展</a> <a class="tag" href="/tags/html/">html</a> <a class="tag" href="/tags/lint/">lint</a>
+<a class="tag" href="/tags/前端/">前端</a> <a class="tag" href="/tags/html/">html</a> <a class="tag" href="/tags/chrome扩展/">chrome扩展</a> <a class="tag" href="/tags/lint/">lint</a>
 
 
                                 
@@ -219,11 +219,12 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <blockquote>
-<p>本文在原文的基础上添加了一些关于如何创建chrome扩展的完整细节，帮助读者更好创建属于自己的<br>chrome扩展</p>
+<p>本文在原文的基础上添加了一些关于如何创建chrome扩展的完整细节，帮助读者更好创建属于自己的chrome扩展</p>
 </blockquote>
 <p>上周我们说了如何用css给html做代码检查。基本思想就是利用css高级选择器(如：<code>:not()</code> ),来筛选出文档里特定的元素。如我们可以选择所有没有添加替代文本(<code>alt</code>属性)的图片并将其在页面中标出。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[alt]</span>) &#123;  </span><br><span class="line">    <span class="attribute">border</span>: <span class="number">5px</span> solid red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Add an error message */</span></span><br><span class="line"><span class="selector-tag">img</span><span class="selector-pseudo">:not(</span><span class="selector-attr">[alt]</span>)<span class="selector-pseudo">::after</span> &#123;  </span><br><span class="line">   <span class="attribute">content</span>: <span class="string">"Images must have an alt attribute"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>目前比较流行的html代码检查方案是<a href="http://ffoodd.github.io/a11y.css/" target="_blank" rel="external">ally.css</a>,作者是<a href="https://twitter.com/ffoodd_fr" target="_blank" rel="external">Gaël Poupard</a>.今天我们要做的事情是把它做成一个浏览器扩展（chrome扩展），让开发者们更好的使用。</p>
+<p><img src="https://cloud.githubusercontent.com/assets/11269635/23892433/d7c03a4c-089a-11e7-96cc-9ac1cdef5488.gif" alt=""></p>
 <h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><p>我觉有必要说一下chrome扩展的开发。Chrome扩展其实就是一个配置文件 manifest.json 和一系列 HTML、CSS、JS、图片文件的集合。</p>
 <p>一个简单目录结构是这样的：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--chrome extension</span><br><span class="line">  |--manifest.json</span><br><span class="line">  |--script.js</span><br><span class="line">  |--style.css</span><br><span class="line">  |--popup.html</span><br></pre></td></tr></table></figure>

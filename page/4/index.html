@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>page - Damon 的博客，学习总结 思考感悟 知识管理</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in the theme's configuration: index_cover -->
+
+<header class="intro-header index-page" data-imgs='["/img/for_blog/1.jpg","/img/for_blog/2.jpg","/img/for_blog/3.jpg","/img/for_blog/4.jpg","/img/for_blog/5.jpg","/img/for_blog/6.jpg","/img/for_blog/7.jpg"]' style="background-image: url('')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading">
+                    <h1>Damon</h1>
+                    <!-- <hr class="small"> -->
+                    <span class="subheading">前端 · 设计 · 摄影</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                postlist-container
+            ">
+            
+                <div class="post-preview">
+    <a href="/2016/05/18/webpack-optimizin/">
+        <h2 class="post-title">
+            Webpack之性能优化
+        </h2>
+        
+            <h3 class="post-subtitle">
+                为了瘦身你的js（还有你的css，如果你用到css-loader的话）webpack支持一个简单的配置项
+            </h3>
+        
+        <div class="post-content-preview">
+            
+            
+optimization
+
+最小化为了瘦身你的js（还有你的css，如果你用到css-loader的话）webpack支持一个简单的配置项：
+1--optimize-minimize new webpack.optimize.UglifyJsPlugin()
+这是一种简单而有效的方法来优化你的webapp。
+如果你已经阅读过我们前面的文档，我想你已经知道webpack提供了modules ...
+        </div>
+    </a>
+    <p class="post-meta">
+        <!-- Date and Author -->
+        
+            Posted by Damon on
+        
+        2016-05-18
+    </p>
+</div>
+<hr>
+            
+                <div class="post-preview">
+    <a href="/2016/05/13/hello-world/">
+        <h2 class="post-title">
+            Hello World
+        </h2>
+        
+        <div class="post-content-preview">
+            
+            也算搭好了一个静态博客。2016年 快过去一半了，我抛弃了拖延症，弄好了碎碎念的博客。
+干前端这么久一直以来都没时间好好的写点东西，沉淀沉淀，很是惭愧。所以一不做二不休，打一个静态博客来开始写吧。。
+
+        </div>
+    </a>
+    <p class="post-meta">
+        <!-- Date and Author -->
+        
+            Posted by Damon on
+        
+        2016-05-13
+    </p>
+</div>
+<hr>
+            
+
+            <ul class="pager">
+    
+        <li class="previous"><a href="/page/3/">&larr;  下一页</a></li>
+    
+    
+</ul>
+        </div>
+        <!-- Left Sidebar Container  -->
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    <!-- Featured Tags -->
+    
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5><a href='/tags/'>FEATURED TAGS</a></h5>
+        <div class="tags">
+            <a href="/tags/设计模式/" style="font-size: 14px;">设计模式</a> <a href="/tags/设计/" style="font-size: 14px;">设计</a> <a href="/tags/翻译/" style="font-size: 14px;">翻译</a> <a href="/tags/算法/" style="font-size: 14px;">算法</a> <a href="/tags/独立开发者/" style="font-size: 14px;">独立开发者</a> <a href="/tags/模块化/" style="font-size: 14px;">模块化</a> <a href="/tags/快捷键/" style="font-size: 14px;">快捷键</a> <a href="/tags/前端面试/" style="font-size: 14px;">前端面试</a> <a href="/tags/前端框架/" style="font-size: 14px;">前端框架</a> <a href="/tags/前端工程化/" style="font-size: 14px;">前端工程化</a>
+        </div>
+    </section>
+    
+
+    <!-- Short About -->
+    <section class="visible-md visible-lg">
+        <hr><h5><a href='/about/'>ABOUT ME</a></h5>
+        <div class="short-about">
+            
+                <img src= https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180
+            
+
+            
+                <p>传说中的前端工程师 业余设计师 摄影爱好者</p>
+            
+            <!-- SNS Link -->
+            <ul class="list-inline">
+                
+                    
+
+                
+                    
+
+                
+                    
+
+                
+                    
+                        <li>
+                            <a href="http://zhuanlan.zhihu.com/jscss">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    
+                                        <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                                    
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                
+                    
+                        <li>
+                            <a href="http://weibo.com/518057456/">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    
+                                    <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                    
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                
+                    
+                        <li>
+                            <a href="https://github.com/stephenzhao">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                
+            </ul>
+        </div>
+    </section>
+    <!-- Friends Blog -->
+    
+    <hr>
+    <h5>FRIENDS</h5>
+    <ul class="list-inline">
+        
+            <li><a href="http://zhuanlan.zhihu.com/jscss">前端杂货铺</a></li>
+        
+            <li><a href="http://qianduan.guru/">前端外刊评论</a></li>
+        
+    </ul>
+    
+</div>
+
+    </div>
+</div>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="ES6 modules 即将到来，现在该考虑新的打包方案了嘛？"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>ES6 modules 即将到来，现在该考虑新的打包方案了嘛？ - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/前端/">前端</a> <a class="tag" href="/tags/ES6-modules/">ES6 modules</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>ES6 modules 即将到来，现在该考虑新的打包方案了嘛？</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Damon on
+                        
+                        2017-06-05
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>近年来，构建高性能JavaScript应用是一个复杂的工程。几年前，从为了节省HTTP开销做代码合并开始到压缩混淆变量名来挤出最后一bit的代码放在我们的工程里。</p>
+<p>现在我们必须tree shaking以及打包我们的模块，然后回过头来，为了不阻塞主进程加快首屏加载速度做代码拆分。我们同时也更换了所有的东西：使用上未来的一些特性？没问题，这得归功于Babel！</p>
+<p>ES6 modules已经定义到了ECMAScript规范里面有段时间了。社区的人们也写了很多文章布道怎么配合Babel来使用以及说明了import和node里的require的区别。但是在浏览器端完整的实现还需要一点时间。<br>很欣喜的看到Safari第一个在其工程预览版搭载ES6 modules，现在Edge 和 Firefox Nightly也搭载了这个功能。在经历过使用像RequireJs Browserify（还记得AMD和common js之争吗）似乎modules终将到达浏览器领地，那么就让我们来看看未来将会带给我们什么吧</p>
+<h2 id="常规的设置"><a href="#常规的设置" class="headerlink" title="常规的设置"></a>常规的设置</h2><p>通常构建web应用的方式是加载Browserify, Rollup 和 Webpack (or 或者市面上的其他工具)build出来的bundle。一个经典网站（非SPA）就是由一个服务端渲染的HTML里面加载了一个单文件的JS bundle。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>ES6 modules tryout<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- defer to not block rendering --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"dist/bundle.js"</span> <span class="attr">defer</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上面个包含了三个js文件的bundle是有Webpack打包，这些文件都使用了ESM（ES6 modules）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app/index.js</span></span><br><span class="line"><span class="keyword">import</span> dep1 <span class="keyword">from</span> <span class="string">'./dep-1'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getComponent</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> element = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">  element.innerHTML = dep1();</span><br><span class="line">  <span class="keyword">return</span> element;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(getComponent());</span><br><span class="line"></span><br><span class="line"><span class="comment">// app/dep-1.js</span></span><br><span class="line"><span class="keyword">import</span> dep2 <span class="keyword">from</span> <span class="string">'./dep-2'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> dep2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// app/dep-2.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'Hello World, dependencies loaded!'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>app运行的结果是 ‘Hello world’，说明所有的文件已经加载了。</p>
+<h2 id="装载bundle"><a href="#装载bundle" class="headerlink" title="装载bundle"></a>装载bundle</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> UglifyJSPlugin = <span class="built_in">require</span>(<span class="string">'uglifyjs-webpack-plugin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./app/index.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">'dist'</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> UglifyJSPlugin()</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这三个文件实际上很小总共才347个字节。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ll app</span><br><span class="line">total 24</span><br><span class="line">-rw-r--r--  1 stefanjudis  staff    75B Mar 16 19:33 dep-1.js</span><br><span class="line">-rw-r--r--  1 stefanjudis  staff    75B Mar  7 21:56 dep-2.js</span><br><span class="line">-rw-r--r--  1 stefanjudis  staff   197B Mar 16 19:33 index.js</span><br></pre></td></tr></table></figure>
+<p>当我帮用Webpack跑一遍后我得到的bundle大小是865字节，里面大概有500字节的母版。这些额外的字节是可以接受的，因为和我们平时在大多数生产环境放的代码比不算什么。感谢Webpack，我们能提前用上ESM。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ webpack</span><br><span class="line">Hash: <span class="number">4</span>a237b1d69f142c78884</span><br><span class="line">Version: webpack <span class="number">2.2</span><span class="number">.1</span></span><br><span class="line">Time: <span class="number">114</span>ms</span><br><span class="line">Asset       Size        Chunks  Chunk Names</span><br><span class="line">bundle.js   <span class="number">856</span> bytes   <span class="number">0</span>       [emitted]  main</span><br><span class="line">  [<span class="number">0</span>] ./app/dep<span class="number">-1.</span>js <span class="number">78</span> bytes &#123;<span class="number">0</span>&#125; [built]</span><br><span class="line">  [<span class="number">1</span>] ./app/dep<span class="number">-2.</span>js <span class="number">75</span> bytes &#123;<span class="number">0</span>&#125; [built]</span><br><span class="line">  [<span class="number">2</span>] ./app/index.js <span class="number">202</span> bytes &#123;<span class="number">0</span>&#125; [built]</span><br></pre></td></tr></table></figure>
+<h1 id="新方案，使用原生支持的ESM"><a href="#新方案，使用原生支持的ESM" class="headerlink" title="新方案，使用原生支持的ESM"></a>新方案，使用原生支持的ESM</h1><p>对于所有的不支持ESM的浏览器我们有“传统的bundle”，但是现在我们要玩一些更酷的东西了。首先在index.html里面添加一个新的script标签指定其类型为ESM：<code>type=&quot;module&quot;</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>ES6 modules tryout<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- in case ES6 modules are supported --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"app/index.js"</span> <span class="attr">type</span>=<span class="string">"module"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"dist/bundle.js"</span> <span class="attr">defer</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>但我们打开Chrome的时候，我们看到好像没有什么事情发生。</p>
+<p><img src="//images.contentful.com/256tjdsmm689/4JHwnbyrssomECAG2GI8se/e8e35adc37bc0627f0902bcc2fdb52df/image01.png" alt="image01"></p>
+<p>bundle首先加载了，展示出了“Hello World”，仅仅这样而已。但是这就是浏览器的高明之处，他会忽略掉他不理解的标记类型而不是抛出错误。Chrome也一样他忽略了他不知道类型的script标签。</p>
+<p>现在，我们来看看Safari预览版的效果：</p>
+<p><img src="//images.contentful.com/256tjdsmm689/4JHwnbyrssomECAG2GI8se/e8e35adc37bc0627f0902bcc2fdb52df/image01.png" alt="Safari预览版的效果"></p>
+<p>很遗憾，没有展示出“Hello World”。原因在于webpack打包的文件和ESM的不同：webpack能在构建时候就为我们找到文件依赖，但是ESM需要我们手动的去定义准确的文件目录。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app/index.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// This needs to be changed</span></span><br><span class="line"><span class="comment">// import dep1 from './dep-1';</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// This works</span></span><br><span class="line"><span class="keyword">import</span> dep1 <span class="keyword">from</span> <span class="string">'./dep-1.js'</span>;</span><br></pre></td></tr></table></figure>
+<p>调整之后工作正常了，期望的是Safari 预览版，加载bundle和三个独立的modules，也就是说程序会执行两次。</p>
+<p><img src="//images.contentful.com/256tjdsmm689/6MeIDF7GuW6gy8om4Ceccc/a0dba00a4e0f301f2a7fd65449d044ab/image02.png" alt="image02"></p>
+<p>解决这个问题可以使用 <code>nomodule</code>属性，它可以在script标签上控制bundle的加载。<br>这个属性的细则很快也会出来，，一月底Safari预览版已经支持了。它会告诉不支持ESM的Safari在ESM不能执行时才执行回退的bundle。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>ES6 modules tryout<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- in case ES6 modules are supported --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"app/index.js"</span> <span class="attr">type</span>=<span class="string">"module"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- in case ES6 modules aren't supported --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"dist/bundle.js"</span> <span class="attr">defer</span> <span class="attr">nomodule</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img src="//images.contentful.com/256tjdsmm689/1YchZEromA2ueKUCoYqMsc/2c68c46ffd2a3ad73d99d17020d56093/image03.png" alt="image03"></p>
+<p>很好，有了这个组合我们既可以在不支持的浏览器里加载经典的bundle也可以在支持的浏览器加载ESM。</p>
+<p><a href="http://es-module-on.stefans-playground.rocks/" target="_blank" rel="external">Demo地址</a>.</p>
+<h1 id="modules和script的不同"><a href="#modules和script的不同" class="headerlink" title="modules和script的不同"></a>modules和script的不同</h1><p>这里有一些陷阱。首先跑在ESM下的JS和一般的script标签里面的些许不同。Axel Rauschmayer总结了几点不同在他的新书 <a href="http://exploringjs.com/es6/ch_modules.html#sec_modules-vs-scripts" target="_blank" rel="external">《探索ES6》</a>里面。我推荐大家去看看，在这里我列举一下主要的不同。</p>
+<ul>
+<li>ESM 默认在严格模式下运行（无须指明‘use strict</li>
+<li>’）</li>
+<li>顶级This是undefined</li>
+<li>顶级变量是相对于module的局部变量</li>
+<li>ESM是在浏览器解析万HTML加载并且异步执行的。</li>
+</ul>
+<p>我觉得这些特点有很大的优势，Modules是局部的，就不需要在外面包一层IIFE，也不用担心全局变量污染，还能少些很多‘use strict’ 声明。。</p>
+<p>从页面性能来看（这个可能是最重要的点）模块默认是懒加载和懒执行。这样当我们使用<code>type=&quot;module&quot;</code>时候，就避免了意外加入一段阻塞页面的script的可能并且也将不会有<a href="https://www.stevesouders.com/blog/2010/06/01/frontend-spof/" target="_blank" rel="external">SPOF</a>问题。当然我们也可以设置异步属性：<code>async</code>,他将替代默认的延迟属性。但是还是得强调，<a href="https://calendar.perfplanet.com/2016/prefer-defer-over-async/" target="_blank" rel="external">延迟是一个好的选择</a>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- not blocking with defer default behavior --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"app/index.js"</span> <span class="attr">type</span>=<span class="string">"module"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- executed after HTML is parsed --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span>&gt;</span><span class="javascript"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'js module'</span>);</span><br><span class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- executed immediately --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'standard module'</span>);</span><br><span class="line"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="压缩-ES6代码"><a href="#压缩-ES6代码" class="headerlink" title="压缩 ES6代码"></a>压缩 ES6代码</h1><p>还没完，我们刚刚给出了一个压缩后的bundle给Chrome，也给Safari提供了独立的没有压缩的文件。但是我们怎么让他们体积变小呢？UglifyJS可以胜任这份工作吗？</p>
+<p>事实证明不行，它还不能完全处理ES6的代码。UglifyJS有一个<code>harmony</code>版本，但是在发稿前我试了还不能很好的压缩我的那仨个文件。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ uglifyjs dep-<span class="number">1</span>.js -o dep-<span class="number">1</span>.min.js</span><br><span class="line">Parse error <span class="built_in">at</span> dep-<span class="number">1</span>.js:<span class="number">3</span>,<span class="number">23</span></span><br><span class="line">export default function() &#123;</span><br><span class="line">                      ^</span><br><span class="line"><span class="function">SyntaxError: <span class="title">Unexpected</span> <span class="title">token</span>: <span class="title">punc</span> (()</span><br><span class="line">// ..</span><br><span class="line"><span class="title">FAIL</span>: 1</span></span><br></pre></td></tr></table></figure>
+<p>但是，如今UglifyJS几乎在每一种工具链里面都能看到，怎么就不能处理用ES6写的代码呢？</p>
+<p>通常的工作流是先用Babel这样的工具将其转化为ES5代码，然后再由UglifyJS来压缩ES5的代码。但是在这里，我想跳过这个步骤，我们在处理未来的问题。<a href="https://kangax.github.io/compat-table/es6/#chrome59" target="_blank" rel="external">Chrome的ES6覆盖率达到97%</a> Safari 预览版已经 <a href="https://kangax.github.io/compat-table/es6/#safari10_1" target="_blank" rel="external">100%</a>了。</p>
+<p>后来，我在Twitter圈里面问有没有好的办法来压缩ES6代码。<a href="https://twitter.com/larsgraubner" target="_blank" rel="external">Lars Graubner</a> 给我介绍了<a href="https://github.com/babel/babili" target="_blank" rel="external">Babili</a>，使用它我们很容易压缩我们的ES6模块。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app/dep-2.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'Hello World. dependencies loaded.'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// dist/modules/dep-2.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="string">'Hello World. dependencies loaded.'</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>使用Babili CLI ,就更加方便了：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ babili app -d dist/modules</span><br><span class="line">app/dep-<span class="number">1</span>.js -&gt; dist/modules/dep-<span class="number">1</span>.js</span><br><span class="line">app/dep-<span class="number">2</span>.js -&gt; dist/modules/dep-<span class="number">2</span>.js</span><br><span class="line">app/index.js -&gt; dist/modules/index.js</span><br></pre></td></tr></table></figure>
+<p>结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$ ll dist</span><br><span class="line">-rw-r--r--  1 stefanjudis  staff   856B Mar 16 22:32 bundle.js</span><br><span class="line"></span><br><span class="line">$ ll dist/modules</span><br><span class="line">-rw-r--r--  1 stefanjudis  staff    69B Mar 16 22:32 dep-1.js</span><br><span class="line">-rw-r--r--  1 stefanjudis  staff    68B Mar 16 22:32 dep-2.js</span><br><span class="line">-rw-r--r--  1 stefanjudis  staff   161B Mar 16 22:32 index.js</span><br></pre></td></tr></table></figure>
+<p>可以看到，压缩后的bundle依然有850B，但是单独三个文件加起来才300B。这里我忽略了GZIP压缩，因为这<a href="http://webmasters.stackexchange.com/questions/31750/what-is-recommended-minimum-object-size-for-gzip-performance-benefits" target="_blank" rel="external">对于小文件来说影响甚微</a>。</p>
+<h1 id="用rel-preload-加速ES6-modules"><a href="#用rel-preload-加速ES6-modules" class="headerlink" title="用rel=preload? 加速ES6 modules"></a>用rel=preload? 加速ES6 modules</h1><p>压缩单文件取得成功，这是一个 298B vs. 856B的优化。但是，我们还可以做得更好，让其速度更快。使用ESM我们可以加载更少的代码，但是当我们打开调试面板的瀑布图，我们可以看到文件请求是根据模块定义的依赖链循序的加载。</p>
+<p>我们可不可以添加一个标签 <code>&lt;link rel=&quot;preload&quot; as=&quot;script&quot;&gt;</code> 用来提前告诉浏览器未来会发出一些额外的请求？ <a href="https://github.com/GoogleChrome/preload-webpack-plugin" target="_blank" rel="external">Addy Osmani 的 Webpack preload plugin</a>就是干这个的。那么有没有类似的东西应用到ESM来呢？以防你不知道<code>rel=&quot;preload&quot;</code>怎么回事，可以看看<a href="https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/" target="_blank" rel="external">Yoav Weiss 在 Smashing Magazine的文章</a></p>
+<p>很不幸的是， 预加载的功能造ESM不容易实现，因为他们不像一般的script。问题在于一个 带有<code>preload</code>属性<code>link</code>元素怎么处理一个ESM？是不是要加载所有的以来文件？答案很明显的，但是如果要加入预加载指令浏览器端实现也会有很多问题需要解决。</p>
+<p>如果你对这个话题感兴趣可以<a href="https://twitter.com/domenic" target="_blank" rel="external">Domenic Denicola</a>在<a href="https://github.com/whatwg/fetch/issues/486" target="_blank" rel="external">github inssue</a>关于这个问题的讨论。但至少我们知道<code>rel=&quot;preload&quot;</code>指令在处理一般script和ESM之间有很多不同。就在我写这篇问章的时候一个社区<a href="https://github.com/whatwg/html/pull/2383" target="_blank" rel="external">提了一个规范</a>来解决这些问题，就是用一个新的<code>rel=&quot;modulepreload&quot;</code>指令。未来我们怎么预加载，让我们拭目以待。</p>
+<h1 id="引入真实的依赖"><a href="#引入真实的依赖" class="headerlink" title="引入真实的依赖"></a>引入真实的依赖</h1><p>三个文件不能构成真正的App，我们加入真正的依赖。刚好，<a href="https://lodash.com/" target="_blank" rel="external">Lodash</a>提供了他函数所有的ESM实现，我用Babili压缩了他们。接下来我们修改index.js，让其引入<code>Lodash</code>方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> dep1 <span class="keyword">from</span> <span class="string">'./dep-1.js'</span>;</span><br><span class="line"><span class="keyword">import</span> isEmpty <span class="keyword">from</span> <span class="string">'./lodash/isEmpty.js'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getComponent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> element = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">  element.innerHTML = dep1() + <span class="string">' '</span> + isEmpty([]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> element;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.body.appendChild(getComponent());</span><br></pre></td></tr></table></figure>
+<p>关于<code>isEmpty</code>使用在这里不重要了，我们来看一下加入真实依赖发生了生什么。<br><img src="//images.contentful.com/256tjdsmm689/13F95Xpl32Mu0MgE0mgS2o/c9dbc002e53bf56ee0eeb0df40b55f9c/image07.png" alt="image07"></p>
+<p>The use of isEmpty is trivial in this case, but let’s see what happens now after adding this dependency.</p>
+<p>image07<br>请求一下子增长到了超过40个，在一般的WiFi环境下页面加载速度从100ms涨到400ms到800ms，并且所有装载文件加起来达到了大约12KB，没有被压缩。很不幸Safari不支持<a href="https://www.webpagetest.org/" target="_blank" rel="external">WebPagetest</a>来跑分。</p>
+<p>Chrome接收到的bundle文件差不多为8KB。<br><img src="//images.contentful.com/256tjdsmm689/6xxfWBW9nqAeqQ8ck0MqU/62a74102e9247d785a61a84766356f51/image05.png" alt="//images.contentful.com/256tjdsmm689/6xxfWBW9nqAeqQ8ck0MqU/62a74102e9247d785a61a84766356f51/image05.png"></p>
+<p>4KB的差距，足以让我们去查一下原因在哪。demo<a href="https://lodash-module-on.stefans-playground.rocks/" target="_blank" rel="external">地址</a></p>
+<h1 id="只有在大文件的压缩效果好"><a href="#只有在大文件的压缩效果好" class="headerlink" title="只有在大文件的压缩效果好"></a>只有在大文件的压缩效果好</h1><p>如果你细心的话可以发现在Safari开发者工具的那张截图里面，transferred的文件大小实际上比source文件还要大。特别是在引入很多小的文件块的大型JS App里面这个变化更加明显，究其原因就是因为，GZIP只有在大文件的压缩效果好。</p>
+<p>不久前Khan Academy <a href="http://engineering.khanacademy.org/posts/js-packaging-http2.htm" target="_blank" rel="external">也发现了这个问题</a> 当他在使用 HTTP/2做实验时. 加载更小的文件的方案是为了提高缓存的命中率，但是到头来，总是需要一个权衡并且取决于很多因素。<br>对于大型代码库，将其拆分成很多文件是有必要的，但是装载上千个不能更好的压缩的小文件的确不是一个好的办法。</p>
+<h1 id="Tree-shaking-是个好孩子"><a href="#Tree-shaking-是个好孩子" class="headerlink" title="Tree shaking 是个好孩子"></a>Tree shaking 是个好孩子</h1><p>还有一个事情值得一提，那就是得益于相对新颖的Tree shakin解决方案，在构建过程中可以去除屌那些没有使用或者被引用的代码。第一个支持这个方案的是Rollup，现在Webpack2.0也已经支持了——<a href="https://medium.freecodecamp.com/tree-shaking-es6-modules-in-webpack-2-1add6672f31b#22c4" target="_blank" rel="external">只要我们在bable里面禁止掉module选项</a></p>
+<p>举个例子，我们修改dep-2.js 加入一个在dep-1.js 没有被调用的函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'Hello World. dependencies loaded.'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> unneededStuff = [</span><br><span class="line">  <span class="string">'unneeded stuff'</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<p>对于Babili来说，它将会简单的压缩文件然后在Safari 里面将接收带很多行没有被用到的代码。但是一个webpack或者Rollup的bundle文件将不会包含<code>unneededStuff</code>.Tree shaking提供了很强大的好处，绝对应该被用在真实的生产环境中来。</p>
+<h1 id="未来看似光明-但是构建过程停滞在这里"><a href="#未来看似光明-但是构建过程停滞在这里" class="headerlink" title="未来看似光明, 但是构建过程停滞在这里"></a>未来看似光明, 但是构建过程停滞在这里</h1><p>所以，ESM将要到来，但是似乎不是所有的事情都会改变。我们为了保证压缩效果不希望装载数千个小文件，我们也不会抛弃这些带有可以剔除僵尸代码Tree shaking方案的构建方案。<em>前端开发始终会是一个复杂的工程</em>。</p>
+<p>最终要记住的是权衡是成功的关键。不要拆分所有的事情并期望它会带来很多改进。不要因为我们将要支持ESM就以为我们可以摆脱构建步骤和“打包策略”。在这里我们将会坚持使用我们的构建方案，并且继续使用“打包策略”来加载我们的文件以及我们的Javascript SDKs。</p>
+<p>到目前为止，我不得不承认前端开发依然伟大。JS在进化，我们最终将有一个方案来解决Module融入到这个语言的问题。我等不及想看到它带给JS生态的影响，未来一两年内会出现最佳实践。</p>
+<h1 id="延伸阅读"><a href="#延伸阅读" class="headerlink" title="延伸阅读"></a>延伸阅读</h1><ul>
+<li><a href="https://blog.hospodarets.com/native-ecmascript-modules-the-first-overview" target="_blank" rel="external">一系列关于ESM的文章</a></li>
+<li><a href="http://exploringjs.com/es6/ch_modules.html" target="_blank" rel="external">探索ES6</a></li>
+</ul>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

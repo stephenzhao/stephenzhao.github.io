@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="WebRTC将在Safari 11上支持"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>WebRTC将在Safari 11上支持 - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/WebRTC/">WebRTC</a> <a class="tag" href="/tags/直播/">直播</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>WebRTC将在Safari 11上支持</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2017-06-08
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p><img src="https://webrtc.ventures/wp-content/uploads/2017/06/safari_webrtc.png" alt="WebRTC"></p>
+<blockquote>
+<p><a href="https://webkit.org/status/?#specification-webrtc" target="_blank" rel="external">webkit 社区关于WebRTC特性状态</a>可以看到在preview版本已经支持了。这意味着Safari 最新版将继承WebRTC，[详细请戳(<a href="https://developer.apple.com/library/content/releasenotes/General/WhatsNewInSafari/Safari_11_0/Safari_11_0.html)。来看看[WebRTC的作者说了些什么](https://webrtc.ventures/2017/06/webrtc-support-in-safari-11/" target="_blank" rel="external">https://developer.apple.com/library/content/releasenotes/General/WhatsNewInSafari/Safari_11_0/Safari_11_0.html)。来看看[WebRTC的作者说了些什么](https://webrtc.ventures/2017/06/webrtc-support-in-safari-11/</a>)</p>
+</blockquote>
+<p>沉寂多年后，Apple官方终于宣布支持WebRTC了！像大多数视频通信圈的预言者和布道者一样，我的YY变成现实。就在几周前和一个潜在客户聊天的时候还说：苹果即将开始在Safari或者iOS上支持WebRTC视频通信技术。<br>当然我也不仅仅停留在YY上，去年我也在为WebRTC工程师发布工作，参加了许多标准委员会的会议。Apple之前也发出过相关的<a href="http://www.zdnet.com/article/apple-quietly-slips-webrtc-audio-video-into-safaris-webkit-spec/" target="_blank" rel="external">支持WebRTC的信号</a>。按照Apple的格调来说，谁也不知道什么时候到来，所一昨天这个消息还是一个不小的惊喜。</p>
+<p>这里我要声明一下苹果是在我婚礼纪念日的时候给我的惊喜。但是Voxbone的 Chad Hart 认为是在同一天他的生日庆典时苹果给他的惊喜，我们都表示保留彼此的意见（译者：不懂老外的幽默）。</p>
+<p>好了回到正题，对于WebRTC应用开发者意味着什么呢？首先让我们回顾一下官方说了啥，还有啥我们现在还不知道的，然后畅想一下未来带给WebRTC开发者怎样的改变。当然肯定还会有些东西不会改变，我们也会提及。</p>
+<h1 id="官方说了啥？"><a href="#官方说了啥？" class="headerlink" title="官方说了啥？"></a>官方说了啥？</h1><p>在这一点上细节很少，但是Apple已经宣布在Safari 11支持WebRTC.当微软<a href="https://webrtc.ventures/2017/06/webrtc-support-in-safari-11/" target="_blank" rel="external">宣布在Edge浏览器上支持WebRTC</a>后，苹果也同时宣布了这个事情。首先开放摄像头和麦克风访问权限，紧接着支持了点对点通话。</p>
+<p>正如<a href="https://thenewdialtone.com/hold-apple-webrtc-ios-party/" target="_blank" rel="external">TheNewDialtone</a>提到的，“Safari 11 实现了WebRTC 标准的端对端会议”，我们有理由相信，苹果将发布一版拥有很多能力浏览器。哎哟，不错哦！</p>
+<h1 id="现在我们还不知道什么？"><a href="#现在我们还不知道什么？" class="headerlink" title="现在我们还不知道什么？"></a>现在我们还不知道什么？</h1><p>现在我还不是特别清楚到底在iOS11上面对WebRTC的支持度是多少。桌面版Safari十款很重要的浏览器，尽管只是说支持但这对于WebRTC的兼容性来说无疑是一大步。桌面上不用再装插件了，你也不用将你的用户王Chrome和Firefox上面推了。随着Edge和Safari桌面浏览器的加入，WebRTC 现在已经开放给更多的用户，而很少有抱怨的。</p>
+<p>如果苹果在iOS11的Safari上也支持WebRTC就更好了，这样iPhone、iPad就和Android设备保持一致了。现在已经可以在Android上不通过原生App来打WebRTC电话了。</p>
+<p>正如Amir Zmora的<a href="https://thenewdialtone.com/hold-apple-webrtc-ios-party/" target="_blank" rel="external">NewDialTone文章</a>提到的，关于将支持那种编码、还有硬件加速ORTC的支持的细节仍然是一个公开的问题.但无论你多么苛刻，这的确是WebRTC社区的一个大新闻。</p>
+<h1 id="带给WebRTC开发者的变化"><a href="#带给WebRTC开发者的变化" class="headerlink" title="带给WebRTC开发者的变化"></a>带给WebRTC开发者的变化</h1><p>试想一下，如果桌面端和手机端的Safari都完全支持WebRTC，这个游戏规则就将改变。</p>
+<p>遥想当年，当我们开始第一次接触WebRTC开发时，Chrome 和 Firefox WebRTC的实现还相互的兼容性还不是很好。他们用各自的步调和风格实现了早期WebRTC的规范，有时候方法名还会冲突，就连DataChannel也互不兼容。为了一项新技术在世界舞台上的发展，他们都付出了很多。</p>
+<p>在最近两年我们已经可以开发Chrome和Firefox都兼容的应用了，但是仍然有来自顾客不可规避的问题“什么时候微软和苹果的浏览器支持呢？” 我们解决办法就只能是让用户使用Chrome和Firefox。</p>
+<p>在手机端，事情变得更加复杂。如果客户想要一个Chrome版本的还好说，如果是iOS的话使用原生是唯一的解决方案，但是他们必须在花钱聘请Swift和Object-c工程师。随着React Native的到来这个状态有所改善，至少它可以通构建支持WebRTC 的Android和iOS App，有点类似于“code once deploy twice”策略。</p>
+<p>随之WebRTC在iOS 版Safari支持的到来意味着，我们将可以提供一个响应式的网站来支持WebRTC通话，既可以在桌面端也可以在手机端运行。</p>
+<p>这意义重大，我们潜在的用户将节省很多开支，同事扩大Javascript开发者的能力。你不需要为了在iOS上完成项目而成为Objective C, Swift, 甚至是 React Native的专家。让js开发者开发精细复杂的网络电话应用变得简单一直是WebRTC所期盼的。而这次让我们离梦想更近一步。</p>
+<h1 id="什么将不会改变"><a href="#什么将不会改变" class="headerlink" title="什么将不会改变"></a>什么将不会改变</h1><p>短期内，还没有商业用途所以这个声明还没有改变啥。改变将会在 2017年的9、10月份Safari 11发布，iOS版可能也会发布但是目前我还没得到确切消息。</p>
+<p>所以我们还有3-4个月的时间等待。如果使用CPaas提供方来做你的WebRTC（比如Tokbox, Vidyo等）那你还需要再等一段时间，等到他们把所有关键的API放出来。</p>
+<p>同样计算上你需要调整代码的时间你还需要等6个月左右时间将他发布到线上。还有，别忘了你还需要在Safari上把你的网站做功能性的测试不论现在webRTC支持与否。以前你可能不用关心Safari上的bug但是现在开始需要考虑了。</p>
+<p>如果你已使用Native iOS App了，也别抛弃他你领先对手6个多月呢.<br>即使你开始考虑用WebRTC，这个声明也不意味着你可以把native iOS App排除在外。<br>在手机端Safari上实现WebRTC很酷，但是就像Android，我们通常也会建议我们的客户这只是一个权衡之后的解决方案。最好的用户体验还是得用Native，花时间和成本在上面还是值得的。</p>
+<p>这个声明对于手机App开发的意义是只需要一点点的付出就可以获得很多可能性。更多js开发者将可以hold住WebRTC的而不需要去很艰难的找一个有WebRTC经验的OC开发者。</p>
+<p>还有一件事，IE浏览器依然不支持。使用被强制需要支持IE浏览器的公司，你需要告诉用户去升级到Microsoft Edge浏览器。所以目前来说桌面插件仍然是对IE的唯一解决方案。所以希望你们团队尽快脱离IE，是时候了。</p>
+<h1 id="WebRTC-运气不错"><a href="#WebRTC-运气不错" class="headerlink" title="WebRTC 运气不错"></a>WebRTC 运气不错</h1><p>当我们开始第一次做WebRTC项目时候，人们就在质疑WebRTC会不会昙花一现。没有微软和苹果的支持，会不会只能作为一个边缘项目胎死腹中？</p>
+<p>伴随着苹果官方的支持，我们可以骄傲的说WebRTC依然坚挺。我确信它将会持续发展，在ORTC领域占有一席之地，未来将会有新的视频编解码方案以及更多的新改变。但是现在已经上车的各位观众，WebRTC就在这里，期待他在桌面和手机端变得流行起来。</p>
+<p>客官欢迎上车，最后，谢谢你苹果公司。</p>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="All the fundamental React.js concepts, jammed into this single Medium article"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>All the fundamental React.js concepts, jammed into this single Medium article - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/react/">react</a> <a class="tag" href="/tags/前端开发/">前端开发</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>All the fundamental React.js concepts, jammed into this single Medium article</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2017-08-24
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p><img src="https://cdn-images-1.medium.com/max/800/1*qUlxDdY3T-rDtJ4LhLGkEg.png" alt="logo"></p>
+<p>Last year I wrote a short book on learning React.js which turned out to be about 100 pages. This year, I am going to challenge myself to summarize it as an article on Medium.</p>
+<p>This article is not going to cover what React is or <a href="https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76" target="_blank" rel="external">why you should learn it</a>. Instead, this is a practical introduction to the fundamentals of React.js for those who are already familiar with JavaScript and know the basics of the DOM API.</p>
+<p>All code examples below are labeled for reference. They are purely intended to provide examples of concepts. Most of them can be written in a much better way.</p>
+<h1 id="Fundamental-1-React-is-all-about-components"><a href="#Fundamental-1-React-is-all-about-components" class="headerlink" title="Fundamental #1: React is all about components"></a>Fundamental #1: React is all about components</h1><p>React is designed around the concept of reusable components. You define small components and you put them together to form bigger components.</p>
+<p>All components small or big are reusable, even across different projects.</p>
+<p>A React component — in its simplest form — is a plain-old JavaScript function:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// Example 1</span><br><span class="line">// https://jscomplete.com/repl?j=Sy3QAdKHW</span><br><span class="line">function Button (props) &#123;</span><br><span class="line">  // Returns a DOM element here. For example:</span><br><span class="line">  return &lt;button type="submit"&gt;&#123;props.label&#125;&lt;/button&gt;;</span><br><span class="line">&#125;</span><br><span class="line">// To render the Button component to the browser</span><br><span class="line">ReactDOM.render(&lt;Button label="Save" /&gt;, mountNode)</span><br></pre></td></tr></table></figure>
+<p>The curly braces used for the button label are explained below. Don’t worry about them now. ReactDOM will also be explained later, but if you want to test this example and all upcoming code examples, the above render function is what you need.</p>
+<p>The second argument to ReactDOM.render is the destination DOM element which React is going to take over and control. In a jsComplete REPL, you can just use the special variable mountNode.</p>
+<p>Note the following about Example 1:</p>
+<ul>
+<li><p>The component name starts with a capital letter. This is required since we will be dealing with a mix of HTML elements and React elements. Lowercase names are reserved for HTML elements. In fact, go ahead and try to name the React component just “button”. ReactDOM will ignore the function and renders a regular empty HTML button.</p>
+</li>
+<li><p>Every component receives a list of attributes, just like HTML elements. In React, this list is called props. With a function component, you can name it anything though.</p>
+</li>
+<li><p>We weirdly wrote what looks like HTML in the returned output of the Button function component above. This is neither JavaScript nor HTML, and it’s not even React.js. But, it’s so popular that it became the default in React applications. It’s called JSX and it’s a JavaScript extension. JSX is also a compromise! Go ahead and try and return any other HTML element inside the function above and see how they are all supported (for example, return a text input element).</p>
+</li>
+</ul>
+<h1 id="Fundamental-2-What-the-flux-is-JSX"><a href="#Fundamental-2-What-the-flux-is-JSX" class="headerlink" title="Fundamental #2: What the flux is JSX?"></a>Fundamental #2: What the flux is JSX?</h1><p>Example 1 above can be written in pure React.js without JSX as follows:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example 2 -  React component without JSX</span></span><br><span class="line"><span class="comment">// https://jscomplete.com/repl?j=HyiEwoYB-</span></span><br><span class="line"><span class="function">function <span class="title">Button</span> <span class="params">(props)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> React.createElement(</span><br><span class="line">    <span class="string">"button"</span>,</span><br><span class="line">    &#123; type: <span class="string">"submit"</span> &#125;,</span><br><span class="line">    props.label</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// To use Button, you would do something like</span></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  React.createElement(Button, &#123; label: <span class="string">"Save"</span> &#125;),</span><br><span class="line">  mountNode</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>The createElement function is the main function in the React top-level API. It’s 1 of a total of 7 things in that level that you need to learn. That’s how small the React API is.</p>
+<p>Much like the DOM itself having a document.createElement function to create an element specified by a tag name, React’s createElement function is a higher-level function that can do what document.createElement does. But it can also be used to create an element to represent a React component. We did the latter when we used the Button component in Example 2 above.</p>
+<p>Unlike document.createElement, React’s createElement accepts a dynamic number of arguments after the second one to represent the children of the created element. So createElement actually creates a tree.</p>
+<p>Here’s an example of that:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example 3 -  React’s createElement API</span></span><br><span class="line"><span class="comment">// https://jscomplete.com/repl?j=r1GNoiFBb</span></span><br><span class="line"><span class="keyword">const</span> InputForm = React.createElement(</span><br><span class="line">  <span class="string">"form"</span>,</span><br><span class="line">  &#123; target: <span class="string">"_blank"</span>, action: <span class="string">"https://google.com/search"</span> &#125;,</span><br><span class="line">  React.createElement(<span class="string">"div"</span>, <span class="keyword">null</span>, <span class="string">"Enter input and click Search"</span>),</span><br><span class="line">  React.createElement(<span class="string">"input"</span>, &#123; className: <span class="string">"big-input"</span> &#125;),</span><br><span class="line">  React.createElement(Button, &#123; label: <span class="string">"Search"</span> &#125;)</span><br><span class="line">);</span><br><span class="line"><span class="comment">// InputForm uses the Button component, so we need that too:</span></span><br><span class="line"><span class="function">function <span class="title">Button</span> <span class="params">(props)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> React.createElement(</span><br><span class="line">    <span class="string">"button"</span>,</span><br><span class="line">    &#123; type: <span class="string">"submit"</span> &#125;,</span><br><span class="line">    props.label</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Then we can use InputForm directly with .render</span></span><br><span class="line">ReactDOM.render(InputForm, mountNode);</span><br></pre></td></tr></table></figure>
+<p>Note a few things about the example above:</p>
+<ol>
+<li><p>InputForm is not a React component; it’s just a React element. This is why we used it directly in the ReactDOM.render call and not with <inputform>.</inputform></p>
+</li>
+<li><p>The React.createElement function accepted multiple arguments after the first two. Its list of arguments starting from the 3rd one comprises the list of children for the created element.</p>
+</li>
+<li><p>We were able to nest React.createElement calls because it’s all JavaScript.<br>The second argument to React.createElement can be null or an empty object when no attributes or props are needed for the element.</p>
+</li>
+<li><p>We can mix HTML element with React components. You can think of HTML elements as built-in React components.</p>
+</li>
+<li><p>React’s API tries to be as close to the DOM API as possible, that’s why we use className instead of class for the input element. Secretly, we all wish the React’s API would become part of the DOM API itself. Because, you know, it’s much much better.</p>
+</li>
+</ol>
+<p>The code above is what the browser understands when you include the React library. The browser does not deal with any JSX business. However, we humans like to see and work with HTML instead of these createElement calls (imagine building a website with just document.createElement, which you can!). This is why the JSX compromise exists. Instead of writing the form above with React.createElement calls, we can write it with a syntax very similar to HTML:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// Example 4 - JSX (compare with Example 3)</span><br><span class="line">// https://jscomplete.com/repl?j=SJWy3otHW</span><br><span class="line">const InputForm =</span><br><span class="line">  &lt;form target="_blank" action="https://google.com/search"&gt;</span><br><span class="line">    &lt;div&gt;Enter input and click Search&lt;/div&gt;</span><br><span class="line">    &lt;input className="big-input" name="q" /&gt;</span><br><span class="line">    &lt;Button label="Search" /&gt;</span><br><span class="line">  &lt;/form&gt;;</span><br><span class="line">// InputForm "still" uses the Button component, so we need that too.</span><br><span class="line">// Either JSX or normal form would do</span><br><span class="line">function Button (props) &#123;</span><br><span class="line">  // Returns a DOM element here. For example:</span><br><span class="line">  return &lt;button type="submit"&gt;&#123;props.label&#125;&lt;/button&gt;;</span><br><span class="line">&#125;</span><br><span class="line">// Then we can use InputForm directly with .render</span><br><span class="line">ReactDOM.render(InputForm, mountNode);</span><br></pre></td></tr></table></figure>
+<p>Note a few things about the above:</p>
+<ul>
+<li>It’s not HTML. For example, we’re still doing className instead of class.</li>
+<li>We’re still considering what looks like HTML above as JavaScript. See how I added a semi-column at the end.</li>
+</ul>
+<p>What we wrote above (Example 4) is JSX. Yet, what we took to the browser is the compiled version of it (Example 3). To make that happen, we need to use a pre-processor to convert the JSX version into the React.createElement version.</p>
+<p>That is JSX. It’s a compromise that allows us to write our React components in a syntax similar to HTML, which is a pretty good deal.</p>
+<blockquote>
+<p>The word “Flux” in the header above was chosen to rhyme, but it’s also the name of a very popular application architecture popularized by Facebook. The most famous implementation of which is Redux. Flux fits the React reactive pattern perfectly.</p>
+</blockquote>
+<p>JSX, by the way, can be used on its own. It’s not a React-only thing.</p>
+<h1 id="Fundamental-3-You-can-use-JavaScript-expressions-anywhere-in-JSX"><a href="#Fundamental-3-You-can-use-JavaScript-expressions-anywhere-in-JSX" class="headerlink" title="Fundamental #3: You can use JavaScript expressions anywhere in JSX"></a>Fundamental #3: You can use JavaScript expressions anywhere in JSX</h1><p>Inside a JSX section, you can use any JavaScript expression within a pair of curly braces.</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// Example 5 -  Using JavaScript expressions in JSX</span><br><span class="line">// https://jscomplete.com/repl?j=SkNN3oYSW</span><br><span class="line">const RandomValue = () =&gt; </span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &#123; Math.floor(Math.random() * 100) &#125;</span><br><span class="line">  &lt;/div&gt;;</span><br><span class="line">// To use it:</span><br><span class="line">ReactDOM.render(&lt;RandomValue /&gt;, mountNode);</span><br></pre></td></tr></table></figure>
+<p>Any JavaScript expression can go inside those curly braces. This is equivalent to the ${} interpolation syntax in JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" target="_blank" rel="external">template literals</a>.</p>
+<p>This is the only constraint inside JSX: only expressions. So, for example, you can’t use a regular if statement, but a ternary expression is ok.</p>
+<p>JavaScript variables are also expressions, so when the component receives a list of props (the RandomValue component didn’t, props are optional), you can use these props inside curly braces. We did this in the Button component above (Example 1).</p>
+<p>JavaScript objects are also expressions. Sometimes we use a JavaScript object inside curly braces, which makes it look like double curly braces, but it’s really just an object inside curly braces. One use case of that is to pass a CSS style object to the special style attribute in React:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// Example 6 - An object passed to the special React style prop</span><br><span class="line">// https://jscomplete.com/repl?j=S1Kw2sFHb</span><br><span class="line">const ErrorDisplay = (&#123;message&#125;) =&gt;</span><br><span class="line">  &lt;div style=&#123; &#123; color: 'red', backgroundColor: 'yellow' &#125; &#125;&gt;</span><br><span class="line">    &#123;message&#125;</span><br><span class="line">  &lt;/div&gt;;</span><br><span class="line">// Use it:</span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;ErrorDisplay </span><br><span class="line">    message="These aren't the droids you're looking for" </span><br><span class="line">  /&gt;,</span><br><span class="line">  mountNode</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Note how I destructured only the message out of the props argument. It’s JavaScript. Also note how the style attribute above is a special one (again, it’s not HTML, it’s closer to the DOM API). We use an object as the value of the style attribute. That object defines the styles as if we’re doing so with JavaScript (because we are).</p>
+<p>You can even use a React element inside JSX, because that too is an expression. Remember, a React element is a function call:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// Example 7 - Using a React element within &#123;&#125;</span><br><span class="line">// https://jscomplete.com/repl?j=SkTLpjYr-</span><br><span class="line">const MaybeError = (&#123;errorMessage&#125;) =&gt;</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;errorMessage &amp;&amp; <span class="tag">&lt;<span class="name">ErrorDisplay</span> <span class="attr">message</span>=<span class="string">&#123;errorMessage&#125;</span> /&gt;</span>&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>;</span><br><span class="line">  </span><br><span class="line">// The MaybeError component uses the ErrorDisplay component:</span><br><span class="line">const ErrorDisplay = (&#123;message&#125;) =&gt;</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;</span> &#123; <span class="attr">color:</span> '<span class="attr">red</span>', <span class="attr">backgroundColor:</span> '<span class="attr">yellow</span>' &#125; &#125;&gt;</span></span><br><span class="line">    &#123;message&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>;</span><br><span class="line">// Now we can use the MaybeError component:</span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="tag">&lt;<span class="name">MaybeError</span></span><br><span class="line">    <span class="attr">errorMessage</span>=<span class="string">&#123;Math.random()</span> &gt;</span> 0.5 ? 'Not good' : ''&#125;</span><br><span class="line">  /&gt;,</span><br><span class="line">  mountNode</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>The MaybeError component above would only display the ErrorDisplay component if there is an errorMessage string passed to it and an empty div. React considers {true}, {false}, {undefined}, and {null} to be valid element children, which do not render anything.</p>
+<p>You can also use all of JavaScript functional methods on collections (map, reduce, filter, concat, and so on) inside JSX. Again, because they return expressions:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// Example 8 - Using an array map inside &#123;&#125;</span><br><span class="line">// https://jscomplete.com/repl?j=SJ29aiYH-</span><br><span class="line">const Doubler = (&#123;value=[1, 2, 3]&#125;) =&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &#123;value.map(e =&gt; e * 2)&#125;</span><br><span class="line">  &lt;/div&gt;;</span><br><span class="line">// Use it</span><br><span class="line">ReactDOM.render(&lt;Doubler /&gt;, mountNode);</span><br></pre></td></tr></table></figure>
+<p>Note how I gave the value prop a default value above, because it’s all just Javascript. Note also that I outputted an array expression inside the div. React is okay with that. It will place every doubled value in a text node.</p>
+<h1 id="Fundamental-4-You-can-write-React-components-with-JavaScript-classes"><a href="#Fundamental-4-You-can-write-React-components-with-JavaScript-classes" class="headerlink" title="Fundamental #4: You can write React components with JavaScript classes"></a>Fundamental #4: You can write React components with JavaScript classes</h1><p>Simple function components are great for simple needs, but sometimes we need more. React supports creating components through the JavaScript class syntax as well. Here’s the Button component (in Example 1) written with the class syntax:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// Example 9 - Creating components using JavaScript classes</span><br><span class="line">// https://jscomplete.com/repl?j=ryjk0iKHb</span><br><span class="line">class Button extends React.Component &#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return &lt;button&gt;&#123;this.props.label&#125;&lt;/button&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// Use it (same syntax)</span><br><span class="line">ReactDOM.render(&lt;Button label="Save" /&gt;, mountNode);</span><br></pre></td></tr></table></figure>
+<p>The class syntax is simple. Define a class that extends React.Component (another top-level React API thing that you need to learn). The class defines a single instance function render(), and that render function returns the virtual DOM object. Every time we use the Button class-based component above (for example, by doing <button ...="">), React will instantiate an object from this class-based component and use that object in the DOM tree.</button></p>
+<p>This is the reason why we used this.props.label inside the JSX in the rendered output above. Because every component gets a special instance property called props that holds all values passed to that component when it was instantiated.</p>
+<p>Since we have an instance associated with a single use of the component, we can customize that instance as we wish. We can, for example, customize it after it gets constructed by using the regular JavaScript constructor function:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// Example 10 -  Customizing a component instance</span><br><span class="line">// https://jscomplete.com/repl?j=rko7RsKS-</span><br><span class="line">class Button extends React.Component &#123;</span><br><span class="line">  constructor(props) &#123;</span><br><span class="line">    super(props);</span><br><span class="line">    this.id = Date.now();</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return &lt;button id=&#123;this.id&#125;&gt;&#123;this.props.label&#125;&lt;/button&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// Use it</span><br><span class="line">ReactDOM.render(&lt;Button label="Save" /&gt;, mountNode);</span><br></pre></td></tr></table></figure>
+<p>We can also define class prototype functions and use them anywhere we wish, including inside the returned JSX output:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// Example 11 — Using class properties</span><br><span class="line">// https://jscomplete.com/repl?j=H1YDCoFSb</span><br><span class="line">class Button extends React.Component &#123;</span><br><span class="line">  clickCounter = 0;</span><br><span class="line">handleClick = () =&gt; &#123;</span><br><span class="line">    console.log(`Clicked: $&#123;++this.clickCounter&#125;`);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;button id=&#123;this.id&#125; onClick=&#123;this.handleClick&#125;&gt;</span><br><span class="line">        &#123;this.props.label&#125;</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// Use it</span><br><span class="line">ReactDOM.render(&lt;Button label="Save" /&gt;, mountNode);</span><br></pre></td></tr></table></figure>
+<p>Note a few things about Example 11 above:</p>
+<ul>
+<li><p>The handleClick function is written using the new proposed class-field syntax in JavaScript. This is still at stage-2, but for many reasons it’s the best option to access the component mounted instance (thanks to arrow functions). But, you need to use a compiler like Babel configured to understand stage-2 (or the class-field syntax) to get the code above to work. The jsComplete REPL has that pre-configured.</p>
+</li>
+<li><p>We’ve also defined the clickCounter instance variables using the same class-field syntax. This allows us to skip using a class constructor call altogether.</p>
+</li>
+<li><p>When we specified the handleClick function as the value of the special onClick React attribute, we did not call it. We passed in the reference to the handleClick function. Calling the function on that level is one of the most common mistakes when working with React.</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// Wrong:</span><br><span class="line">onClick=&#123;this.handleClick()&#125;</span><br><span class="line">// Right:</span><br><span class="line">onClick=&#123;this.handleClick&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Fundamental-5-Events-in-React-Two-Important-Differences"><a href="#Fundamental-5-Events-in-React-Two-Important-Differences" class="headerlink" title="Fundamental #5: Events in React: Two Important Differences"></a>Fundamental #5: Events in React: Two Important Differences</h1><p>When handling events inside React elements, there are two very important differences from the way we do so with the DOM API:</p>
+<ul>
+<li><p>All React elements attributes (events included) are named using camelCase, rather than lowercase. It’s onClick, not onclick.</p>
+</li>
+<li><p>We pass an actual JavaScript function reference as the event handler, rather than a string. It’s onClick={handleClick}, not onClick=”handleClick”.</p>
+</li>
+</ul>
+<p>React wraps the DOM event object with an object of its own to optimize the performance of events handling. But inside an event handler, we can still access all methods available on the DOM event object. React passes that wrapped event object to every handle call. For example, to prevent a form from the default submission action, you can do:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// Example 12 - Working with wrapped events</span><br><span class="line">// https://jscomplete.com/repl?j=HkIhRoKBb</span><br><span class="line">class Form extends React.Component &#123;</span><br><span class="line">  handleSubmit = (event) =&gt; &#123;</span><br><span class="line">    event.preventDefault();</span><br><span class="line">    console.log(&apos;Form submitted&apos;);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;form onSubmit=&#123;this.handleSubmit&#125;&gt;</span><br><span class="line">        &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;</span><br><span class="line">      &lt;/form&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// Use it</span><br><span class="line">ReactDOM.render(&lt;Form /&gt;, mountNode);</span><br></pre></td></tr></table></figure>
+<h1 id="Fundamental-6-Every-React-component-has-a-story"><a href="#Fundamental-6-Every-React-component-has-a-story" class="headerlink" title="Fundamental #6: Every React component has a story"></a>Fundamental #6: Every React component has a story</h1><p>The following applies to the class component only (those that extend React.Component). Function components have a slightly different story.</p>
+<ol>
+<li><p>First, we define a template for React to create elements from the component.</p>
+</li>
+<li><p>Then, we instruct React to use it somewhere. For example, inside a render call of another component, or with ReactDOM.render.</p>
+</li>
+<li><p>Then, React instantiates an element and gives it a set of props that we can access with this.props. Those props are exactly what we passed in step 2 above.</p>
+</li>
+<li><p>Since it’s all JavaScript, the constructor method will be called (if defined). This is the first of what we call: component lifecycle methods.</p>
+</li>
+<li><p>React then computes the output of the render method (the virtual DOM node).</p>
+</li>
+<li><p>Since this is the first time React is rendering the element, React will communicate with the browser (on our behalf, using the DOM API) to display the element there. This process is commonly known as mounting.</p>
+</li>
+<li><p>React then invokes another lifecycle method, called componentDidMount. We can use this method to, for example, do something on the DOM that we now know exists in the browser. Prior to this lifecycle method, the DOM we work with was all virtual.</p>
+</li>
+<li><p>Some components stories end here. Other components get unmounted from the browser DOM for various reasons. Right before the latter happens, React invokes another lifecycle method, componentWillUnmount.</p>
+</li>
+<li><p>The state of any mounted element might change. The parent of that element might re-render. In either case, the mounted element might receive a different set of props. React magic happens here and we actually start needing React at this point! Prior to this point, we did not need React at all, honestly.</p>
+</li>
+<li><p>The story of this component continues, but before it does, we need to understand this state thing that I speak of.</p>
+</li>
+</ol>
+<h1 id="Fundamental-7-React-components-can-have-a-private-state"><a href="#Fundamental-7-React-components-can-have-a-private-state" class="headerlink" title="Fundamental #7: React components can have a private state"></a>Fundamental #7: React components can have a private state</h1><p>The following is also only applicable to class components. Did I mention that some people call presentational-only components dumb?</p>
+<p>The state class field is a special one in any React class component. React monitors every component state for changes. But for React to do so efficiently, we have to change the state field through another React API thing that we need to learn, this.setState:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">// Example 13 -  the setState API</span><br><span class="line">// https://jscomplete.com/repl?j=H1fek2KH-</span><br><span class="line">class CounterButton extends React.Component &#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    clickCounter: 0,</span><br><span class="line">    currentTimestamp: new Date(),</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  handleClick = () =&gt; &#123;</span><br><span class="line">    this.setState((prevState) =&gt; &#123;</span><br><span class="line">     return &#123; clickCounter: prevState.clickCounter + 1 &#125;;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">   setInterval(() =&gt; &#123;</span><br><span class="line">     this.setState(&#123; currentTimestamp: new Date() &#125;)</span><br><span class="line">    &#125;, 1000);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;button onClick=&#123;this.handleClick&#125;&gt;Click&lt;/button&gt;</span><br><span class="line">        &lt;p&gt;Clicked: &#123;this.state.clickCounter&#125;&lt;/p&gt;</span><br><span class="line">        &lt;p&gt;Time: &#123;this.state.currentTimestamp.toLocaleString()&#125;&lt;/p&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// Use it</span><br><span class="line">ReactDOM.render(&lt;CounterButton /&gt;, mountNode);</span><br></pre></td></tr></table></figure>
+<p>This is the most important example to understand. It will basically complete your fundamental knowledge of the React way. After this example, there are a few other small things that you need to learn, but it’s mostly you and your JavaScript skills from that point.</p>
+<p>Let’s walk through Example 13, starting with class fields. It has two of them. The special state field is initialized with an object that holds a clickCounter that starts with 0, and a currentTimestamp that starts with new Date().</p>
+<p>The second class field is a handleClick function, which we passed to the onClick event for the button element inside the render method. The handleClick method modifies this component instance state using setState. Take notice of that.</p>
+<p>The other place we’re modifying the state is inside an interval timer that we started inside the componentDidMount lifecycle method. It ticks every second and executes another call to this.setState.</p>
+<p>In the render method, we used the two properties we have on the state with a normal read syntax. There is no special API for that.</p>
+<p>Now, notice that we updated the state using two different ways:</p>
+<ol>
+<li>By passing a function that returned an object. We did that inside the handleClick function.</li>
+<li>By passing a regular object. We did that inside the interval callback.</li>
+</ol>
+<p>Both ways are acceptable, but the first one is preferred when you read and write to the state at the same time (which we do). Inside the interval callback, we’re only writing to the state and not reading it. When in doubt, always use the first function-as-argument syntax. It’s safer with race conditions because setState is actually an asynchronous method.</p>
+<p>How do we update the state? We return an object with the new value of what we want to update. Notice how in both calls to setState, we’re only passing one property from the state field and not both. This is completely okay because setState actually merges what you pass it (the returned value of the function argument) with the existing state. So, not specifying a property while calling setState means that we wish to not change that property (but not delete it).</p>
+<h1 id="Fundamental-8-React-will-react"><a href="#Fundamental-8-React-will-react" class="headerlink" title="Fundamental #8: React will react"></a>Fundamental #8: React will react</h1><p>React gets its name from the fact that it reacts to state changes (although not reactively, but on a schedule). There was a joke that React should have been named Schedule!</p>
+<p>However, what we witness with the naked eye when the state of any component gets updated is that React reacts to that update and automatically reflects the update in the browser DOM (if needed).</p>
+<p>Think of the render function’s input as both</p>
+<ul>
+<li><p>the props that get passed by the parent</p>
+</li>
+<li><p>the internal private state that can be updated anytime</p>
+</li>
+</ul>
+<p>When the input of the render function changes, its output might change.</p>
+<p>React keeps a record of the history of renders and when it sees that one render is different than the previous one, it’ll compute the difference between them and efficiently translate it into actual DOM operations that get executed in the DOM.</p>
+<h1 id="Fundamental-9-React-is-your-agent"><a href="#Fundamental-9-React-is-your-agent" class="headerlink" title="Fundamental #9: React is your agent"></a>Fundamental #9: React is your agent</h1><p>You can think of React as the agent we hired to communicate with the browser. Take the current timestamp display above as an example. Instead of us manually going to the browser and invoking DOM API operations to find and update the p#timestamp element every second, we just changed a property on the state of the component and React did its job of communicating with the browser on our behalf. I believe this is the true reason why React is popular. We hate talking to Mr. browser (and the so many dialects of the DOM language that it speaks) and React volunteered to do all the talking for us, for free!</p>
+<h1 id="Fundamental-10-Every-React-component-has-a-story-part-2"><a href="#Fundamental-10-Every-React-component-has-a-story-part-2" class="headerlink" title="Fundamental #10: Every React component has a story (part 2)"></a>Fundamental #10: Every React component has a story (part 2)</h1><p>Now that we know about the state of a component and how when that state changes some magic happens, let’s learn the last few concepts about that process.</p>
+<ol>
+<li><p>A component might need to re-render when its state gets updated or when its parent decides to change the props that it passed to the component</p>
+</li>
+<li><p>If the latter happens, React invokes another lifecycle method, componentWillReceiveProps.</p>
+</li>
+<li><p>If either the state object or the passed-in props are changed, React has an important decision to do. Should the component be updated in the DOM? This is why it invokes another important lifecycle method here, shouldComponentUpdate. This method is an actual question, so if you need to customize or optimize the render process on your own, you have to answer that question by returning either true or false.</p>
+</li>
+<li><p>If there is no custom shouldComponentUpdate specified, React defaults to a very smart thing that’s actually good enough in most situations.</p>
+</li>
+<li><p>First, React invokes another lifecycle method at this point, componentWillUpdate. React will then compute the new rendered output and compare it with the last rendered output.</p>
+</li>
+<li><p>If the rendered output is exactly the same, React does nothing (no need to talk to Mr. Browser).</p>
+</li>
+<li><p>If there is a difference, React takes that difference to the browser, as we’ve seen before.</p>
+</li>
+<li><p>In any case, since an update process happened anyway (even if the output was exactly the same), React invokes the final lifecycle method, componentDidUpdate.</p>
+</li>
+</ol>
+<p>Lifecycle methods are actually escape hatches. If you’re not doing anything special, you can create full applications without them. They’re very handy for analyzing what is going on in the application and for further optimizing the performance of React updates.</p>
+<p>That’s it. Believe it or not, with what you learned above (or parts of it, really), you can start creating some interesting React applications. If you’re hungry for more, check out my <a href="https://www.pluralsight.com/courses/react-js-getting-started" target="_blank" rel="external">Getting Started with React.js course at Pluralsight:</a></p>
+<p>I also strongly recommend the <a href="http://amzn.to/2vVvU8L" target="_blank" rel="external">Learning React book</a> by Alex and Eve!</p>
+<blockquote>
+<p>This article was originally published on EdgeCoders here. The EdgeCoders version of the article uses interactive code examples which you can edit and re-run from within the article.</p>
+</blockquote>
+<p>Thanks for reading. If you found this article helpful, please recommend it and share it. Follow me for more articles on React.js and JavaScript.</p>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

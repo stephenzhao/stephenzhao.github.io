@@ -22,7 +22,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="All the fundamental React.js concepts, jammed into this single Medium article"/>
+        <meta property="og:title" content="一篇文章讲清楚Ract的10大基础和概念"/>
     
 
     <!--Open Graph Site Name-->
@@ -35,7 +35,7 @@
 
     <!-- Title -->
     
-    <title>All the fundamental React.js concepts, jammed into this single Medium article - Damon</title>
+    <title>一篇文章讲清楚Ract的10大基础和概念 - Damon</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
@@ -193,7 +193,7 @@
                         
 
                     </div>
-                    <h1>All the fundamental React.js concepts, jammed into this single Medium article</h1>
+                    <h1>一篇文章讲清楚Ract的10大基础和概念</h1>
                     
                     <span class="meta">
                         <!-- Date and Author -->
@@ -217,65 +217,61 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <p><img src="https://cdn-images-1.medium.com/max/800/1*qUlxDdY3T-rDtJ4LhLGkEg.png" alt="logo"></p>
-<p>Last year I wrote a short book on learning React.js which turned out to be about 100 pages. This year, I am going to challenge myself to summarize it as an article on Medium.</p>
-<p>This article is not going to cover what React is or <a href="https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76" target="_blank" rel="external">why you should learn it</a>. Instead, this is a practical introduction to the fundamentals of React.js for those who are already familiar with JavaScript and know the basics of the DOM API.</p>
-<p>All code examples below are labeled for reference. They are purely intended to provide examples of concepts. Most of them can be written in a much better way.</p>
-<h1 id="Fundamental-1-React-is-all-about-components"><a href="#Fundamental-1-React-is-all-about-components" class="headerlink" title="Fundamental #1: React is all about components"></a>Fundamental #1: React is all about components</h1><p>React is designed around the concept of reusable components. You define small components and you put them together to form bigger components.</p>
-<p>All components small or big are reusable, even across different projects.</p>
-<p>A React component — in its simplest form — is a plain-old JavaScript function:</p>
+<p>这篇文章不是讲什么是React，也不是<a href="https://medium.freecodecamp.org/yes-react-is-taking-over-front-end-development-the-question-is-why-40837af8ab76" target="_blank" rel="external">为什么学习React</a>。 而是一篇介绍React的一些基本概念和原理，我假定你们都熟悉js也了解基本的DOM API。</p>
+<p>文章中的所有代码例子都只是作为参考，它们可能有别的更好的写法，但这里纯粹的为了理解React概念。</p>
+<h1 id="基础-1-React皆组件"><a href="#基础-1-React皆组件" class="headerlink" title="基础 #1: React皆组件"></a>基础 #1: React皆组件</h1><p>React按照可复用组件的概念来设计的。定义一个个的小组件，然后组装成大组件。</p>
+<p>所有的组件不论大小都是可复用的，即使跨项目也一样。</p>
+<p>一个组件，从形式上看就是一个普通的JS方法：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// Example 1</span><br><span class="line">// https://jscomplete.com/repl?j=Sy3QAdKHW</span><br><span class="line">function Button (props) &#123;</span><br><span class="line">  // Returns a DOM element here. For example:</span><br><span class="line">  return &lt;button type="submit"&gt;&#123;props.label&#125;&lt;/button&gt;;</span><br><span class="line">&#125;</span><br><span class="line">// To render the Button component to the browser</span><br><span class="line">ReactDOM.render(&lt;Button label="Save" /&gt;, mountNode)</span><br></pre></td></tr></table></figure>
-<p>The curly braces used for the button label are explained below. Don’t worry about them now. ReactDOM will also be explained later, but if you want to test this example and all upcoming code examples, the above render function is what you need.</p>
-<p>The second argument to ReactDOM.render is the destination DOM element which React is going to take over and control. In a jsComplete REPL, you can just use the special variable mountNode.</p>
-<p>Note the following about Example 1:</p>
+<p>关于 <code>Button</code> 里面的花括号，还有ReactDOM会在后面介绍。这里只是一个热身例子。</p>
+<p>ReactDOM.render 的第二个参数是React会覆盖和监控的目标元素。</p>
+<p>关于 Example 1 的个要点:</p>
 <ul>
-<li><p>The component name starts with a capital letter. This is required since we will be dealing with a mix of HTML elements and React elements. Lowercase names are reserved for HTML elements. In fact, go ahead and try to name the React component just “button”. ReactDOM will ignore the function and renders a regular empty HTML button.</p>
-</li>
-<li><p>Every component receives a list of attributes, just like HTML elements. In React, this list is called props. With a function component, you can name it anything though.</p>
-</li>
-<li><p>We weirdly wrote what looks like HTML in the returned output of the Button function component above. This is neither JavaScript nor HTML, and it’s not even React.js. But, it’s so popular that it became the default in React applications. It’s called JSX and it’s a JavaScript extension. JSX is also a compromise! Go ahead and try and return any other HTML element inside the function above and see how they are all supported (for example, return a text input element).</p>
-</li>
+<li>问了和HTML标签区别开来，组件的名字首字母大写。小写是为HTML元素预留的，事实上如果你把该组件命名为’button’，ReactDOM将会忽略此方法直接渲染一个正常的空的HTML button。</li>
+<li>和HTML元素一样每个组件也会接收一个属性列表，在React里面这个列表叫Props。由于是一个方法组件你可以随便定义属性。</li>
+<li>在Button方法组件上，我们写出了一个类HTML的输出。这种输出既不JS也不是HTML或者React.js。但它是这么的受欢迎以至于变成了React的默认写法。她叫做JSX，一个JS的扩展。JSX也是一种折衷的方案。自己动手试试吧，比如试试让她返回一个input元素。</li>
 </ul>
-<h1 id="Fundamental-2-What-the-flux-is-JSX"><a href="#Fundamental-2-What-the-flux-is-JSX" class="headerlink" title="Fundamental #2: What the flux is JSX?"></a>Fundamental #2: What the flux is JSX?</h1><p>Example 1 above can be written in pure React.js without JSX as follows:</p>
+<h1 id="基础-2-JSX的-“flux”-是多少"><a href="#基础-2-JSX的-“flux”-是多少" class="headerlink" title="基础 #2: JSX的 “flux” 是多少?"></a>基础 #2: JSX的 “flux” 是多少?</h1><p>上面的例子Example 1可以用纯react.js实现,而不用jsx:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example 2 -  React component without JSX</span></span><br><span class="line"><span class="comment">// https://jscomplete.com/repl?j=HyiEwoYB-</span></span><br><span class="line"><span class="function">function <span class="title">Button</span> <span class="params">(props)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> React.createElement(</span><br><span class="line">    <span class="string">"button"</span>,</span><br><span class="line">    &#123; type: <span class="string">"submit"</span> &#125;,</span><br><span class="line">    props.label</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// To use Button, you would do something like</span></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  React.createElement(Button, &#123; label: <span class="string">"Save"</span> &#125;),</span><br><span class="line">  mountNode</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p>The createElement function is the main function in the React top-level API. It’s 1 of a total of 7 things in that level that you need to learn. That’s how small the React API is.</p>
-<p>Much like the DOM itself having a document.createElement function to create an element specified by a tag name, React’s createElement function is a higher-level function that can do what document.createElement does. But it can also be used to create an element to represent a React component. We did the latter when we used the Button component in Example 2 above.</p>
-<p>Unlike document.createElement, React’s createElement accepts a dynamic number of arguments after the second one to represent the children of the created element. So createElement actually creates a tree.</p>
-<p>Here’s an example of that:</p>
+<p>createElement方法是React顶级API的主要方法。也是7大API中所需要学习的一个。这也说明了ReactAPI很小。</p>
+<p>就类似DOM有自己的document.createElement 方法来创建特定标签名的元素。React的createElement方法是一个高级方法能做到document.createElement能做的事，他也能创建代表React组件的元素。我们在上面的例子2中做过后者。</p>
+<p>不一样的还有，React的createElement方法接受一个可变的多个参数做为第二个参数后面的参数来代表创建的元素的子元素。所以CreatElement实际是创建了一个树</p>
+<p>举个例子</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Example 3 -  React’s createElement API</span></span><br><span class="line"><span class="comment">// https://jscomplete.com/repl?j=r1GNoiFBb</span></span><br><span class="line"><span class="keyword">const</span> InputForm = React.createElement(</span><br><span class="line">  <span class="string">"form"</span>,</span><br><span class="line">  &#123; target: <span class="string">"_blank"</span>, action: <span class="string">"https://google.com/search"</span> &#125;,</span><br><span class="line">  React.createElement(<span class="string">"div"</span>, <span class="keyword">null</span>, <span class="string">"Enter input and click Search"</span>),</span><br><span class="line">  React.createElement(<span class="string">"input"</span>, &#123; className: <span class="string">"big-input"</span> &#125;),</span><br><span class="line">  React.createElement(Button, &#123; label: <span class="string">"Search"</span> &#125;)</span><br><span class="line">);</span><br><span class="line"><span class="comment">// InputForm uses the Button component, so we need that too:</span></span><br><span class="line"><span class="function">function <span class="title">Button</span> <span class="params">(props)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> React.createElement(</span><br><span class="line">    <span class="string">"button"</span>,</span><br><span class="line">    &#123; type: <span class="string">"submit"</span> &#125;,</span><br><span class="line">    props.label</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Then we can use InputForm directly with .render</span></span><br><span class="line">ReactDOM.render(InputForm, mountNode);</span><br></pre></td></tr></table></figure>
-<p>Note a few things about the example above:</p>
+<p>从上面列子需要知道：</p>
 <ol>
-<li><p>InputForm is not a React component; it’s just a React element. This is why we used it directly in the ReactDOM.render call and not with <inputform>.</inputform></p>
+<li><p>因为InputForm不是React组件，只是React元素。所以我们直接用ReactDOM.render来调用InputForm，而不是 <inputform>（注意和Example 1的对比）。</inputform></p>
 </li>
-<li><p>The React.createElement function accepted multiple arguments after the first two. Its list of arguments starting from the 3rd one comprises the list of children for the created element.</p>
+<li><p>React.createElement 方法在前两个参数后面接收了多个参数. 他从第三个起的参数列表 由一个该组件的子组件构成的列表.</p>
 </li>
-<li><p>We were able to nest React.createElement calls because it’s all JavaScript.<br>The second argument to React.createElement can be null or an empty object when no attributes or props are needed for the element.</p>
+<li><p>由于 React.createElement 都是 JavaScript所以我们可以嵌套调用.当该元素没有属性或者Props的时候，该方法的第二个参数可以是null或者是一个空的对象.</p>
 </li>
-<li><p>We can mix HTML element with React components. You can think of HTML elements as built-in React components.</p>
+<li><p>我们可以将HTML元素和React组件一起混用，你就把HTML想象为React的内置组件就可以了.</p>
 </li>
-<li><p>React’s API tries to be as close to the DOM API as possible, that’s why we use className instead of class for the input element. Secretly, we all wish the React’s API would become part of the DOM API itself. Because, you know, it’s much much better.</p>
+<li><p>React 的API设计会尽可能的河DOM API接近，这也是为什么在 Input 元素中我们要用className而不是class的原因. 私下里,我们都希望React API可以变成DOM API的一部分，那就太好了.</p>
 </li>
 </ol>
-<p>The code above is what the browser understands when you include the React library. The browser does not deal with any JSX business. However, we humans like to see and work with HTML instead of these createElement calls (imagine building a website with just document.createElement, which you can!). This is why the JSX compromise exists. Instead of writing the form above with React.createElement calls, we can write it with a syntax very similar to HTML:</p>
+<p>上面的代码当引入了React库后浏览器是可以理解的，浏览器不能直接解析JSX. 然而我们开发者喜欢跟HMTL打交道而不是createElment（想象一下，整个页面用document.createElement来创建的情景，辣眼睛）. 这就是JSX存在的意义，以其用React.createElement来构建页面，我们更愿意使用一种和HTML更相近的语法:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// Example 4 - JSX (compare with Example 3)</span><br><span class="line">// https://jscomplete.com/repl?j=SJWy3otHW</span><br><span class="line">const InputForm =</span><br><span class="line">  &lt;form target="_blank" action="https://google.com/search"&gt;</span><br><span class="line">    &lt;div&gt;Enter input and click Search&lt;/div&gt;</span><br><span class="line">    &lt;input className="big-input" name="q" /&gt;</span><br><span class="line">    &lt;Button label="Search" /&gt;</span><br><span class="line">  &lt;/form&gt;;</span><br><span class="line">// InputForm "still" uses the Button component, so we need that too.</span><br><span class="line">// Either JSX or normal form would do</span><br><span class="line">function Button (props) &#123;</span><br><span class="line">  // Returns a DOM element here. For example:</span><br><span class="line">  return &lt;button type="submit"&gt;&#123;props.label&#125;&lt;/button&gt;;</span><br><span class="line">&#125;</span><br><span class="line">// Then we can use InputForm directly with .render</span><br><span class="line">ReactDOM.render(InputForm, mountNode);</span><br></pre></td></tr></table></figure>
-<p>Note a few things about the above:</p>
+<p>上面例子你需要知道：</p>
 <ul>
-<li>It’s not HTML. For example, we’re still doing className instead of class.</li>
-<li>We’re still considering what looks like HTML above as JavaScript. See how I added a semi-column at the end.</li>
+<li>它们不是HTML，你可以看到我们还在用className而不是class.</li>
+<li>我们一直认为这种类HTML的语法是一种JS，所以可以看到我们在最后加了分号。</li>
 </ul>
-<p>What we wrote above (Example 4) is JSX. Yet, what we took to the browser is the compiled version of it (Example 3). To make that happen, we need to use a pre-processor to convert the JSX version into the React.createElement version.</p>
-<p>That is JSX. It’s a compromise that allows us to write our React components in a syntax similar to HTML, which is a pretty good deal.</p>
+<p>上面的代码（Example 4）就是JSX了。到目前为止，我们呈现给浏览器的是（Example 3）版本编译后的代码。为了达到被浏览器理解的目的，我们需要使用与处理器来讲JSX版本（Example 4）的代码转换成为React.createElement（Example 3）版本。</p>
+<p>这就是JSX，它是为了让我们能够用一种更接近HTML语法来写React组件的一种折衷的办法，也是一个不错的方案。</p>
 <blockquote>
-<p>The word “Flux” in the header above was chosen to rhyme, but it’s also the name of a very popular application architecture popularized by Facebook. The most famous implementation of which is Redux. Flux fits the React reactive pattern perfectly.</p>
+<p>开头说的“Flux”这个单词，其实只是为了押韵所以用了这个词。Flux同时也是一个Facebook推出的非常受欢迎的应用框架的名字。其中最出名的实现是Redux。Flux非常适用于React的reactive特性.</p>
 </blockquote>
-<p>JSX, by the way, can be used on its own. It’s not a React-only thing.</p>
-<h1 id="Fundamental-3-You-can-use-JavaScript-expressions-anywhere-in-JSX"><a href="#Fundamental-3-You-can-use-JavaScript-expressions-anywhere-in-JSX" class="headerlink" title="Fundamental #3: You can use JavaScript expressions anywhere in JSX"></a>Fundamental #3: You can use JavaScript expressions anywhere in JSX</h1><p>Inside a JSX section, you can use any JavaScript expression within a pair of curly braces.</p>
+<p>另外，JSX也不是非得和React搭配用的，他也可以独立使用.</p>
+<h1 id="基础-3-你可以在-JSX任何位置使用JS表达式"><a href="#基础-3-你可以在-JSX任何位置使用JS表达式" class="headerlink" title="基础 #3: 你可以在 JSX任何位置使用JS表达式"></a>基础 #3: 你可以在 JSX任何位置使用JS表达式</h1><p>在JSX里面，你可以使用带有花括号的JS表达式：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// Example 5 -  Using JavaScript expressions in JSX</span><br><span class="line">// https://jscomplete.com/repl?j=SkNN3oYSW</span><br><span class="line">const RandomValue = () =&gt; </span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &#123; Math.floor(Math.random() * 100) &#125;</span><br><span class="line">  &lt;/div&gt;;</span><br><span class="line">// To use it:</span><br><span class="line">ReactDOM.render(&lt;RandomValue /&gt;, mountNode);</span><br></pre></td></tr></table></figure>
-<p>Any JavaScript expression can go inside those curly braces. This is equivalent to the ${} interpolation syntax in JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" target="_blank" rel="external">template literals</a>.</p>
-<p>This is the only constraint inside JSX: only expressions. So, for example, you can’t use a regular if statement, but a ternary expression is ok.</p>
-<p>JavaScript variables are also expressions, so when the component receives a list of props (the RandomValue component didn’t, props are optional), you can use these props inside curly braces. We did this in the Button component above (Example 1).</p>
-<p>JavaScript objects are also expressions. Sometimes we use a JavaScript object inside curly braces, which makes it look like double curly braces, but it’s really just an object inside curly braces. One use case of that is to pass a CSS style object to the special style attribute in React:</p>
+<p>任何JS表达式都可以放到花括号里面，这有点像<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" target="_blank" rel="external">JS字符串模版</a>里面的${} 插值语法.</p>
+<p>唯一的约束是：只能是JS表达式，比如：if 语句不能使用了，但是你可以用三元表达式来代替.</p>
+<p>JS变量是表达式，所以当组件接收到Props列表（除了随机数外，props是可选的）时，我们可以将其使用到花括号里面。我们在(Example 1)里面的Button组件使用过。</p>
+<p>JS对象也同样是表达式。有时候我们在花括号里面使用JS对象，从表现上来看是一个双括号，但这实际上就是一个放在花括号里面的对象而已。比如，我们可以在React的特殊样式属性中传入一个CSS样式对象:</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// Example 6 - An object passed to the special React style prop</span><br><span class="line">// https://jscomplete.com/repl?j=S1Kw2sFHb</span><br><span class="line">const ErrorDisplay = (&#123;message&#125;) =&gt;</span><br><span class="line">  &lt;div style=&#123; &#123; color: 'red', backgroundColor: 'yellow' &#125; &#125;&gt;</span><br><span class="line">    &#123;message&#125;</span><br><span class="line">  &lt;/div&gt;;</span><br><span class="line">// Use it:</span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;ErrorDisplay </span><br><span class="line">    message="These aren't the droids you're looking for" </span><br><span class="line">  /&gt;,</span><br><span class="line">  mountNode</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p>Note how I destructured only the message out of the props argument. It’s JavaScript. Also note how the style attribute above is a special one (again, it’s not HTML, it’s closer to the DOM API). We use an object as the value of the style attribute. That object defines the styles as if we’re doing so with JavaScript (because we are).</p>
+<p>注意这里我是怎么结构props里面的message参数的，再次证明它是JS。另外注意看一下style属性的特殊性（它不是HTML，它只是接近DOM API）。我们使用一个对象作为style属性。这样的定义样式就像在写js一样，当然我们就是在写JS。</p>
 <p>You can even use a React element inside JSX, because that too is an expression. Remember, a React element is a function call:</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// Example 7 - Using a React element within &#123;&#125;</span><br><span class="line">// https://jscomplete.com/repl?j=SkTLpjYr-</span><br><span class="line">const MaybeError = (&#123;errorMessage&#125;) =&gt;</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    &#123;errorMessage &amp;&amp; <span class="tag">&lt;<span class="name">ErrorDisplay</span> <span class="attr">message</span>=<span class="string">&#123;errorMessage&#125;</span> /&gt;</span>&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>;</span><br><span class="line">  </span><br><span class="line">// The MaybeError component uses the ErrorDisplay component:</span><br><span class="line">const ErrorDisplay = (&#123;message&#125;) =&gt;</span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;</span> &#123; <span class="attr">color:</span> '<span class="attr">red</span>', <span class="attr">backgroundColor:</span> '<span class="attr">yellow</span>' &#125; &#125;&gt;</span></span><br><span class="line">    &#123;message&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span>;</span><br><span class="line">// Now we can use the MaybeError component:</span><br><span class="line">ReactDOM.render(</span><br><span class="line">  <span class="tag">&lt;<span class="name">MaybeError</span></span><br><span class="line">    <span class="attr">errorMessage</span>=<span class="string">&#123;Math.random()</span> &gt;</span> 0.5 ? 'Not good' : ''&#125;</span><br><span class="line">  /&gt;,</span><br><span class="line">  mountNode</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <p>The MaybeError component above would only display the ErrorDisplay component if there is an errorMessage string passed to it and an empty div. React considers {true}, {false}, {undefined}, and {null} to be valid element children, which do not render anything.</p>

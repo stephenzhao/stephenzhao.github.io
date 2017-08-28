@@ -331,51 +331,47 @@
 <p>这是一个需要理解的很重要的例子。这将完善你的React的知识。理解了这个例子后，你只需要在学习一点JS技巧方面的知识就可以入门了。</p>
 <p>从class域开始让我们回顾一下例13。有两个类域。<br>第一个是私有state，它包含两个属性<code>clickCounter</code> 和 <code>currentTimestamp</code>.<br>另一个是<code>handleClick</code>函数，该函数的引用被传给button的onClick 事件属性。它会通过setState来改变组件的状态。</p>
 <p>另外我们还在componentDidMount方法里面调用一个定时轮询来改变状态，每秒调用一下this.setState。<br>在render函数里我们就使用了一下这两个属性，没别的特殊API。</p>
-<p>Now, notice that we updated the state using two different ways:</p>
+<p>Now, notice that we updated the state using two different ways:<br>不知道你注意到了没有？我们使用了两种不同的方法来更新state。</p>
 <ol>
-<li>By passing a function that returned an object. We did that inside the handleClick function.</li>
-<li>By passing a regular object. We did that inside the interval callback.</li>
+<li>通过传递返回对象的函数.</li>
+<li>直接传递一个普通的对象.</li>
 </ol>
-<p>Both ways are acceptable, but the first one is preferred when you read and write to the state at the same time (which we do). Inside the interval callback, we’re only writing to the state and not reading it. When in doubt, always use the first function-as-argument syntax. It’s safer with race conditions because setState is actually an asynchronous method.</p>
-<p>How do we update the state? We return an object with the new value of what we want to update. Notice how in both calls to setState, we’re only passing one property from the state field and not both. This is completely okay because setState actually merges what you pass it (the returned value of the function argument) with the existing state. So, not specifying a property while calling setState means that we wish to not change that property (but not delete it).</p>
-<h1 id="8-React-将会响应你的变化"><a href="#8-React-将会响应你的变化" class="headerlink" title="#8: React 将会响应你的变化"></a>#8: React 将会响应你的变化</h1><p>React gets its name from the fact that it reacts to state changes (although not reactively, but on a schedule). There was a joke that React should have been named Schedule!</p>
-<p>However, what we witness with the naked eye when the state of any component gets updated is that React reacts to that update and automatically reflects the update in the browser DOM (if needed).</p>
-<p>Think of the render function’s input as both</p>
+<p>两种方式都可行，但第一种适用于当你需要同时读和写state的时候（就像我们这样）。在定时器函数里面，我们只需要对state进行写操作不用读。当你实在分不清楚的时候那你就用函数作为参数的用法。在竞态条件（译者注：<em>当两个线程竞争同一资源时，如果对资源的访问顺序敏感，就称存在竞态条件</em>）下更加安全，因为setState实际上是一个异步方法。</p>
+<p>那么我们怎么更新state的呢？我们在函数里返回一个我们需要更新的新对象。还有一点，可以看到我们在更新state的时候仅仅只用传递state的一个属性就好了，而不用都传递。这完全可行的，因为setState实际上对传入的新值是一个merge操作。所以没有传的那部分值说明我们不希望它改变而不是把它删掉。</p>
+<h1 id="8-React-将会响应你的变化"><a href="#8-React-将会响应你的变化" class="headerlink" title="#8: React 将会响应你的变化"></a>#8: React 将会响应你的变化</h1><p>React 之所以叫React 是基于他会响应state的变化（即使不响应也在响应的路上）。还有一种说法是React应该起名叫Schedule。</p>
+<p>然而，当任何组件的状态更新时，我们用肉眼看到的是React对该更新做出反应，并自动反映浏览器DOM中的更新（如果需要更新到DOM）.</p>
+<p>这里思考render函数的两种输入：</p>
 <ul>
-<li><p>the props that get passed by the parent</p>
+<li><p>通过父组件传入的props</p>
 </li>
-<li><p>the internal private state that can be updated anytime</p>
+<li><p>可以随时更新的内部状态state</p>
 </li>
 </ul>
-<p>When the input of the render function changes, its output might change.</p>
-<p>React keeps a record of the history of renders and when it sees that one render is different than the previous one, it’ll compute the difference between them and efficiently translate it into actual DOM operations that get executed in the DOM.</p>
-<h1 id="9-React是你的代理人"><a href="#9-React是你的代理人" class="headerlink" title="#9: React是你的代理人"></a>#9: React是你的代理人</h1><p>You can think of React as the agent we hired to communicate with the browser. Take the current timestamp display above as an example. Instead of us manually going to the browser and invoking DOM API operations to find and update the p#timestamp element every second, we just changed a property on the state of the component and React did its job of communicating with the browser on our behalf. I believe this is the true reason why React is popular. We hate talking to Mr. browser (and the so many dialects of the DOM language that it speaks) and React volunteered to do all the talking for us, for free!</p>
-<h1 id="10-组件周期-2"><a href="#10-组件周期-2" class="headerlink" title="#10: 组件周期 ( 2)"></a>#10: 组件周期 ( 2)</h1><p>Now that we know about the state of a component and how when that state changes some magic happens, let’s learn the last few concepts about that process.</p>
+<p>当render函数的输入改变时，它的输出可能也会发生改变。</p>
+<p>React保留了渲染历史的记录，当它看到一个渲染与前一个渲染不同时，它将计算它们之间的差异，并有效地将其转换为在DOM中执行的实际DOM操作。</p>
+<h1 id="9-React是你的代理人"><a href="#9-React是你的代理人" class="headerlink" title="#9: React是你的代理人"></a>#9: React是你的代理人</h1><p>您可以将React视为我们聘请的与浏览器通信的代理。以上面的显示当前时间戳为例。我们不是去手动的用DOM API来操作<code>p#timestamp</code> 让其每秒更换一下时间戳，而是更组件状态的属性值，然后让React代表我们去和浏览器沟通. 我相信着就是react为什么这么受欢迎的原因. 我们讨厌和浏览器先生（还说着各种带有口音的DOM方言）打交道，React志愿为我们做这些事情，还是免费的～</p>
+<h1 id="10-组件周期-2"><a href="#10-组件周期-2" class="headerlink" title="#10: 组件周期 ( 2)"></a>#10: 组件周期 ( 2)</h1><p>现在我们已经知道了一个组件的状态，当它改变的时候会有神奇的事情发生。接下来让我们继续把后面的生命周期里的概念给理解清楚吧。</p>
 <ol>
-<li><p>A component might need to re-render when its state gets updated or when its parent decides to change the props that it passed to the component</p>
+<li><p>当一个组件的state或者其父组件传递的props发生改变的时候组件就会重新渲染.</p>
 </li>
-<li><p>If the latter happens, React invokes another lifecycle method, componentWillReceiveProps.</p>
+<li><p>如果是后者即props发生改变时 React 会调用另外一个周期函数componentWillReceiveProps.</p>
 </li>
-<li><p>If either the state object or the passed-in props are changed, React has an important decision to do. Should the component be updated in the DOM? This is why it invokes another important lifecycle method here, shouldComponentUpdate. This method is an actual question, so if you need to customize or optimize the render process on your own, you have to answer that question by returning either true or false.</p>
+<li><p>如果两者都发生改变，React会做一个重要决策，该组件是否需要在浏览器里被更新？这也是为什么会调用另外一个周期函数<code>shouldComponentUpdate</code>的原因. 这个方法实际上也是在问一个问题，所以如果你想自定义或者优化你的渲染过程，你就需要通过返回一个true或者false来回答这个问题。</p>
 </li>
-<li><p>If there is no custom shouldComponentUpdate specified, React defaults to a very smart thing that’s actually good enough in most situations.</p>
+<li><p>如果没有手动指定shouldComponentUpdate, React 会默认作出聪明的决策，多数情况下也是足够良好的.</p>
 </li>
-<li><p>First, React invokes another lifecycle method at this point, componentWillUpdate. React will then compute the new rendered output and compare it with the last rendered output.</p>
+<li><p>首先, 这时候React会调用<code>componentWillUpdate</code>方法. 然后计算新的渲染产出把它和上一次的渲染产出进行比较.</p>
 </li>
-<li><p>If the rendered output is exactly the same, React does nothing (no need to talk to Mr. Browser).</p>
+<li><p>如果没什么改变，那么就什么也不做.</p>
 </li>
-<li><p>If there is a difference, React takes that difference to the browser, as we’ve seen before.</p>
+<li><p>如果有改变则把差异反应到浏览器上.</p>
 </li>
-<li><p>In any case, since an update process happened anyway (even if the output was exactly the same), React invokes the final lifecycle method, componentDidUpdate.</p>
+<li><p>无论什么情况，尽管更新会发生在任何地方（甚至计算出来的产出是相同的）,React 最终都会调用另一个周期方法 <code>componentDidUpdate</code>.</p>
 </li>
 </ol>
-<p>Lifecycle methods are actually escape hatches. If you’re not doing anything special, you can create full applications without them. They’re very handy for analyzing what is going on in the application and for further optimizing the performance of React updates.</p>
-<p>That’s it. Believe it or not, with what you learned above (or parts of it, really), you can start creating some interesting React applications. If you’re hungry for more, check out my <a href="https://www.pluralsight.com/courses/react-js-getting-started" target="_blank" rel="external">Getting Started with React.js course at Pluralsight:</a></p>
-<p>I also strongly recommend the <a href="http://amzn.to/2vVvU8L" target="_blank" rel="external">Learning React book</a> by Alex and Eve!</p>
-<blockquote>
-<p>This article was originally published on EdgeCoders here. The EdgeCoders version of the article uses interactive code examples which you can edit and re-run from within the article.</p>
-</blockquote>
-<p>Thanks for reading. If you found this article helpful, please recommend it and share it. Follow me for more articles on React.js and JavaScript.</p>
+<p>生命周期函数实际上就是一个逃逸舱口。如果你不做什么特别的事情，你可以不用他们也可以创建一个完整的应用。它们会非常方便地分析应用程序中发生的情况，并进一步优化了React更新的性能<br>Lifecycle methods are actually escape hatches. If you’re not doing anything special, you can create full applications without them. They’re very handy for analyzing what is going on in the application and for further optimizing the performance of React updates.</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>看完这篇文章我相信你可以开始创建一个有趣的React应用了，如果想了解更多，可以关注我的<a href="https://www.pluralsight.com/courses/react-js-getting-started" target="_blank" rel="external">React课程</a>,同时我强烈推荐这本书<a href="http://amzn.to/2vVvU8L" target="_blank" rel="external">Learning React book</a>  Alex 和 Eve写的。</p>
+<p>谢谢您的品读，如果你觉得文章有用就分享给身边的人吧。关注我的专栏获取更多关于React 和 JS新知识。</p>
 
             </div>
 

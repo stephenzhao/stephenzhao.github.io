@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Yarn 1.0 发布啦"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>Yarn 1.0 发布啦 - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/Yarn/">Yarn</a> <a class="tag" href="/tags/NPM/">NPM</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>Yarn 1.0 发布啦</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2017-09-08
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>激动人心的时刻，Yarn JavaScript 包管理工具1.0发布啦！！👏👏，这是这项工程重要的一步。在过去的11个月里，Yarn收到了一大批的粉丝关注。到目前为止已经有超过 <a href="https://github.com/search?utf8=%E2%9C%93&amp;q=filename%3Ayarn.lock+path%3A%2F&amp;type=Code" target="_blank" rel="external">175,000 GitHub工程</a> 带有yarn.lock 文件. 随着大公司，小团队还有开源组织的使用, Yarn 现在已经为 <a href="https://stats.yarnpkg.com/" target="_blank" rel="external">每个月30亿包下载</a>服务了. 缩短安装时间是许多用户的大难题. <a href="https://twitter.com/necolas/status/799413640348585984" target="_blank" rel="external">Twitter</a>, 还有<a href="https://www.microsoft.com/" target="_blank" rel="external">Microsoft</a> 的 outlook.com, 已经可以看到有5倍的安装时间优化. <a href="https://expo.io/" target="_blank" rel="external">Expo</a>, <a href="http://kenzan.com/" target="_blank" rel="external">Kenzan</a>, 以及 <a href="https://sentry.io/" target="_blank" rel="external">Sentry</a> 也表示说yarn在性能和稳定性有很大提升以至于他们可以更快的装载代码. 另外，一些主要的持续集成工具里面也预装了yarn，如 <a href="https://circleci.com/docs/1.0/yarn/" target="_blank" rel="external">CircleCI</a>, <a href="https://blog.travis-ci.com/2016-11-21-travis-ci-now-supports-yarn" target="_blank" rel="external">Travis CI</a>, 以及 <a href="https://www.appveyor.com/docs/build-environment/#tools" target="_blank" rel="external">AppVeyor</a>.</p>
+<p>在我们Facebook内部，Yarn也应用到了许多基础代码库中，比如Facebook主app和主站，Instagram，Oculus，WhatsApp。在我们的体系里Yarn每天支持着成百上千的包的安装。它的设计是为了更好的扩展工程，即使这个工程拥有成百上千个直接或者间接的依赖。利用 <a href="https://yarnpkg.com/blog/2016/11/24/offline-mirror/" target="_blank" rel="external">offline mirror</a> 功能我们可以更快速和安全的按成包的安装, 并且他们是可靠且可复用的，不仅可以用在每个工程师的开发机器里，也可以用到持续集成系统里面.</p>
+<p>受到大家的欢迎，社区参与度也很不错这让我们很欣慰。一年前，当我们发布yarn的时候，我们就专注于稳定性、灵活性和高效这三个方面。基于这个让yarn成功的要素，我们带来了拥有很多新功能的1.0版本，希望能帮助Yarn社区更快速的进步、构建出强大的工程。开源社区对于这个项目的源码以及官网都给出了重要的的贡献，1.0很多功能设计和实现都来自于社区的成员。</p>
+<p>所以， 1.0有什么干货呢：</p>
+<h2 id="Yarn-工作空间"><a href="#Yarn-工作空间" class="headerlink" title="Yarn 工作空间"></a>Yarn 工作空间</h2><p>我们已经看到源代码管理的单一存储库方法，由诸如Facebook等大型科技公司普及，在开源社区和小公司中慢慢获得了发展。往这种方法转移的原因，这个理念使得我们在项目之间共享代码变得容易起来，同时也避免了依赖同步的问题。 为了让人们更容易的采用这种模式，Yarn添加了一个新功能: <a href="https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/" target="_blank" rel="external">Workspaces</a>. 它使得人们可以自动的将来自多个package.json的依赖合并到一起，且只需要安装一次.同样只需要在根目录添加 一个yarn.lock文件就可以。 此外，Yarn会在彼此相互依赖的Workspaces之间创建符号链接，这样在所有的项目中就始终可以用到最新的代码.</p>
+<p>Workspaces已经在Facebook的团队以及像Babel这样的开源团队使用。如果你已经在使用像Lerna这样的单一存储库管理工具，那么你也可以<a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fgithub.com%2Flerna%2Flerna%2Fpull%2F899&amp;h=ATO2Lj1ny1n_ogFvl9AiQ8PB-4VV5rR0kloQx7WnsQ64RkVI9WRf2omaMso2X1Bo5EyBKY9rc8gxPKlYTUnV_9S01UYl7b8iHsuUbo6o3zOvmYcwAbl80XvBQW3YLjX8B3fWxz7LP9uZ_FurpMAENA" target="_blank" rel="external">选择使用Yarn的工作空间</a>了。 这个<a href="https://github.com/babel/babel/pull/6056" target="_blank" rel="external">将Babel迁移到Workspaces的PR</a>是一个很好的例子. 通过让Yarn原生支持Workspaces，我们希望能够通过避开较大项目里面的细小程序包的重复安装来更快更轻量的安装包。</p>
+<h2 id="自动merge-lock文件"><a href="#自动merge-lock文件" class="headerlink" title="自动merge lock文件"></a>自动merge lock文件</h2><p>对于具有多个贡献者的快节奏项目，依赖可以在单独项目Pull Request中逐个更新。这样做就可能会导致yarn.lock文件的merge冲突。如果只有一两个包有着种情况我们通常可以直接手动解决一下，但如果有很多这种情况就会变得很乏味。</p>
+<p>有了新的自动合并功能，当你的lock file出现冲突的时候，Yarn会在你运行yarn install的时候帮你解决冲突。如果合并成功，没有冲突的文件将被保存到磁盘里，留给你的任务就是在版本控制系统里将其标定为已解决。</p>
+<p>这样一来，如果再有冲突你就不用费心去解决这些琐事了：</p>
+<p><img src="https://fb-s-a-a.akamaihd.net/h-ak-fbx/v/t39.2365-6/21201052_497239930622461_5197814999812145152_n.gif?oh=cbfca79784468d738b06f2cd6a24afa5&amp;oe=5A15D4F3&amp;__gda__=1511590525_e7ddf01bab08258552360c8b5d793d36" alt=""></p>
+<h2 id="可选择的版本解决方案"><a href="#可选择的版本解决方案" class="headerlink" title="可选择的版本解决方案"></a>可选择的版本解决方案</h2><p>有时候，软件包需要静快的修复关键bug或者是重要的安全更新。不幸的时，你的项目可能不是直接引用这个包而是通过几层的依赖来引用他们。这个时候你只能等到这个直接依赖包的更新，或者你fork一份代码来自己更新。这两个方案都不是很理想， 可选版本的解决方案就是为了解决这些问题而开发的。<br>现在，Yarn允许在项目的package.json中定义一个<code>resolutions</code>字段来告诉Yarn去按照指定版本去安装子依赖而忽视原始的依赖范式。该功能足够灵活、通用，可以 通过全局模式来定义细粒度的规则以深入到特定的间接依赖。 以下是一个实例，当你希望安装特定的子依赖<code>async</code>模块时候你可以看到该如何使用这个功能来实现：:</p>
+<p><img src="https://fb-s-c-a.akamaihd.net/h-ak-fbx/v/t39.2365-6/21387025_521873481481873_7498979389481156608_n.jpg?oh=74c3ebe750404aa23121c8190774c1ce&amp;oe=5A5CB61E&amp;__gda__=1511196048_22810ff877c7d9cff3a8aa8bb9e19ab3" alt=""></p>
+<p>还要特别的鸣谢：这个功能是由社区成员完全设计和实施的。维克多·诺尔（<a href="https://github.com/victornoel" target="_blank" rel="external">VictorNoël</a>）提交了<a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fgithub.com%2Fyarnpkg%2Frfcs%2Fpull%2F68&amp;h=ATOtvpvGgYVTcZW5I_qCIf-oZQc8LYPmAYjk3UgNqgzP32tFbUq_VtN0ftbWn_kQFXa0lVj5Gf5_sgdKsQ-j_zXeohWu1iIiak20FleeEljGGZyf_k99-z_tA-Ko_G1yZWkzD5SaClOnrk1R8DSWzA" target="_blank" rel="external">RFC</a>和<a href="https://github.com/yarnpkg/yarn/pull/3868" target="_blank" rel="external">验收测试</a>，完整的端到端实施来自于<a href="https://github.com/kaylieEB" target="_blank" rel="external">Kaylie Kwon</a>。</p>
+<h2 id="一些bug的修复以及功能的改进"><a href="#一些bug的修复以及功能的改进" class="headerlink" title="一些bug的修复以及功能的改进"></a>一些bug的修复以及功能的改进</h2><p>出了上面这些新功能，我们还想提及一些改进:</p>
+<ul>
+<li><a href="https://github.com/yarnpkg/yarn/pull/3847" target="_blank" rel="external">更好的交互式升级体验</a></li>
+<li><a href="https://github.com/yarnpkg/yarn/pull/4122" target="_blank" rel="external">更快的文件完整性检查</a></li>
+<li><a href="https://github.com/yarnpkg/yarn/pull/4114" target="_blank" rel="external">你可以在你的项目里面独立的使用lockfile解析模块</a></li>
+<li><a href="https://github.com/yarnpkg/yarn/issues/4115" target="_blank" rel="external">依从于其他Yarn二进制包从而达到一致性的能力</a></li>
+<li><a href="https://github.com/yarnpkg/yarn/issues?q=is%3Aissue+is%3Aclosed+project%3Ayarnpkg%2Fyarn%2F3+sort%3Acreated-asc" target="_blank" rel="external">Yarn 1.0拥有了更多的功能和更新</a></li>
+<li><a href="https://github.com/yarnpkg/yarn/releases/tag/v1.0.0" target="_blank" rel="external">完整的更新日志</a></li>
+</ul>
+<h2 id="社区参与"><a href="#社区参与" class="headerlink" title="社区参与"></a>社区参与</h2><p>没有开源社区就没有Yarn的今天。Yarn的GitHub时作为独立组织创建的, 这是组织来自多个公司合作努力，并快速的呗较大的JS社区认可和采用。</p>
+<p>在项目初次启动之后不久，我们引入了一个RFC过程来鼓励和讨论社区的贡献。上述许多功能最初是由社区成员构思的，后来由社区成员实施。迄今为止，<a href="https://github.com/yarnpkg/yarn/graphs/contributors?from=2017-01-07&amp;to=2017-08-22&amp;type=c" target="_blank" rel="external">40多个贡献者</a>对该项目作出了有影响的改变. 这里列举一些高光的贡献者:</p>
+<ul>
+<li>来自<a href="https://www.algolia.com/" target="_blank" rel="external">Algolia</a>的<a href="https://haroen.me/" target="_blank" rel="external">Haroen Viaene</a>和<a href="http://www.function.fr/" target="_blank" rel="external">Vincent Voyer</a>建议为Yarn构建可以<a href="https://yarnpkg.com/en/packages?q=react&amp;p=1" target="_blank" rel="external">快速搜索包</a>并展示出包细节页面，以便为您的应用找到合适的包的网站。</li>
+<li>Kat Marchán, 来自npm公司,为npm工具工作。他提交了一个提高文件复制速度的改进。</li>
+<li>RFC和实现机制都是为了诸如：<a href="https://github.com/yarnpkg/rfcs/pull/49" target="_blank" rel="external">离线镜像剪枝</a> (已实现), <a href="https://github.com/yarnpkg/rfcs/pull/71" target="_blank" rel="external">一致的升级命令交互</a>(已实现), 以及 可选择的版本解决方案(<a href="https://github.com/yarnpkg/rfcs/pull/68" target="_blank" rel="external">https://github.com/yarnpkg/rfcs/pull/68</a>) (已实现).</li>
+<li><a href="https://github.com/wmhilton" target="_blank" rel="external">William Hilton</a>介入并<a href="https://github.com/yarnpkg/yarn/pull/4114" target="_blank" rel="external">将lockfile解析器拆分出来称为一个独立模块</a><a href="https://yarnpkg.com/en/package/@yarnpkg/lockfile" target="_blank" rel="external">@yarnpkg/lockfile</a></li>
+<li><a href="https://github.com/torifat" target="_blank" rel="external">Rifat Nabi</a>实现了<code>yarn upgrade-interactive</code> 以便在CLI中交互式更新依赖</li>
+</ul>
+<h1 id="接下来呢？"><a href="#接下来呢？" class="headerlink" title="接下来呢？"></a>接下来呢？</h1><p>我们会继续Yarn的开发.以下是我们将来要看到的几个要点，如果你也感兴趣可以<a href="https://discord.gg/yarnpkg" target="_blank" rel="external">加入我们</a>：</p>
+<h2 id="Yarn-发布"><a href="#Yarn-发布" class="headerlink" title="Yarn 发布"></a>Yarn 发布</h2><p>维护开源项目不容易。发布一个新包通常包括几个步骤：完整的修改日志，合理的语义化版本号，在相关项目同步版本，以及其他的一些维护者或者自动脚本需要处理的步骤. 如果能让yarn支持所有使用grunt来工作的库作者是不是很厉害呢？</p>
+<h2 id="Package-安全"><a href="#Package-安全" class="headerlink" title="Package 安全"></a>Package 安全</h2><p>软件包审核是添加新软件包或升级旧软件包时的重要步骤。我们很高兴能够看到Yarn在增加包的可信度方面扮演的角色. 我们将和npm合作，为yarn带来双因子校验，让包安全这件事取得一些进展。</p>
+<h2 id="关于语义化版本（Semver）"><a href="#关于语义化版本（Semver）" class="headerlink" title="关于语义化版本（Semver）"></a>关于语义化版本（Semver）</h2><p>随着1.0的发布，我们承诺不会在次要或补丁版本中发生任何突变。这个主要是我们这边需要花点精力来做这个事情，使用一些工具来简化发布流程。希望在不远的未来实现。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>很高兴yarn的出现，带给我们这些开发者，特别是中国区的开发者很大的便利。希望你也会喜欢，并继续关注我的<a href="http://zhuanlan.zhihu.com/jscss" target="_blank" rel="external">专栏</a>。</p>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

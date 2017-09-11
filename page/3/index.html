@@ -193,6 +193,27 @@
             ">
             
                 <div class="post-preview">
+    <a href="/2016/07/07/why-immutable-js/">
+        <h2 class="post-title">
+            为什么使用immutable js
+        </h2>
+        
+        <div class="post-content-preview">
+            
+            JavaScript 中的对象一般是可变的（Mutable），因为使用了引用赋值，新的对象简单的引用了原始对象，改变新的对象将影响到原始对象。如 foo={a: 1}; bar=foo; bar.a=2 你会发现此时 foo.a 也被改成了 2。虽然这样做可以节约内存，但当应用复杂后，这就造成了非常大的隐患，Mutable 带来的优点变得得不偿失。
+some problems
+Mutable...
+        </div>
+    </a>
+    <p class="post-meta">
+        <!-- Date and Author -->
+        
+        2016-07-07
+    </p>
+</div>
+<hr>
+            
+                <div class="post-preview">
     <a href="/2016/06/13/webpack-doc-configuration/">
         <h2 class="post-title">
             Webpack之配置说明
@@ -408,28 +429,6 @@ Webpack 可以把你的代码拆分到“chunks”里面去，从而让你的代
             Posted by Damon on
         
         2016-05-20
-    </p>
-</div>
-<hr>
-            
-                <div class="post-preview">
-    <a href="/2016/05/19/how-to-write-a-plugin/">
-        <h2 class="post-title">
-            编写webpack 插件
-        </h2>
-        
-        <div class="post-content-preview">
-            
-            插件为第三方开发者释放了Webpack的最大可能性。利用多级回调开发者可以把他们自己的需要的功能引入到Webpack里面来。Build插件比Build loader 更进一步。因为你需要理解Webpack底层的东西。要有月底源代码的准备。
-Compiler 和 Compilation开发插件最重要的两个资源就是 compiler 和 compilation 对象，理解他们的是扩展Webpac...
-        </div>
-    </a>
-    <p class="post-meta">
-        <!-- Date and Author -->
-        
-            Posted by Damon on
-        
-        2016-05-19
     </p>
 </div>
 <hr>

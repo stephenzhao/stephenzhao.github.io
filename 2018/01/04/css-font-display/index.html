@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="也来谈谈webfont"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>也来谈谈webfont - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/css/">css</a> <a class="tag" href="/tags/webfont/">webfont</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>也来谈谈webfont</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2018-01-04
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1 id="开篇"><a href="#开篇" class="headerlink" title="开篇"></a>开篇</h1><p>随着设备终端的不断升级，浏览器的支持度越来越高。网页字体的流行也是必然的趋势，他的课选取，可搜索，可缩放，适配度高以及高性能、良好用户体验等优势让它一跃成为网页前端们实现设计师天马行空的设计图首选。<br>今天我们就来介绍一下webfont及其应用，顺便讲讲怎么优化webfont。</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>简而言之，webfont就是可以让网页使用在线字体的一种技术手段。在此之前设计师在设计稿当中使用的一些特殊字体由于在别人的设备里没有这个字体而无法显示预想的效果，我们的解决方案是用图片来替换特殊字体，webfont的出现这个问题就引刃而解了。</p>
+<p>它通过 CSS的@font-face语句引入在线字体，使用CSS选择器指定运用字体的文本。目前网络上使用的字体格式有四种<a href="https://en.wikipedia.org/wiki/Embedded_OpenType" target="_blank" rel="external">EOT</a>、<a href="https://en.wikipedia.org/wiki/TrueType" target="_blank" rel="external">TTF</a>、<a href="https://en.wikipedia.org/wiki/Web_Open_Font_Format" target="_blank" rel="external">WOFF</a> 和 <a href="https://www.w3.org/TR/WOFF2/" target="_blank" rel="external">WOFF2</a></p>
+<p>支持情况如下：</p>
+<ul>
+<li>WOFF 2.0 提供给支持它的浏览器（对许多浏览器来说尚未实现）。</li>
+<li>WOFF 支持大多数浏览器。</li>
+<li>TTF 支持旧 Android（4.4 版以下）浏览器。</li>
+<li>EOT 支持旧 IE（IE9 版以下）浏览器。</li>
+</ul>
+<p>注：从技术角度来讲还有一种格式，即SVG字体，但IE和Firefox从不支持它，并且好像现在的Chrome也放弃了对他的支持，所以暂且就忽略它了。</p>
+<h1 id="font-face"><a href="#font-face" class="headerlink" title="font-face"></a>font-face</h1><p>css3推出了一个<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/At-rule" target="_blank" rel="external">at-rule</a>属性@font-face，来指定特定字体资源的位置、样式特性及其支持的 Unicode 子集。</p>
+<p>语法如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@font-face &#123;</span><br><span class="line">  [ font-family: &lt;family-name&gt;; ] ||</span><br><span class="line">  [ src: [ &lt;url&gt; [ format(&lt;string&gt;#) ]? | &lt;font-face-name&gt; ]#; ] ||</span><br><span class="line">  [ unicode-range: &lt;urange&gt;#; ] ||</span><br><span class="line">  [ font-variant: &lt;font-variant&gt;; ] ||</span><br><span class="line">  [ font-feature-settings: normal | &lt;feature-tag-value&gt;#; ] ||</span><br><span class="line">  [ font-variation-settings: normal | [ &lt;string&gt; &lt;number&gt;] # ||</span><br><span class="line"> [ font-stretch: &lt;font-stretch&gt;; ] ||</span><br><span class="line">  [ font-weight: &lt;weight&gt;; ] ||</span><br><span class="line">  [ font-style: &lt;style&gt;; ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>font-family: 指定字体的名字，所指定的字体名字将会被用于font或font-family属性；<br>local() 指令用于引用、加载和使用安装在本地的字体；<br>format(): 通过该属性来指示URL资源引用的字体格式（可选）；<br>unicode-range: 指定要使用的字体的Unicode子集，从而减小字体载入的体积；<br><img src="http://ww1.sinaimg.cn/large/68e21683ly1fn5kak3fn1j20jc0fy764" alt="保险评分"><br>比如上图设计师想要的结果，骚气的科技感数字我们要使用DIN字体，但是DIN字体不是所有设备都支持所以我们打算让他支持：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">font-face</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: DIN;</span><br><span class="line">    <span class="attribute">font-style</span>: normal;</span><br><span class="line">    <span class="attribute">font-weight</span>: <span class="number">400</span>;</span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(../assets/font/DIN_Alternate_Bold.eot);</span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">local</span>(<span class="string">"DIN Alternate"</span>),</span><br><span class="line">      <span class="built_in">url</span>(../assets/font/DIN_Alternate_Bold.woff) <span class="built_in">format</span>(<span class="string">"woff"</span>),</span><br><span class="line">      <span class="built_in">url</span>(../assets/font/DIN_Alternate_Bold.ttf) <span class="built_in">format</span>(<span class="string">"truetype"</span>),</span><br><span class="line">      <span class="built_in">url</span>(../assets/font/DIN_Alternate_Bold.svg#DINAlternateBold) <span class="built_in">format</span>(<span class="string">"svg"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当浏览器察觉到本地没有DIN字体的时候，他会按照指定的顺序循环访问提供的资源列表，如果存在一个format格式提示则先检查是否支持，如果支持就加载该资源，如果不支持则跳过进入下一个格式提示，如果不存在格式提示则不论如何会尝试加载相应的资源。</p>
+<h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><h2 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h2><p>   字体是字形的集合，其中的每个字形都是一组描述字母形状的路径。每种不同字形，往往包含了大量的共同信息，这些信息是可以压缩的。<br>   常见的压缩方式是：GZIP及其他兼容的压缩模式：</p>
+<ul>
+<li>EOT 和 TTF 格式默认情况下不进行压缩，你可以在服务器开启GZIP进行压缩；</li>
+<li>WOFF 具有内建压缩</li>
+<li><p>WOFF2 采用自定义预处理和压缩算法，提供的文件大小压缩效率比其他格式高大约 30%<br>你可以选择其他的压缩方式来减小字体的体积，但要注意做好浏览器测试。</p>
+<h2 id="unicode-range"><a href="#unicode-range" class="headerlink" title="unicode-range"></a>unicode-range</h2><p>利用unicode-range指定编码子集，可以大大减小字体的体积。使用方法有：</p>
+</li>
+<li>指定单一的字符编码用逗号隔开（例如 U+416）</li>
+<li>间隔范围 用横杠<code>-</code> 表示代码的起始，例如 （U+400-4ff）</li>
+<li><p>通配符（例如 U+4??）？代表任何16进制数字<br>上述三者可以配合使用，并用逗号隔开。<br>注：有时候有些浏览器对unicode-range支持的不好，这个时候我们就需要对所使用的字体进行手动的选取子集。网络上很多第三方工具 如<a href="https://github.com/fonttools/fonttools" target="_blank" rel="external">fonttools</a> <a href="http://font-spider.org/" target="_blank" rel="external">字蛛</a>等。</p>
+<h2 id="font-display"><a href="#font-display" class="headerlink" title="font-display"></a>font-display</h2><p>注：这是最新的属性，还没达到可使用标准（目前Safari还不支持，Chrome部分版本支持）<br>这是最近刚刚提出来的一个方案，就为了解决字体渲染空白问题，说这个之前我们先来讲讲网页字体的加载和渲染问题。</p>
+<p>主要诱因是浏览器在构建渲染树（DOM和CSSOM树）之前会延迟字体请求，因为浏览器必须构建万渲染树之后才能知道使用哪些字体来渲染文本，同时在获取到构建渲染树关键资源之前可能会阻止浏览器渲染文本（网页内容的首次渲染和字体资源加载之间的“竞赛”时，浏览器会产生遗漏渲染所有文本的渲染 注意是所有）。当然对于空白问题在不同浏览器的表现不同，比如Safari会在字体下载完成之前都阻断文本渲染，而chrome会等待最多三秒开始启用后背字体并在下载完成后重渲染。总结下来就下面这个图：<br><img src="https://cdn.glitch.com/be746fa6-6ce9-423d-b9a3-684949adc8d5%2FScreen%20Shot%202017-09-13%20at%201.39.35%20PM.png?1505335214999" alt=""></p>
+<p>在Block阶段浏览器使用不可见字体渲染文本（出现空白渲染）；到了Swap阶段浏览器使用后备字体（sans-serif）渲染文本；在Failure这个阶段意味着字体下载失败，浏览器将一只延用后背字体。<br>目前的问题在于我们没法控制这些阶段的时间长短以及当其中一个阶段失败后怎么处理，font-display给了这种可能。它有四个值：block, swap, fallback 以及 optional，当然也有auto其表现和block一致。<br>各个属性值表现如下图：<br><img src="http://ww1.sinaimg.cn/large/68e21683ly1fn5mgvk0yfj21kw0vzwkt" alt=""></p>
+<ul>
+<li>font-display: block ,文本将被阻断一段时间（长短看浏览器，新版Safari， Chrome ，Firefox是3秒；IE为0秒可视为没有block阶段；旧版本Safari无限长时间），会出现所谓的空白渲染问题（FOIT）</li>
+<li>font-display: swap ，文本将不会出现block阶段，文本会立即用后背字体展现知道所需字体加载完成。会出现字体切换效果（FOUT）</li>
+<li>font-display: fallback ，表现介于block和swap之间。空白期缩短至100ms，然后切换到后备字体直到所需字体加载完成</li>
+<li>font-display: optional ，表现和fallback类似，区别在于它会自动的去根据网络的速度（如2g网络）来决定是否切换字体。</li>
+</ul>
+<p>此属性使用时，我们需要根据具体情况来使用：如果我们使用webfont来做icon图时候，我们是不可能接受fallback的，所以我们需要使用font-display:block。</p>
+<h2 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h2><p>想要说的是@font-face 下面提到的属性（如font-weight,font-style等）对于性能优化来说也是很重要的，他会影响浏览器匹配资源和加载资源的效率以及视觉一致性等因素，所以尽可能准确的给浏览器于明确的指示。<br>当然了其他的优化方案还有很多，包括HTTP缓存，利用<a href="dev.w3.org/csswg/css-font-loading/">FontLoading API</a>优化起加载和渲染等自行探索吧。</p>
+</li>
+</ul>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>2017年过去了，本来想写个总结的。但人在欧洲的火车上，思绪全不在这上面。眨巴眼的功夫2018年已经悄然开始三两天了，杂货铺开篇也快两年了，由于17年后期也懒了许多文章一直没跟上，粉丝也没达到年初一万的小目标，但也9900有余，专栏共收录文章112篇（算上这，113篇）。在此感谢作者天方夜，于秋，谢然，染陌同学，蒋欢，林鑫，SimplyY ，Awee，胡子大哈，吴成琦，LeviDing ，黄俊亮 ，林列欢 ，危险 ，ahonn 等（排名不分先后，可能有纰漏见谅）的投稿，为热爱前端的同学们带来知识的饕餮大餐，没有你们的支持杂货铺也不会受到如此多关注。同时也感谢成千上万的粉丝一如即往的支持，你们是我坚持的动力。在知乎里遇到大家是我的荣幸，希望在接下来的一年里我们能延续这样的默契和友谊，为了这份纯粹的爱好共同进步。</p>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

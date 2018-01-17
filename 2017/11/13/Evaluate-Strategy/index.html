@@ -22,7 +22,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Evaluate-Strategy"/>
+        <meta property="og:title" content="JS Evaluate-Strategy"/>
     
 
     <!--Open Graph Site Name-->
@@ -35,7 +35,7 @@
 
     <!-- Title -->
     
-    <title>Evaluate-Strategy - Damon</title>
+    <title>JS Evaluate-Strategy - Damon</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
@@ -193,7 +193,7 @@
                         
 
                     </div>
-                    <h1>Evaluate-Strategy</h1>
+                    <h1>JS Evaluate-Strategy</h1>
                     
                     <span class="meta">
                         <!-- Date and Author -->
@@ -219,8 +219,50 @@
             <!-- Post Main Content -->
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>最近在看到一个关于JS函数参数传值策略的讨论。很多人会认为JS的Object类型作为函数参数是按引用传递，而基础类型是按值传递，他们也提出了自己的佐证，而且网上搜索很多文章好像也这么说。但是这样的说发是不是正确的呢？让我们来探讨一下JS里面的求值策略。</p>
-<p>维基百科搜索Evaluate-Strategy你可以看到求值策略其实是编程语言里面的一个常用术语。求值策略通常指对某种编程语言的表达式进行求职和计算的一个规则集。而函数参数的传值策略是其中一个特殊的例子。</p>
-<p># </p>
+<p>维基百科搜索<a href="https://zh.wikipedia.org/wiki/%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5" target="_blank" rel="external">Evaluate-Strategy</a>你可以看到求值策略其实是编程语言里面的一个常用术语。求值策略通常指对某种编程语言的表达式进行求值和计算的一个规则集。而函数参数的传值策略是其中一个特殊的例子。</p>
+<p>一般业界常见的求值策略有严格和非严格策略。在“严格求值”中，给函数的实参总是在这个函数被调用之前求值,相应的“非严格求值”就是在函数调用时求值所以也叫“惰性求值”。</p>
+<p>和大部分语言（C，java，Python，Ruby等）一样JS采用的也是严格求值策略，不同的是在JS里面参数求值顺序从左至右而其他的实现则是从右至左。</p>
+<blockquote>
+<p>注：ES6里面函数增加了默认参数，参数默认值不是传值的，而是每次都重新计算默认值表达式的值也就是说，参数默认值是惰性求值的。</p>
+</blockquote>
+<p>了解JS的函数传参策略对于我们理解JS来说意义重大。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在此之前我们先来看一下问题：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">magic</span>(<span class="params">num, objectA, objectB</span>) </span>&#123;</span><br><span class="line"> num = num * <span class="number">6</span>;</span><br><span class="line"> objectA = &#123;name: <span class="string">'AA'</span>&#125; </span><br><span class="line"> objectB.name = <span class="string">'BB'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> num = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> objectA = &#123;name: <span class="string">'A'</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> objectB = &#123;name: <span class="string">'B'</span>&#125;;</span><br><span class="line">magic(num, objectA, objectB);</span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(objectA); <span class="comment">// &#123;name: "A"&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(objectB); <span class="comment">// &#123;name: "BB"&#125; something change</span></span><br></pre></td></tr></table></figure></p>
+<p>js红宝书里面说过这么一句话： ECMAScript中所有函数的参数都是按值传递的。<br>上述例子中传入了三个值，一个Number类型，两个引用类型。然而当我们objectB的一个属性改变之后，居然改变了传入的变量的值。到底咋回事？</p>
+<h1 id="Call-By-Value-按值传递"><a href="#Call-By-Value-按值传递" class="headerlink" title="Call By Value 按值传递"></a>Call By Value 按值传递</h1><p>“传值调用”求值是最常见的求值策略, 被求值了的参数值会被绑定当前函数的变量里（也就是传递的是其值的拷贝）。此策略中，函数内部改变参数值不会影响到外部值，一般来说是给改参数值分配了新内存，并被函数内部调用。</p>
+<h1 id="Call-By-Reference-按引用传递"><a href="#Call-By-Reference-按引用传递" class="headerlink" title="Call By Reference 按引用传递"></a>Call By Reference 按引用传递</h1><p>按引用传递接收的不是值拷贝，而是对象的隐式引用，如该对象在外部的直接引用地址。函数内部对参数的任何改变都是影响该对象在函数外部的值，因为两者引用的是同一个对象，也就是说：这时候参数就相当于外部对象的一个别名。<br>让我们来看一个PHP的例子：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">(&amp;$var)</span> // 这里&amp; 表示将参数按引用传递</span><br><span class="line"></span>&#123;</span><br><span class="line">    $var++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$a=<span class="number">5</span>;</span><br><span class="line">foo($a);</span><br><span class="line"><span class="comment">// $a is 6 </span></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="Call-By-Sharing-按共享传递"><a href="#Call-By-Sharing-按共享传递" class="headerlink" title="Call By Sharing 按共享传递"></a>Call By Sharing 按共享传递</h1><p>这个策略还有一些代名词：“按对象传递”或“按对象共享传递”，该策略是1974年由Barbara Liskov为CLU编程语言提出的。<br>该策略的要点是：函数接收的是对象对于的拷贝（副本），该引用拷贝和形参以及其值相关联。<br>这里出现的引用，我们不能称之为“按引用传递”，因为函数接收的参数不是直接的对象别名，而是该引用地址的拷贝。<br>最重要的区别就是：函数内部给参数重新赋新值不会影响到外部的对象（和上例按引用传递的case），但是因为该参数是一个地址拷贝，所以在外面访问和里面访问的都是同一个对象（例如外部的该对象不是想按值传递一样完全的拷贝),改变该参数对象的属性值将会影响到外部的对象。</p>
+<h1 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h1><p>看到这里或许你对上面那个问题有一些眉目了，我们就来解析一下：<br>在<a href="https://zhuanlan.zhihu.com/p/22177711" target="_blank" rel="external">之前的文章</a> 我们有讲过JavaScript 是一种弱类型或者说动态语言其数据类型可以分为两类：</p>
+<ul>
+<li>基本类型 Undefined,Null,Boolean,Number,String。</li>
+<li>引用类型 Object,Array,Function,Date等。</li>
+</ul>
+<p>在做变量声明时，不同的类型内存分配也不一样：</p>
+<ul>
+<li>基础类型存储在栈中的简单数据段，直接就是变量访问的位置</li>
+<li>引用类型则存储在堆中，而变量访问的则是一个指针即访问堆中对象的一个地址</li>
+</ul>
+<p>所以在复制变量的时候也就会不同：</p>
+<ul>
+<li>基本类型： 将其副本赋值给新变量，此后便相对独立</li>
+<li>引用类型：只是把内存地址副本赋值给了新变量，而指向了相同的对象，他们中任何一个做出改变都会反应在另一个身上</li>
+</ul>
+<p>其实红宝书的那句话还有后文：</p>
+<blockquote>
+<p>把函数外部的值复制给函数内部的参数，就和把值从一个变量复制到另一个变量一样。基本类型的传递如同基本类型的复制一样，而引用类型值的传递，如同引用类型变量的复制一样。</p>
+</blockquote>
+<p>下面我们再来看看，这两者的不同带来的参数传递的问题：</p>
+<ul>
+<li>基本类型： 只是把变量里的值传递给参数，之后参数和这个变量互不影响</li>
+<li>对象类型： 传递的是对象的内存地址，但是它们指向的还是同一个对象，当内部函数通过该内存地址改变对象时，当然也就会影响到该对象。</li>
+</ul>
+<p>上面可以解释 为什么文章开头的例子：num 和 objectB两个参数对与外部的影响。但是还有一个疑问，为什么objectA在函数内部被赋值了一个全新的对象后没有对外部造成影响呢？<br>这里就要说到JS函数对于引用类型的传递的求值策略来说就是按共享传递。因此，如果你对这个引用进行第二次赋值的时候，实际上把这份引用指向了另外一个对象，所以之后对这个对象的操作不会影响到外部的对象。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>总的来说，js这门语言有很多可以细究的地方。对于求值策略理解有助于解释我们日常代码中遇到的一些疑问，规避一些反模式，提高我们的代码鲁棒性。以上是我的一些理解望各位批评指正。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://zh.wikipedia.org/wiki/%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5" target="_blank" rel="external">求值策略</a></li>
+<li><a href="http://dmitrysoshnikov.com/ecmascript/chapter-8-evaluation-strategy/" target="_blank" rel="external">evaluation-strategy</a></li>
+<li>《javascript高级程序设计》</li>
+</ul>
 
             </div>
 

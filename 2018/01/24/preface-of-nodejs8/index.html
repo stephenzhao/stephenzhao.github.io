@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="《Node.js 8开发实战》前言"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>《Node.js 8开发实战》前言 - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+
+                    </div>
+                    <h1>《Node.js 8开发实战》前言</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2018-01-24
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h1 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>In recent years, two big shifts have happened in the practice of writing software—and Node.js has been at the forefront of both.<br>近年来，在软件编程实战中发生了两大转变。Node.js 在这两方面都处于领先位置。<br>First, software is becoming increasingly asynchronous. Whether you’re waiting<br>on a Big Data job, interacting with end users, steering a quadcopter, or simply<br>responding to an API call, chances are you’ll need asynchronous programming<br>techniques.<br>首先，软件变得越来越异步。不论你是在寻求一份大数据的工作，和终端用户做交互，抑或是需要操纵无人机，甚至只是一个简单的对API调用的响应，你都可能会需要用到异步编程。</p>
+<p>Second, JavaScript has quietly become the world’s standard code-execution<br>environment. It’s everywhere: in web browsers, modern NoSQL databases,<br>DIY robots, and now on the server as well.<br>其次，JavaScript已悄然编程了世界公认的优秀代码执行环境。他可以运行在浏览器、时髦的NoSQl数据库、DIY机器人，现在也能跑在服务端，可谓无处不在。</p>
+<p>Node.js is an integral part of these trends, and it has taken off in a big way.<br>Node.js是这些趋势中不可分割的一部分，并且已经取得了长足的发展。</p>
+<h1 id="Why-Node-js-the-Right-Way"><a href="#Why-Node-js-the-Right-Way" class="headerlink" title="Why Node.js the Right Way?"></a>Why Node.js the Right Way?</h1><h1 id="为什么写这本书？"><a href="#为什么写这本书？" class="headerlink" title="为什么写这本书？"></a>为什么写这本书？</h1><p>Way back in March of 2010, I gave a lightning talk titled “Full-Stack Java-<br>Script” at the NoSQL Boston conference. Back then, and even more so now,<br>I knew that using JavaScript for every layer of the application stack was not<br>only possible, but was a great way to reduce software complexity.<br>时间回到2010年5月份，在波士顿的NoSQL大会上，我做了一个题为“JavaScript全栈开发”的简短演讲。当时，我就知道在应用框架的每个层级使用JavaScript不仅是一种可能，更是优化软件复杂度一种优秀方案。如今我对此的理解更加深刻。</p>
+<p>When each layer of your stack speaks JavaScript, you sidestep impedance<br>mismatches and facilitate code reuse. Node.js is an important piece of the<br>puzzle, filling the middle space between your front-end user-facing code and<br>your data-storage layer.<br>当每个你的应用的每个层级都是用JavaScript，你就可以避免阻抗不匹配（译者：应用程序和数据库表示信息的模式之间的不匹配），同时也增强代码可重用性了。Node.js 是填补前端展示层与数据存储层之间空缺的重要一环。</p>
+<p>The Right Way in this book’s title refers to both the process of learning Node.js<br>and the practice of writing Node.js code.<br>这本书的标题里的“实战”这个词表明这本书既有学习Node.js的过程也有代码实操的练习。</p>
+<h2 id="Learning-Node-js"><a href="#Learning-Node-js" class="headerlink" title="Learning Node.js"></a>Learning Node.js</h2><h2 id="学Node-js"><a href="#学Node-js" class="headerlink" title="学Node.js"></a>学Node.js</h2><p>As with any growing technology, there are plenty of resources available for<br>learning Node.js. Unfortunately, many of those resources are narrowly focused<br>on serving up web resources.<br>和其他任何一种成长中的技术一样，你可以找到很多学习Node.js的资源。但是，这些资源大部分局限在web服务上。</p>
+<p>The web is great, but it’s not enough, and it’s not the whole story of Node.js.<br>Node.js is about more than just serving web apps, and this book treats it<br>that way.<br>web服务很重要，但是还不够，它不是Node.js的全部。Node.js 不单单只是来写web服务应用的，这本书通篇也在贯彻这个理念。<br>Node.js 8 the Right Way teaches you the concepts you’ll need to be an effective<br>Node.js programmer, no matter what kinds of programs you need to write.<br>《Node.js 8开发实战》教给你的概念，能让你高效得开发出各种类型的程序。</p>
+<h2 id="Writing-Node-js"><a href="#Writing-Node-js" class="headerlink" title="Writing Node.js"></a>Writing Node.js</h2><h2 id="写Node-js"><a href="#写Node-js" class="headerlink" title="写Node.js"></a>写Node.js</h2><p>One thing I love about JavaScript is that there are seven ways to do anything.<br>There’s breathing room, where developers can explore and experiment and<br>find better approaches to everything.<br>我钟情于JavaScript的一个原因是它可以用很多种方法做任何事情，还能留给开发者喘息的空间，从而可以探索和实验并找出最佳解决方案。</p>
+<p>The community of Node.js developers, the conventions in Node.js development,<br>and even the semantics of the JavaScript language itself are all rapidly<br>evolving. With eyes to the near future, the code examples and recommendations<br>in this book reflect current best practices and standards.<br>在Node.js开发者社区里，Node.js的开发规约，甚至于JavaScript语言本身的语义都会很快的在这里得到进化。着眼于未来，这本书里的一些代码例子和建议反映的只是当前的最佳实践和标准。</p>
+<h1 id="What’s-in-This-Book"><a href="#What’s-in-This-Book" class="headerlink" title="What’s in This Book"></a>What’s in This Book</h1><h1 id="本书的主要内容"><a href="#本书的主要内容" class="headerlink" title="本书的主要内容"></a>本书的主要内容</h1><p>This book is for intermediate to advanced developers who want to learn how<br>to write asynchronous JavaScript for the server using Node.js. Some prior<br>JavaScript experience will definitely help, but you don’t have to be an expert.<br>The book proceeds in three parts, outlined here briefly.<br>这本书适合于想要学习如何用Node.js 为服务器编写异步的JavaScript的中级到高级开发者。你不需要有JavaScript经验，当然如果你有就经验肯定会有帮助。本书分为三部分，下面简要概述。</p>
+<h2 id="Part-I-Getting-Up-To-Speed-on-Node-js-8"><a href="#Part-I-Getting-Up-To-Speed-on-Node-js-8" class="headerlink" title="Part I: Getting Up To Speed on Node.js 8"></a>Part I: Getting Up To Speed on Node.js 8</h2><h2 id="第一部分-快速学习Node-js-8"><a href="#第一部分-快速学习Node-js-8" class="headerlink" title="第一部分 快速学习Node.js 8"></a>第一部分 快速学习Node.js 8</h2><p>Part I is about getting you up to speed on Node.js 8. You’ll write Node.js programs that use core modules—and a few external modules as well—to do<br>things like interact with the filesystem, spin up a cluster of worker processes, and manage network connections.<br>第一部分会让快速的了解Node.js 8。你将会接触到使用一些核心库以及第三方库来写Node.js，比如：操作文件系统、创建工作进程和管理网络连接。</p>
+<h3 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h3><h3 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h3><p><a href="#Chapter 1, Getting Started, on page 3">Chapter 1, Getting Started, on page 3</a>, introduces the Node.js event loop,<br>explaining how it empowers Node.js to be highly parallel and single-threaded<br>at the same time. This chapter also outlines the five aspects of Node.js development that frame each subsequent chapter and has some brief instructions on getting Node.js installed on your machine.<br><a href="#Getting Started">第1章, 起步, 第3页</a> 这章介绍Node.js 的事件轮询机制，同时解释了Node.js是怎么在单线程的情况下实现高并发操作的。另外本章还概述了接下来每个章节中会用到的5个知识点，最后简要介绍了如何在你的机器上安装Node.js。</p>
+<h3 id="Wrangling-the-File-System"><a href="#Wrangling-the-File-System" class="headerlink" title="Wrangling the File System"></a>Wrangling the File System</h3><h3 id="操作文件系统"><a href="#操作文件系统" class="headerlink" title="操作文件系统"></a>操作文件系统</h3><p>In Chapter 2, Wrangling the File System, on page 11, you’ll start writing Node.js programs. If you’ve done any server-side programming in the past, chances are you’ve had to access a filesystem along the way. We’ll start in this familiar domain, using Node.js’s filesystem tools to create asynchronous, nonblocking file utilities. You’ll use Node.js’s ubiquitous EventEmitter and Stream classes to pipe data, and you’ll spawn and interact with child processes.<br>在<a href="# 操作文件系统">第2章，操作文件系统，第11页</a>，就将开始写代码啦。如果你之前写过服务端你就会知道我们是不是会碰到需要访问文件系统的时候。我们将以似曾相识的领域作为开始，使用Node.js的文件系统工具创建一个非阻塞的文件操作工具。另外还会使用Node.js无处不在的事件和流来处理管道数据并介绍怎么开启和操作子进程。</p>
+<h3 id="Networking-with-Sockets"><a href="#Networking-with-Sockets" class="headerlink" title="Networking with Sockets"></a>Networking with Sockets</h3><h3 id="创建Socket网络"><a href="#创建Socket网络" class="headerlink" title="创建Socket网络"></a>创建Socket网络</h3><p>We’ll expand on those concepts while exploring Node.js’s network I/O capabilities in Chapter 3, Networking with Sockets, on page 27. You’ll create TCP servers and client programs to access them. You’ll also develop a simple<br>JSON-based protocol and a custom class for working with these messages.<br>To develop unit tests for the code, you’ll use Mocha, a popular Node.js test<br>harness.<br>我们将在<a href="# 创建Socket网络">第三章，创建Socket网络，第27页</a>展开讲解在探讨Node.js 网络I/O能力时的几个概念。包括创建一个TCP服务器，并用一个客户端去实现TCP访问，还会制定一个简单的基于JSON的消息协议和一个自定义方法来处理消息。为了能够为代码做单元测试，我们将使用到一个比较流行的测试框架Mocha。</p>
+<h3 id="Connecting-Robust-Microservices"><a href="#Connecting-Robust-Microservices" class="headerlink" title="Connecting Robust Microservices"></a>Connecting Robust Microservices</h3><h3 id="使用稳健的微服务"><a href="#使用稳健的微服务" class="headerlink" title="使用稳健的微服务"></a>使用稳健的微服务</h3><p>Then, in Chapter 4, Connecting Robust Microservices, on page 53, we’ll branch<br>away from the Node.js core and into the realm of third-party libraries. You’ll<br>use npm to import ØMQ (pronounced “Zero-M-Q”)—a high-efficiency, lowlatency<br>library for developing networked applications. With ØMQ, you’ll<br>develop programs that communicate using several important patterns, such<br>as publish/subscribe and request/reply. You’ll create suites of programs that<br>work together in concert, and you’ll learn the clustering tools to manage them.<br>接下来，在<a href="# 使用稳健的微服务">第4章，使用稳健的微服务，第53页</a>中，我们将抛开Node.js核心来讲讲它的一些第三方库。你将会接触到一个高效率低延迟的npm包0MQ(也叫“Zero-M-Q”)来开发网络应用。通过0MQ，你可以开发出运用发布-订阅、请求-应答等重要设计模式的应用程序。另外还会创建一个协同工作的程序套件，并学会使用集群工具来做协同管理。</p>
+<h2 id="Part-II-Working-with-Data"><a href="#Part-II-Working-with-Data" class="headerlink" title="Part II: Working with Data"></a>Part II: Working with Data</h2><h2 id="第二部分-和数据打交道"><a href="#第二部分-和数据打交道" class="headerlink" title="第二部分 和数据打交道"></a>第二部分 和数据打交道</h2><p>In Part II, you’ll work with real data and lay the groundwork for an end-toend<br>application. This starts with processing data files in a testable way. You’ll<br>also learn to compose rich command-line utilities using Node.js and interact<br>with HTTP services.<br>在第二部分，你将和真实数据打交道并为端对端的应用打下坚实的基础。这一切从以可测试的方式处理数据文件开始。同时你会学习到如何使用Node.js编写丰富的命令行工具以及和HTTP服务器做数据交互。</p>
+<h3 id="Transforming-Data-and-Testing-Continuously"><a href="#Transforming-Data-and-Testing-Continuously" class="headerlink" title="Transforming Data and Testing Continuously"></a>Transforming Data and Testing Continuously</h3><h3 id="数据传输与持续测试"><a href="#数据传输与持续测试" class="headerlink" title="数据传输与持续测试"></a>数据传输与持续测试</h3><p>Chapter 5, Transforming Data, on page 81, kicks off an ongoing project that<br>spans Part II and Part III. You’ll download the catalog from Project Gutenberg,<br>an online resource for ebooks in the public domain. Using a module called<br>Cheerio, you’ll write Node.js code to parse the data files and extract the<br>important fields. You’ll use npm, Mocha, and an assertion library called Chai<br>to set up continuous testing, and you’ll learn to use Chrome DevTools for<br>interactive debugging.<br><a href="# 数据传输与持续测试">第5章,数据传输与持续测试, 第81页</a>我们启动了一个正在开发的项目，将涵盖第二部分和第三部分的内容。你将要下载古腾堡工程（一个文化作品数据化开源项目）的日志数据，并用一个第三方模块Cheerio来解析这些数据文件并输出重要的字段。接着你将使用npm、Mocha和断言库Chai来做持续测试方案，并学会如何使用Chrome开发者工具来交互式的调试程序。</p>
+<h3 id="Commanding-Databases"><a href="#Commanding-Databases" class="headerlink" title="Commanding Databases"></a>Commanding Databases</h3><h3 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h3><p>In Chapter 6, Commanding Databases, on page 111, you’ll insert the extracted<br>Project Gutenberg catalog into an Elasticsearch index. To get this done, you’ll<br>write a command-line utility program called esclu using a Node.js module called Commander. Since Elasticsearch is a RESTful, JSON-based datastore,<br>you’ll use the Request module to interact with it. You’ll also learn to use a<br>handy and powerful command-line tool called jq for manipulating JSON.<br>在<a href="# 数据库操作">第6章，数据库操作，第111页</a>，将把为上面抽取出来的古腾堡工程日志数据创建Elasticsearch的索引。要完成这项操作，你讲使用Node.js第三方模块Commander写一个叫esclu的命令行工具。由于Elasticsearch是一个RESTful、基于JSON格式的数据存储对象，你将使用Request模块来做数据交互。同时你还讲学到如何使用一个强大而便捷的命令行工具jq来操作JSON。</p>
+<h2 id="Part-III-Implementing-an-Application"><a href="#Part-III-Implementing-an-Application" class="headerlink" title="Part III: Implementing an Application"></a>Part III: Implementing an Application</h2><h2 id="第三部分：完整实现一个应用"><a href="#第三部分：完整实现一个应用" class="headerlink" title="第三部分：完整实现一个应用"></a>第三部分：完整实现一个应用</h2><p>Part III is where everything comes together. You’ll develop web services that<br>mediate between your API users and your back-end data services. End users<br>don’t interact directly with APIs, though, so for that you’ll implement a<br>beautiful UI. At the end, you’ll tie it all together with session management<br>and authentication.<br>第三部分是上面所学的一个汇总。你将开发出一个web服务作为你的API和后端数据服务的沟通的中间层。你也知道不可能让端用户直接操作API，所以你还将完成一套漂亮的UI界面。最终加上session管理和权限验证，将这些服务组装成为一个完整的应用。</p>
+<h3 id="Developing-RESTful-Web-Services"><a href="#Developing-RESTful-Web-Services" class="headerlink" title="Developing RESTful Web Services"></a>Developing RESTful Web Services</h3><h3 id="开发RESTful-Web服务"><a href="#开发RESTful-Web服务" class="headerlink" title="开发RESTful Web服务"></a>开发RESTful Web服务</h3><p>Node.js has fantastic support for writing HTTP servers, and in Chapter 7,<br>Developing RESTful Web Services, on page 147, you’ll do exactly that. You’ll<br>use Express, a popular Node.js web framework for routing requests. We’ll<br>dive deeper into REST semantics, and you’ll use Promises and async functions<br>for managing code flows. In addition, you’ll learn to configure your services<br>using the nconf module, and keep them running with nodemon.<br>Node.js对于编写HTTP服务支持的非常棒，在<a href="#开发RESTful Web服务">第7章，开发RESTful Web服务，第147页</a>中你就将实践这一点。你将用到Express，一个很受欢迎的处理请求服务的web框架。我们将深入REST语义，你将使用Promise和异步函数来管理代码流。另外，你将学到如何使用nconf来配置服务器并使用nodemon来管理服务进程，让它持续运行。</p>
+<h3 id="Creating-a-Beautiful-User-Experience"><a href="#Creating-a-Beautiful-User-Experience" class="headerlink" title="Creating a Beautiful User Experience"></a>Creating a Beautiful User Experience</h3><h3 id="构建优雅的用户体验"><a href="#构建优雅的用户体验" class="headerlink" title="构建优雅的用户体验"></a>构建优雅的用户体验</h3><p>With the web services in place, in Chapter 8, Creating a Beautiful User Experience, on page 185, you’ll craft a front end for them. You’ll learn how to<br>assemble a front-end project using a Node.js-based build tool called webpack,<br>along with a host of peer-dependency plugins for it. You’ll transpile your code<br>for consumption by the browser using TypeScript, a language and transpiler<br>from Microsoft that features inferred type checking. To make your UI look<br>modern and fabulous, you’ll bring in Twitter’s Bootstrap styling framework,<br>and implement templating with Handlebars.<br>随着Web服务已经完成，在<a href="#构建优雅的用户体验">第八章,构建优雅的用户体验，第185页</a>，你讲给这个服务雕琢一个前端页面。你将学到如何使用webpack以及它的许多依赖插件（一个基于Node.js的构建工具）来构建一个前端项目。你将会用到TypeScript来将你的代码转译成浏览器所认识的代码，TypeScript是微软开发的具有类型检查功能的JS超集语言和转译工具。为了让你的UI界面看起来更加时尚华丽，你将引入Twitter的Bootstrap样式框架，前端模板将使用Handlebar。</p>
+<h3 id="Fortifying-Your-Application"><a href="#Fortifying-Your-Application" class="headerlink" title="Fortifying Your Application"></a>Fortifying Your Application</h3><h3 id="优化你的应用"><a href="#优化你的应用" class="headerlink" title="优化你的应用"></a>优化你的应用</h3><p>Chapter 9, Fortifying Your Application, on page 219, is where everything comes<br>together. You’ll combine the user experience with the web services from the<br>previous two chapters for an end-to-end solution. Using Express middleware,<br>you’ll create authenticated APIs and implement stateful sessions. You’ll also<br>learn how to use npm’s shrinkwrap option to insulate yourself from upstream<br>module changes.<br><a href="# 优化你的应用">第9章，优化你的应用，第219页</a>,这里会是一个汇总。你将会把之前两张开发出来端对端解决方案的Web服务和用户界面结合起来。使用Express中间件来创建权限验证API并完成有状态的session管理。同时你也将学会如何使用npm的shrinkwrap现象来隔离上游模块的变化。</p>
+<h2 id="Developing-Flows-with-Node-RED"><a href="#Developing-Flows-with-Node-RED" class="headerlink" title="Developing Flows with Node-RED"></a>Developing Flows with Node-RED</h2><h2 id="Node-RED的开发模式"><a href="#Node-RED的开发模式" class="headerlink" title="Node-RED的开发模式"></a>Node-RED的开发模式</h2><p>After Part III concludes, there’s a special bonus chapter on Node-RED.<br>Chapter 10, BONUS: Developing Flows with Node-RED, on page 259, walks you<br>第三部分完结之后，附加了一个关于Node-RED的特别的福利章节[第10章，福利：Node-RED的开发模式，第259页]给你。</p>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

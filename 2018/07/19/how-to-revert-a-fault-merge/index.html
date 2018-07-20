@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword"  content="赵飞, 赵飞博客, Damon, Damon Blog, 个人网站, 博客, 个人网站, 互联网, 前端, 设计, 产品">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="baidu-site-verification" content="FAGkDXqvn4" />
+    <!--Description-->
+    
+        <meta name="description" content="Damon 的博客，学习总结 思考感悟 知识管理">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="damon">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="如何回滚一次错误的合并"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Damon"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content="undefined"/>
+    
+
+    <!-- Title -->
+    
+    <title>如何回滚一次错误的合并 - Damon</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bootstrap/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://cdn.staticfile.org/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <!-- <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" /> -->
+
+</head>
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                
+                    <img height="30px" alt="Damon" src="/img/logo_yellow.png">
+                
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="blog-navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/archives">Archives</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/about">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/webpack-cn">Webpackdoc</a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#blog-navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from
+     * $toggle/$collapse will break global delegation.
+     *
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/git/">git</a> <a class="tag" href="/tags/前端工程化/">前端工程化</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>如何回滚一次错误的合并</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Damon on
+                        
+                        2018-07-19
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>今天不说前端，来聊聊git吧。<br>发现现在的小孩，玩框架一套一套的，等到玩点实质的工程化的东西就不行了。<br>git 这么好的工具，培训班怎么可以忽视他的重要性呢？</p>
+<h2 id="再来聊聊git的工作流程"><a href="#再来聊聊git的工作流程" class="headerlink" title="再来聊聊git的工作流程"></a>再来聊聊git的工作流程</h2><p>很多人对<a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80" target="_blank" rel="external">Git究竟是一个怎样的系统</a>，还是一知半解。<br>在这里强烈建议大家先理解git的核心思想和工作原理，有过subversion或者perforce使用经验的人更是需要摒弃之前所见所学，重新接受这样一个新思想。<br>我们不再这里赘述其几本原理，我们来介绍一下其简单工作流程。<br>Git以一个自有的思维框架管理着三个不同的盒子Commit History、INDEX、Working Directory。</p>
+<ul>
+<li>Commit History 历史记录，存储着所有提交的版本快照，并由当前分支引用的指针HEAD指向该分支最新一条提交。</li>
+<li>INDEX 索引，也叫暂存区域。它是一个文件，保存着即将提交的文件列表快照。</li>
+<li>Working Directory 工作目录，是从git仓库压缩数据当前版本中解包出来的文件列表。所以你在本地磁盘看到的你项目源码的文件列表，其实就是git开放给你的一个沙盒。在你将文件的修改天道到暂存区域并将快照记录到历史之前，你可以随意更改。</li>
+</ul>
+<p>理解了这三者的含义后，我们试着来理解一下git的工作流程。<br>一切的开始，混沌之间，我们要干一件大事，在terminal里面敲打了几下键盘<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure></p>
+<p>混沌初开，幻化三界：HEAD、INDEX、Working Directory。这就是世界最开始的样子git仓库仿佛就是掌管三界之神。而Working Directory就是他分配给你生产和工作的地方，你可以在这里肆意的创造。而为了安全和管理的有序我们需要把我们的添加与修改的文件交给git仓库。Git首先会将修改的文件标记起来放入暂存区、然后git找到暂存区域的文件内容将其永久性的存储为快照到git仓库，此时HEAD的指针指向这个最新的快照。</p>
+<p><img src="http://ww1.sinaimg.cn/large/68e21683ly1ftglyb5eprj21kw0x4wgp" alt=""></p>
+<p>如图，总结下三个步骤</p>
+<ol>
+<li>在工作目录中修改文件。</li>
+<li>暂存文件，将文件的快照放入暂存区域。<code>git add</code></li>
+<li>提交更新，找到暂存区域的文件，将快照永久性存储到 Git 仓库目录 <code>git commit</code></li>
+</ol>
+<p>git 的基本工作流程就是在不断的重复这三个步骤,最终git仓库目录形成了一个快照堆栈，每产生一次新的版本，HEAD就会指向这个版本。</p>
+<p>这里我们创建了下面这些文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">├── README.md</span><br><span class="line">├── v1.js</span><br><span class="line">├── v2.js</span><br><span class="line">└── v3.js</span><br></pre></td></tr></table></figure></p>
+<p>形成了下图的提交历史</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3aa5dfb v3  (&lt;- HEAD)</span><br><span class="line">        |</span><br><span class="line">5aab391 v2</span><br><span class="line">        |</span><br><span class="line">ff7b88e v1</span><br><span class="line">        |</span><br><span class="line">95d7816 init commit</span><br></pre></td></tr></table></figure>
+<p>下面我们来看看怎么利用checkout、reset、revert 来操作这个仓库目录</p>
+<h2 id="checkout-、reset-还是-revert-？"><a href="#checkout-、reset-还是-revert-？" class="headerlink" title="checkout 、reset 还是 revert ？"></a>checkout 、reset 还是 revert ？</h2><h3 id="checkout"><a href="#checkout" class="headerlink" title="checkout"></a>checkout</h3><p>版本控制系统背后的思想就是「安全」地储存项目的拷贝，这样你永远不用担心什么时候不可复原地破坏了你的代码库。当你建立了项目历史之后，git checkout 是一种便捷的方式，来将保存的快照「解包」到你的工作目录上去。<br><code>git checkout</code> 可以检出提交、也可以检出单个文件甚至还可以检出分支(此处省略)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git checkout 5aab391</span><br><span class="line">``` </span><br><span class="line">检出v2,当前工作目录和`5aab391`完全一致，你可以查看这个版本的文件编辑、运行、测试都不会被保存到git仓库里面。你可以`git checkout master` 或者 `git checkout -`回到原来的工作状态上来。</span><br><span class="line"> </span><br><span class="line">```s</span><br><span class="line">git checkout 5aab391 v1.js</span><br></pre></td></tr></table></figure>
+<p>以检出v2版本对于v1.js的改动，只针对v1.js这个文件检出到<code>5aab391</code>版本。所以 它会影响你当前的工作状态，它会把当前状态的v1.js文件内容覆盖为<code>5aab391</code>版本。所以除非你清楚你在做什么，最好不要轻易的做这个操作。但这个操作对于舍弃我当前的所有改动很有用：比如当前我在v1.js上面做了一些改动，但我又不想要这些改动了，而我又不想一个个去还原，那么我可以<code>git checkout HEAD v1.js</code> 或者 <code>git checkout -- v1.js</code></p>
+<h3 id="reset-重置"><a href="#reset-重置" class="headerlink" title="reset 重置"></a>reset 重置</h3><p>和 <code>git checkout</code> 一样, <code>git reset</code> 有很多用法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset &lt;file&gt;</span><br></pre></td></tr></table></figure></p>
+<p>从暂存区移除特定文件，但不改变工作目录。它会取消这个文件的缓存，而不覆盖任何更改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset</span><br></pre></td></tr></table></figure>
+<p>重置暂存区，匹配最近的一次提交，但工作目录不变。它会取消所有文件的暂存，而不会覆盖任何修改，给你了一个重设暂存快照的机会。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard</span><br></pre></td></tr></table></figure>
+<p>加上<code>--hard</code>标记后会告诉git要重置缓存区和工作目录的更改，就是说：先将你的暂存区清除掉，然后将你所有未暂存的更改都清除掉，所以在使用前确定你想扔掉所有的本地工作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset &lt;commit&gt;</span><br></pre></td></tr></table></figure>
+<p>将当前分支的指针HEAD移到 <commit>，将缓存区重设到这个提交，但不改变工作目录。所有 <commit> 之后的更改会保留在工作目录中，这允许你用更干净、原子性的快照重新提交项目历史。</commit></commit></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard &lt;commit&gt;</span><br></pre></td></tr></table></figure>
+<p>将当前分支的指针HEAD移到 <commit>，将缓存区和工作目录都重设到这个提交。它不仅清除了未提交的更改，同时还清除了 <commit> 之后的所有提交。</commit></commit></p>
+<p>可以看出，<code>git reset</code> 通过取消缓存或者取消一系列提交的操作会摒弃一些你当前工作目录上的更改，这样的操作带有一定的危险性。下面我们开始介绍一种相对稳妥的方式 <code>revert</code></p>
+<h3 id="revert-撤销"><a href="#revert-撤销" class="headerlink" title="revert 撤销"></a>revert 撤销</h3><p><code>git revert</code>被用来撤销一个已经提交的快照。但实现上和reset是完全不同的。通过搞清楚如何撤销这个提交引入的更改，然后在最后加上一个撤销了更改的 新 提交，而不是从项目历史中移除这个提交。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert &lt;commit&gt;</span><br></pre></td></tr></table></figure>
+<p>生成一个撤消了 <commit> 引入的修改的新提交，然后应用到当前分支。</commit></p>
+<p><img src="https://camo.githubusercontent.com/84b1b41146f0750421a02f155ac11130bf7e8802/68747470733a2f2f7777772e61746c61737369616e2e636f6d2f6769742f696d616765732f7475746f7269616c732f67657474696e672d737461727465642f756e646f696e672d6368616e6765732f30332e737667" alt=""></p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">81f734d commit after bug</span><br><span class="line">        |</span><br><span class="line">3a395af bug</span><br><span class="line">        |</span><br><span class="line">3aa5dfb v3  (&lt;- HEAD)</span><br><span class="line">        |</span><br><span class="line">5aab391 v2</span><br><span class="line">        |</span><br><span class="line">ff7b88e v1</span><br><span class="line">        |</span><br><span class="line">95d7816 init commit</span><br></pre></td></tr></table></figure>
+<p>我们在<code>3a395af</code> 引入了一个bug，我们明确是由于<code>3a395af</code>造成的bug的时候，以其我们通过新的提交来fix这个bug，不如<code>git revert</code>, 让他来帮你剔除这个bug。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert 3a395af</span><br></pre></td></tr></table></figure></p>
+<p>得到结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cfb71fc Revert &quot;bug&quot;</span><br><span class="line">        |</span><br><span class="line">81f734d commit after bug</span><br><span class="line">        |</span><br><span class="line">3a395af bug</span><br><span class="line">        |</span><br><span class="line">3aa5dfb v3  (&lt;- HEAD)</span><br><span class="line">        |</span><br><span class="line">5aab391 v2</span><br><span class="line">        |</span><br><span class="line">ff7b88e v1</span><br><span class="line">        |</span><br><span class="line">95d7816 init commit</span><br></pre></td></tr></table></figure></p>
+<p>这个时候bug的改动被撤销了，产生了一个新的commit，但是<code>commit after bug</code>没有被清初。</p>
+<p>所以相较于<code>reset</code> ，<code>revert</code>不会改变项目历史，对那些已经发布到共享仓库的提交来说这是一个安全的操作。其次<code>git revert</code>可以将提交历史中的任何一个提交撤销、而<code>reset</code>会把历史上某个提交及之后所有的提交都移除掉，这太野蛮了。</p>
+<p>另外<code>revert</code>的设计，还有一个考量，那就是撤销一个公共仓库的提交。至于为什么不能用<code>reset</code>，你们可以自己思考一下。<br>下面我们就用一个麻烦事（回滚一个错误的合并），来讲解这个操作。</p>
+<h2 id="合并操作"><a href="#合并操作" class="headerlink" title="合并操作"></a>合并操作</h2><p>相对于常规的<code>commit</code>，当使用<code>git merge &lt;branch&gt;</code>合并两个分支的时候，你会得到一个新的<code>merge commit</code>.<br>当我们<code>git show &lt;commit&gt;</code>的时候会出现类似信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">commit 6dd0e2b9398ca8cd12bfd1faa1531d86dc41021a</span><br><span class="line">Merge: d24d3b4 11a7112</span><br><span class="line">Author: 前端杂货铺 </span><br><span class="line">...............</span><br></pre></td></tr></table></figure></p>
+<p><code>Merge: d24d3b4 11a7112</code> 这行表明了两个分支在合并时，所处的parent的版本线索。</p>
+<p>比如在上述项目中我们开出了一个dev分支并做了一些操作，现在分支的样子变成了这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">init -&gt; v1 -&gt; v2 -&gt; v3  (master)</span><br><span class="line">           \      </span><br><span class="line">            d1 -&gt; d2  (dev)</span><br></pre></td></tr></table></figure></p>
+<p>当我们在dev开发的差不多了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#git:(dev)</span><br><span class="line">git checkout master </span><br><span class="line">#git:(master)</span><br><span class="line">git merge dev</span><br></pre></td></tr></table></figure></p>
+<p>这个时候形成了一个Merge Commit <code>faulty merge</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">init -&gt; v1 -&gt; v2 -&gt; v3 -- faulty merge  (master)</span><br><span class="line">           \            /</span><br><span class="line">            d1  --&gt;  d2  (dev)</span><br></pre></td></tr></table></figure>
+<p>此时<code>faulty merge</code>有两个parent 分别是v3 和 d2。</p>
+<h2 id="回滚错误的合并"><a href="#回滚错误的合并" class="headerlink" title="回滚错误的合并"></a>回滚错误的合并</h2><p>这个merge之后还继续在dev开发，另一波人也在从别的分支往master合并代码。变成这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">init -&gt; v1 -&gt; v2 -&gt; v3 -- faulty merge -&gt; v4 -&gt; vc3 (master)</span><br><span class="line">        \  \            /                     /</span><br><span class="line">         \  d1  --&gt;  d2  --&gt; d3 --&gt; d4  (dev)/</span><br><span class="line">          \                                 / </span><br><span class="line">           c1  --&gt;  c2 -------------------c3 (other)</span><br></pre></td></tr></table></figure>
+<p>这个时候你发现， 妈也上次那个merge 好像给共享分支master引入了一个bug。这个bug导致团队其他同学跑不通测试，或者这是一个线上的bug，如果不及时修复老板要骂街了。</p>
+<p>这个时候第一想到的肯定是回滚代码，但怎么回滚呢。用<code>reset</code>?不现实，因为太流氓不说，还会把别人的代码也干掉，所以只能用<code>revert</code>。而<code>revert</code>它最初被设计出来就是干这个活的。</p>
+<p>怎么操作呢？首先想到的是上面所说的 <code>git revert &lt;commit&gt;</code> ,但是貌似不太行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git revert faulty merge</span><br><span class="line">error: Commit faulty merge is a merge but no -m option was given.</span><br><span class="line">fatal: revert failed</span><br></pre></td></tr></table></figure>
+<p>这是因为试图撤销两个分支的合并的时候Git不知道要保留哪一个分支上的修改。所以我们需要告诉git我们保留那个分支<code>m</code> 或者<code>mainline</code>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git revert -m 1 faulty merge</span><br></pre></td></tr></table></figure>
+<p><code>-m</code>后面带的参数值 可以是1或者2，对应着parent的顺序.上面列子：1代表<code>v3</code>，2代表<code>d2</code><br>所以该操作会保留master分支的修改，而撤销dev分支合并过来的修改。</p>
+<p>提交历史变为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">init -&gt; v1 -&gt; v2 -&gt; v3 -- faulty merge -&gt; v4 -&gt; vc3 -&gt; rev3 (master)</span><br><span class="line">          \            /                     </span><br><span class="line">           d1  --&gt;  d2  --&gt; d3 --&gt; d4  (dev)</span><br></pre></td></tr></table></figure></p>
+<p>此处<code>rev3</code>是一个常规commit，其内容包含了之前在<code>faulty merge</code>撤销掉的dev合并过来的commit的【反操作】的合集。</p>
+<p>到这个时候还没完，我们要记住，因为我们抛弃过之前dev合并过来的commit，下次dev再往master合并，之前抛弃过的其实是不包含在里面的。那怎么办呢？</p>
+<h2 id="恢复之前的回滚"><a href="#恢复之前的回滚" class="headerlink" title="恢复之前的回滚"></a>恢复之前的回滚</h2><p>很简单我们把之前master那个带有【反操作】的commit给撤销掉不就好了？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git checkout master</span><br><span class="line">git revert rev3</span><br><span class="line">git merge dev</span><br></pre></td></tr></table></figure>
+<p>此时提交历史变成了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">init -&gt; v1 -&gt; v2 -&gt; v3 -- faulty merge -&gt; v4 -&gt; vc3 -&gt; rev3 -&gt; rev3` -&gt; final merge (master)</span><br><span class="line">          \            /                                               /</span><br><span class="line">           d1  --&gt;  d2  --&gt; d3 --&gt; d4  --------------------------------(dev)</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上就是我想要讲的关于git回滚代码的一些操作，有不对的地方还望指正。另Git 是一门艺术，是一种非常精妙的设计，当你使用上手后，你会发现越来越多好玩的东西，并为设计git的人默默点个赞。也希望在前端领域不论是初学还是深凿者，在追逐流行框架的时候，都不要忘了学习这些基础的工具。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>《pro git》</li>
+<li><a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E9%87%8D%E7%BD%AE%E6%8F%AD%E5%AF%86" target="_blank" rel="external">重置揭秘</a></li>
+<li><a href="https://github.com/geeeeeeeeek/git-recipes" target="_blank" rel="external">git-recipes</a></li>
+</ul>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-zhihu fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" target="_blank">
+                            <span class="fa-stack fa-sm">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="copyright text-muted">
+                    copyright ©️  2016 Damon Blog<br>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a target="_blank" href="https://hexo.io/">Hexo</a>  theme by  <a href="/" target="_blank">damon</a>
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=stephenzhao&repo=hexo-theme-damon&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<img  src="https://www.gravatar.com/avatar/0674d0a22f7345e0625c9c7b39689c82?s=180" width="0" height="0" style="font-size: 0">
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="/js/blog.js"></script>
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<script type="text/javascript">
+    var $imgs = $('.intro-header[data-imgs]');
+    var imgs = $imgs.data('imgs');
+    if (imgs.length > 0) {
+        $imgs.css('background-image', 'url('+ imgs[Math.floor(Math.random() * 100) % imgs.length] +')')
+    }
+</script>
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("http://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+<!-- Google Analytics -->
+
+
+<!-- baidu Analytics -->
+
+
+
+
+</body>
+
+</html>

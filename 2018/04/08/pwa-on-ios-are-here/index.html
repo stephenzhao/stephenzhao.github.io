@@ -22,6 +22,8 @@
 
     <!--Open Graph Title-->
     
+        <meta property="og:title" content="PWA已经在iOS 11.3悄然登场"/>
+    
 
     <!--Open Graph Site Name-->
     <meta property="og:site_name" content="Damon"/>
@@ -33,7 +35,7 @@
 
     <!-- Title -->
     
-    <title>归档：2018/1 - Damon</title>
+    <title>PWA已经在iOS 11.3悄然登场 - Damon</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
@@ -163,63 +165,86 @@
 </script>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
-<header class="intro-header" style="background-image: url('https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture')">
+
+    <style type="text/css">
+    
+    </style>
+<header class="intro-header" style="background-image: url('https://uploadbeta.com/api/pictures/random/?key=BingEverydayWallpaperPicture'); background-size: cover; position: relative;">
+        <div class="header-mask"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2018/1</h1>
+                <div class="post-heading">
+                    <div class="tags">
+                         <!-- Tags and categories -->
+                       
+                                
+                                    
+
+
+<a class="tag" href="/tags/翻译/">翻译</a> <a class="tag" href="/tags/pwa/">pwa</a> <a class="tag" href="/tags/ios/">ios</a>
+
+
+                                
+                                
+                        
+
+                    </div>
+                    <h1>PWA已经在iOS 11.3悄然登场</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Damon on
+                        
+                        2018-04-08
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container post-container">
+        <div class="row">
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/2018/01/24/preface-of-nodejs8/">
-        <h1 class="post-title archive">
-            《Node.js 8开发实战》前言
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-01-24
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/2018/01/04/css-font-display/">
-        <h1 class="post-title archive">
-            也来谈谈webfont
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2018-01-04
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
-</ul>
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <blockquote>
+<p><a href="https://medium.com/@firt/progressive-web-apps-on-ios-are-here-d00430dee3a7" target="_blank" rel="external">原文地址：Progressive Web Apps on iOS are here</a></p>
+</blockquote>
+<p>With iOS 11.3, Apple has silently added support for the basic set of new technologies behind the idea of “Progressive Web Apps” (PWAs). It’s time to see how they work, what are their abilities and challenges, and what do you need to know if you already have a published PWA.</p>
+<p>随着iOS升级到11.3，苹果公司悄然为支持“Progressive Web App”（PWA）添加了许多基础功能。是时候来看看它们都是怎么工作的，它们带来哪些能力和挑战，以及如果你已经发布了一个PWA你需要知道些什么？</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*3Lym8IvTuv0LbghC6wtp8w.png" alt=""><br>这是一个支持全屏、可离线的iPad app，它是一个PWA。它还可以放在像其他Native app 一样被放iPad dock上。</p>
+<p>If you came here and you still don’t know what a PWA is, let’s start saying there is no unique or precise definition. But it’s an app created with Web technologies that −without packaging or signing− can work offline and can optionally be installed in the operating system where it will look and act like any other app.</p>
+<p>如果你刚涉足这个领域、还不知道PWS是什么，我会告诉你，它没有一个唯一或者说确切的定义。但是我可以告诉你它是一个使用web技术创建的App，不需要打包或者签名，可以像其他的应用一样安装到不同的操作系统上，表现的也会像其他应用一样。</p>
+<p>除了Edge/Windows 10强制要求PWA需要放到 store里面下载安装，大部分平台是不需要放到app store的。</p>
+<p>所以，你可以随意的安装app而不需要通过AppStore的同意。着也可能是为啥Apple公司没有官方公布这一新特性，甚至在Safari的更新日志上也没有提及。它们不想让用户感到困惑。</p>
+<p><img src="https://cdn-images-1.medium.com/max/800/1*gkFdtpvhCNpyMpyJMt2m1w.png" alt=""><br>你能分清楚这两个谷歌地图哪个是PWA版本的吗？</p>
+<h1 id="Wasn’t-Apple-the-creator-of-PWAs-anyway"><a href="#Wasn’t-Apple-the-creator-of-PWAs-anyway" class="headerlink" title="Wasn’t Apple the creator of PWAs anyway?"></a>Wasn’t Apple the creator of PWAs anyway?</h1><h1 id="不论怎样苹果也不是PWA的创造者？"><a href="#不论怎样苹果也不是PWA的创造者？" class="headerlink" title="不论怎样苹果也不是PWA的创造者？"></a>不论怎样苹果也不是PWA的创造者？</h1><p>Let’s be honest here; while Google with the Chrome team coined the term PWA, the idea was initially available on Safari at the original iPhone OS. In 2007, Steve Jobs announced “one more thing” in the WWDC: how to develop apps for the original iPhone and it was, surprise, web apps! The App Store was not on the original roadmap, and the native SDK wasn’t available during the first year of the device. From an Apple’s perspective PWAs even today are just “web apps from the home screen,” and the icon is something referred as a WebClip.</p>
+<p>说实话，当初Google的Chrome团队提出这个PWA这个术语时，这个想法已经在初代的iPhone OS 上实现了。2007年的WWDC 上乔布斯公布了这个叫做”one last thing…”的东西：开发者如何在初代iPhone上开发app呢？当然就是web app啦。AppStore最初并没有在初代iPhone的版图里，最初设备native SDK也没有在当年完全开发完成。来自Apple对于PWA的看法即使到现在也是：“放在主界面上的一个web app”，而app 的icon是一个可以代表网页的一个截图。</p>
+<p>It’s also true that the idea didn’t get too much attention 11 years ago and Apple forgot to update that platform, so while still there for 10+ years it was buggy and inconsistent. A few years later other platforms cloned the idea including the MeeGo Browser on Nokia N9 and then Chrome on Android.</p>
+<p>Chrome helped to evolve the technologies to offer a better experience, mostly with Service Workers and Web App Manifest specs. Starting from iOS 11.3 today (March, 30th 2018) Apple is matching Chrome, Firefox, Samsung Internet, UC Browser and Opera (mostly on Android only) supporting these two specs. Other browsers on desktop support Service Workers but Web App Manifest support is in the works for this year.</p>
+
+            </div>
+
+            <!-- Comments -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+
+
+            </div>
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <!-- Footer -->
